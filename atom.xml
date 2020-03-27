@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://https://pineapple126.github.io/</id>
+    <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2020-03-27T11:21:42.743Z</updated>
+    <updated>2020-03-27T11:58:00.922Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://https://pineapple126.github.io/"/>
-    <link rel="self" href="https://https://pineapple126.github.io/atom.xml"/>
+    <link rel="alternate" href="https://pineapple126.github.io/"/>
+    <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>https://https://pineapple126.github.io/images/avatar.png</logo>
-    <icon>https://https://pineapple126.github.io/favicon.ico</icon>
+    <logo>https://pineapple126.github.io/images/avatar.png</logo>
+    <icon>https://pineapple126.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 深海大菠萝盖饭</rights>
     <entry>
         <title type="html"><![CDATA[LeetCode - 23 合并K个排序链表（分治）]]></title>
-        <id>https://https://pineapple126.github.io/post/leetcode-23-mergeKLists/</id>
-        <link href="https://https://pineapple126.github.io/post/leetcode-23-mergeKLists/">
+        <id>https://pineapple126.github.io/post/leetcode-23-mergeKLists/</id>
+        <link href="https://pineapple126.github.io/post/leetcode-23-mergeKLists/">
         </link>
         <updated>2020-03-23T11:16:04.000Z</updated>
         <content type="html"><![CDATA[<p><strong>问题描述：</strong></p>
@@ -31,7 +31,7 @@
 <p>对于合并两个排序链表的问题，我们可以轻松解决。只要创建一个新的哑巴节点，再选择两个链表头节点较小的一个与哑巴节点链接起来，循环该操作，直至合并完成。</p>
 <p>那么对于合并K个排序链表，我们可以运用分治的思想，不断地将数组不断拆分。（我们用数组 lists 存储着这些链表）</p>
 <p>这里借用官方题解的一张图片：</p>
-<figure data-type="image" tabindex="1"><img src="https://https://pineapple126.github.io//post-images/1584964378982.png" alt="分治演示" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1584964378982.png" alt="分治演示" loading="lazy"></figure>
 <p>那么拆分过程中有以下情形：</p>
 <ul>
 <li>
@@ -104,8 +104,8 @@ function mergeTwoLists(list1, list2) {
     </entry>
     <entry>
         <title type="html"><![CDATA[事件委托]]></title>
-        <id>https://https://pineapple126.github.io/post/event-delegation/</id>
-        <link href="https://https://pineapple126.github.io/post/event-delegation/">
+        <id>https://pineapple126.github.io/post/event-delegation/</id>
+        <link href="https://pineapple126.github.io/post/event-delegation/">
         </link>
         <updated>2020-03-21T10:08:22.000Z</updated>
         <content type="html"><![CDATA[<h2 id="概念">概念</h2>
@@ -144,8 +144,8 @@ function mergeTwoLists(list1, list2) {
     </entry>
     <entry>
         <title type="html"><![CDATA[二叉树的三序遍历]]></title>
-        <id>https://https://pineapple126.github.io/post/traversal-binary-tree/</id>
-        <link href="https://https://pineapple126.github.io/post/traversal-binary-tree/">
+        <id>https://pineapple126.github.io/post/traversal-binary-tree/</id>
+        <link href="https://pineapple126.github.io/post/traversal-binary-tree/">
         </link>
         <updated>2020-03-20T02:48:14.000Z</updated>
         <content type="html"><![CDATA[<h2 id="先序遍历preordertraversal">先序遍历（preorderTraversal）</h2>
@@ -387,8 +387,8 @@ function postorderTraversal(root) {
     </entry>
     <entry>
         <title type="html"><![CDATA[排序算法]]></title>
-        <id>https://https://pineapple126.github.io/post/sort-algorithm/</id>
-        <link href="https://https://pineapple126.github.io/post/sort-algorithm/">
+        <id>https://pineapple126.github.io/post/sort-algorithm/</id>
+        <link href="https://pineapple126.github.io/post/sort-algorithm/">
         </link>
         <updated>2020-03-19T03:05:08.000Z</updated>
         <content type="html"><![CDATA[<h2 id="快速排序">快速排序</h2>
@@ -465,8 +465,8 @@ function postorderTraversal(root) {
     </entry>
     <entry>
         <title type="html"><![CDATA[类型判断]]></title>
-        <id>https://https://pineapple126.github.io/post/type-judgement/</id>
-        <link href="https://https://pineapple126.github.io/post/type-judgement/">
+        <id>https://pineapple126.github.io/post/type-judgement/</id>
+        <link href="https://pineapple126.github.io/post/type-judgement/">
         </link>
         <updated>2020-03-13T08:47:22.000Z</updated>
         <content type="html"><![CDATA[<p>JavaScript 中有 8 种数据类型，又分为基本数据类型和引用数据类型。</p>
@@ -541,8 +541,8 @@ console.log(Object.prototype.toString.call(fn));            //  [object Function
     </entry>
     <entry>
         <title type="html"><![CDATA[Set 集合与 Map集合（2）]]></title>
-        <id>https://https://pineapple126.github.io/post/map/</id>
-        <link href="https://https://pineapple126.github.io/post/map/">
+        <id>https://pineapple126.github.io/post/map/</id>
+        <link href="https://pineapple126.github.io/post/map/">
         </link>
         <updated>2020-03-12T03:16:01.000Z</updated>
         <content type="html"><![CDATA[<h2 id="es6-中的-map-集合">ES6 中的 Map 集合</h2>
@@ -649,8 +649,8 @@ console.log(map.get(element));          //  undefined
     </entry>
     <entry>
         <title type="html"><![CDATA[Set 集合与 Map 集合（1）]]></title>
-        <id>https://https://pineapple126.github.io/post/set/</id>
-        <link href="https://https://pineapple126.github.io/post/set/">
+        <id>https://pineapple126.github.io/post/set/</id>
+        <link href="https://pineapple126.github.io/post/set/">
         </link>
         <updated>2020-03-09T11:55:04.000Z</updated>
         <content type="html"><![CDATA[<p>这是学习阅读《深入理解ES6》第七章 Set 集合与 Map 集合 后整理而成的学习笔记。</p>
@@ -818,8 +818,8 @@ console.log(set.has(key2));         //  true
     </entry>
     <entry>
         <title type="html"><![CDATA[防抖和节流]]></title>
-        <id>https://https://pineapple126.github.io/post/debounce-and-throttle/</id>
-        <link href="https://https://pineapple126.github.io/post/debounce-and-throttle/">
+        <id>https://pineapple126.github.io/post/debounce-and-throttle/</id>
+        <link href="https://pineapple126.github.io/post/debounce-and-throttle/">
         </link>
         <updated>2020-03-06T11:36:04.000Z</updated>
         <content type="html"><![CDATA[<p><strong>防抖</strong>（debounce）：动作绑定事件，在动作发生一段时间后再触发事件。如果这段时间内动作再次发生，则重新等待一段时间后再触发事件。</p>
@@ -889,8 +889,8 @@ function throttle(func, wait ,type) {
     </entry>
     <entry>
         <title type="html"><![CDATA[用模块封装代码]]></title>
-        <id>https://https://pineapple126.github.io/post/module/</id>
-        <link href="https://https://pineapple126.github.io/post/module/">
+        <id>https://pineapple126.github.io/post/module/</id>
+        <link href="https://pineapple126.github.io/post/module/">
         </link>
         <updated>2020-02-28T08:12:23.000Z</updated>
         <content type="html"><![CDATA[<p>这是学习阅读《深入理解ES6》第十三章 用模块封装代码 后整理而成的学习笔记。</p>
@@ -1044,8 +1044,8 @@ console.log(color);         //  &quot;red&quot;
     </entry>
     <entry>
         <title type="html"><![CDATA[解构]]></title>
-        <id>https://https://pineapple126.github.io/post/deconstruction/</id>
-        <link href="https://https://pineapple126.github.io/post/deconstruction/">
+        <id>https://pineapple126.github.io/post/deconstruction/</id>
+        <link href="https://pineapple126.github.io/post/deconstruction/">
         </link>
         <updated>2020-02-25T10:25:15.000Z</updated>
         <content type="html"><![CDATA[<p>这是学习阅读《深入理解ES6》第五章 解构：使数据访问更便捷 后整理而成的学习笔记。</p>

@@ -4,13 +4,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>深海大菠萝盖饭</title>
 <meta name="description" content="温故而知新" />
-<link rel="shortcut icon" href="https://https://pineapple126.github.io//favicon.ico?v=1585308037774">
+<link rel="shortcut icon" href="https://pineapple126.github.io//favicon.ico?v=1585310273853">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
 
-<link rel="stylesheet" href="https://https://pineapple126.github.io//styles/main.css">
+<link rel="stylesheet" href="https://pineapple126.github.io//styles/main.css">
 
 
 
@@ -22,8 +22,8 @@
     <div class="sidebar-content">
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
-        <a href="https://https://pineapple126.github.io/">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://https://pineapple126.github.io//images/avatar.png?v=1585308037774" alt="">
+        <a href="https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://pineapple126.github.io//images/avatar.png?v=1585310273853" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
       </div>
@@ -81,7 +81,7 @@
   </div>
   <div class="site-footer">
     <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
-    <a class="rss" href="https://https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+    <a class="rss" href="https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
   </div>
 </div>
 <div class="mask" onclick="closeMenu()">
@@ -92,13 +92,13 @@
           2020-02-04 / 4 min read
         </div>
         
-          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://https://pineapple126.github.io//post-images/vuex-notes-1.jpg" alt="">
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://pineapple126.github.io//post-images/vuex-notes-1.jpg" alt="">
         
         <div class="post-content yue">
           <h1 id="什么是-vuex">什么是 Vuex ？</h1>
 <p>Vuex 是一个专为 vue.js 应用程序开发的<strong>状态管理模式</strong>(state management pattern)。它采用了集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。</p>
 <p>vue 中的数据是以<strong>单向数据流</strong>的方式传递的。下图是一个表示“单向数据流”的简单示意：</p>
-<figure data-type="image" tabindex="1"><img src="https://https://pineapple126.github.io//post-images/1585307463729.png" alt="flow" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1585307463729.png" alt="flow" loading="lazy"></figure>
 <p>在这张图片中，有三个状态：</p>
 <ul>
 <li><strong>state</strong>，驱动应用的数据源；</li>
@@ -114,7 +114,7 @@
 对于问题二，我们经常会采用父子组件直接引用或者通过事件来变更和同步状态的多份拷贝。以上的这些模式非常脆弱，通常会导致无法维护的代码。</p>
 <p>因此，我们可以把组件的共享状态抽取出来，以一个全局单例模式管理。在这个模式下，我们的组件树构成了一个巨大的“视图”，不管在树的哪个位置，任何组件都能获取状态或者触发行为。通过定义和隔离状态管理中的各种概念并通过强制规则维持视图和状态间的独立性，我们的代码将变得更结构化且易维护。</p>
 <p>这就是 Vuex 背后的基本思想，下图可以作为 Vuex 的简单示意：</p>
-<figure data-type="image" tabindex="2"><img src="https://https://pineapple126.github.io//post-images/1585307475773.png" alt="vuex" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://pineapple126.github.io//post-images/1585307475773.png" alt="vuex" loading="lazy"></figure>
 <h1 id="vuex-的创建与使用">Vuex 的创建与使用</h1>
 <p>每一个 Vuex 应用的核心就是 store（仓库）。“store”基本上就是一个容器，它包含着应用中大部分的<strong>状态(state)</strong>。Vuex 和单纯的全局对象有以下两点不同：</p>
 <ol>
@@ -166,11 +166,11 @@ console.log(store.state.count);             //  -&gt; 1
         </div>
 
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/DEJyveMLT/">
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/DEJyveMLT/">
             <span class="flex-auto">JavaScript</span>
           </a>
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/urdU7hwoxU/">
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/urdU7hwoxU/">
             <span class="flex-auto">vue.js</span>
           </a>
         
@@ -179,7 +179,7 @@ console.log(store.state.count);             //  -&gt; 1
         <div class="flex justify-between py-8">
           
             <div class="prev-post">
-              <a href="https://https://pineapple126.github.io/post/vuex-notes-2/">
+              <a href="https://pineapple126.github.io/post/vuex-notes-2/">
                 <h3 class="post-title">
                   <i class="ri-arrow-left-line"></i>
                   Vuex 学习笔记（二）—— State
@@ -190,7 +190,7 @@ console.log(store.state.count);             //  -&gt; 1
 
           
             <div class="next-post">
-              <a href="https://https://pineapple126.github.io/post/block-level-scope-binding/">
+              <a href="https://pineapple126.github.io/post/block-level-scope-binding/">
                 <h3 class="post-title">
                   块级作用域的绑定
                   <i class="ri-arrow-right-line"></i>
@@ -205,7 +205,7 @@ console.log(store.state.count);             //  -&gt; 1
       </div>
     </div>
 
-    <script src="https://https://pineapple126.github.io//media/prism.js"></script>  
+    <script src="https://pineapple126.github.io//media/prism.js"></script>  
 <script>
 
 Prism.highlightAll()
