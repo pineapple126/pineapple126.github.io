@@ -1,0 +1,401 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://https://pineapple126.github.io//favicon.ico?v=1585308037774">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://https://pineapple126.github.io//images/avatar.png?v=1585308037774" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%A8%A1%E5%9D%97">什么是模块</a></li>
+<li><a href="#%E5%AF%BC%E5%87%BA%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">导出的基本语法</a></li>
+<li><a href="#%E5%AF%BC%E5%85%A5%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">导入的基本语法</a>
+<ul>
+<li><a href="#%E5%AF%BC%E5%85%A5%E5%8D%95%E4%B8%AA%E7%BB%91%E5%AE%9A">导入单个绑定</a></li>
+<li><a href="#%E5%AF%BC%E5%85%A5%E5%A4%9A%E4%B8%AA%E7%BB%91%E5%AE%9A">导入多个绑定</a></li>
+<li><a href="#%E5%AF%BC%E5%85%A5%E6%95%B4%E4%B8%AA%E6%A8%A1%E5%9D%97">导入整个模块</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AF%BC%E5%87%BA%E5%92%8C%E5%AF%BC%E5%85%A5%E6%97%B6%E9%87%8D%E5%91%BD%E5%90%8D">导出和导入时重命名</a></li>
+<li><a href="#%E6%A8%A1%E5%9D%97%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC">模块的默认值</a>
+<ul>
+<li><a href="#%E5%AF%BC%E5%87%BA%E9%BB%98%E8%AE%A4%E5%80%BC">导出默认值</a></li>
+<li><a href="#%E5%AF%BC%E5%85%A5%E9%BB%98%E8%AE%A4%E5%80%BC">导入默认值</a></li>
+</ul>
+</li>
+<li><a href="#%E9%87%8D%E6%96%B0%E5%AF%BC%E5%87%BA%E4%B8%80%E4%B8%AA%E7%BB%91%E5%AE%9A">重新导出一个绑定</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">用模块封装代码</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-02-28 / 8 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://https://pineapple126.github.io//post-images/module.jpg" alt="">
+        
+        <div class="post-content yue">
+          <p>这是学习阅读《深入理解ES6》第十三章 用模块封装代码 后整理而成的学习笔记。</p>
+<p>JavaScript 用“共享一切”的方法加载代码，这是语言中最容易出错且容易令人感到困惑的地方。为了解决作用域问题，也为了使 JavaScript 应用程序显得有序，因此 ES6 引入了模块。</p>
+<h2 id="什么是模块">什么是模块</h2>
+<p><strong>模块是自动运行在严格模式下并且没有办法退出运行的 JavaScript 代码</strong>。与共享一切架构相反的是，在模块顶部创建的变量不会自动被添加到全局共享作用域，这个变量仅在模块的顶级作用域中存在，而且模块必须导出一些外部代码可以访问的元素，比如变量或函数。模块也可以从其他模块导入绑定。在模块的顶部，this 的值是 undefined。</p>
+<p>模块的魔力所在是仅<strong>导出和导入</strong>我们所需要的绑定，而不是将所有的东西都放到一个文件中。</p>
+<h2 id="导出的基本语法">导出的基本语法</h2>
+<p>我们可以用 <code>export</code> 关键字将一部分已发布的代码暴露给其他模块，例如：</p>
+<pre><code class="language-javascript">//  导出数据
+export var color = &quot;red&quot;;
+export let name = &quot;Nicolas&quot;;
+export const magicNumber = 7;
+
+//  导出函数
+export function sum(num1, num2) {
+    return num1 + num2;
+}
+
+//  导出类
+export class Rectangle {
+    constructor(length, width) {
+        this.length = length;
+        this.width = width;
+    }
+}
+
+//  这个函数模块是私有的
+function substract(num1, num2) {
+    return num1 - num2;
+}
+
+//  定义一个函数
+function multiply(num1, num2) {
+    return num1 * num2;
+}
+
+//  再将其导出
+export multiply;
+</code></pre>
+<p>导出的函数和类声明需要有一个名字，除非是用 <code>default</code> 关键字否则不能用这个语法导出匿名函数或类。任何未显式导出的变量、函数或类都是模块私有的，无法从模块外访问。</p>
+<h2 id="导入的基本语法">导入的基本语法</h2>
+<p>从模块中导出的功能可以使用 <code>import</code> 关键字在另一个模块中访问，<code>import</code> 语句的两个部分是：<strong>要导入的标识符</strong>和<strong>标识符应当从哪个模块导入</strong>。</p>
+<p>语句的基本形式如下：</p>
+<pre><code class="language-javascript">import { identifier1, identifier2 } from &quot;./example.js&quot;;
+</code></pre>
+<p><code>import</code> 后面的大括号表示从给定模块导入的绑定（binding），关键字 from 表示从哪个模块导入给定的绑定，该模块由表示模块路径的字符串指定（模块说明符）。</p>
+<p>当从模块中导入一个绑定时，它就好像使用 const 定义的一样。结果是我们无法定义另一个同名变量（包括导入另一个同名绑定），也无法在 import 语句前使用标识符或改变绑定的值。</p>
+<h3 id="导入单个绑定">导入单个绑定</h3>
+<p>假设在一个名为 &quot;example.js&quot; 的模块中，我们可以导入并以多种方式使用这个模块中的绑定。举例来说，可以只导入一个标识符：</p>
+<pre><code class="language-javascript">//  只导入一个
+import { sum } from &quot;./example.js&quot;;
+
+console.log(sum(1, 2));     //  3
+
+sum = 1;            //  抛出错误
+</code></pre>
+<p>尽管 example.js 导出的函数不止一个，但是我们导入的只有 sum() 函数。如果尝试给 sum 赋新值，结果会抛出错误，因为<strong>不能给导入的绑定重新赋值</strong>。</p>
+<h3 id="导入多个绑定">导入多个绑定</h3>
+<p>如果要导入多个绑定，则可以明确的将他们列出：</p>
+<pre><code class="language-javascript">//  导入多个
+import { sum, multiply, magicNumber } from &quot;./example.js&quot;;
+
+console.log(sum(1, magicNumber));           //  8
+console.log(multiply(1, 2));            //  2
+</code></pre>
+<h3 id="导入整个模块">导入整个模块</h3>
+<p>特殊情况下，可以导入整个模块作为一个单一的对象。然后所有的导出都可以作为对象的属性使用。例如：</p>
+<pre><code class="language-javascript">//  导入一切
+import * as example from &quot;./example.js&quot;;
+
+console.log(example.sum(1, example.magicNumber));           //  8
+console.log(example.multiply(1, 2));            //  2
+</code></pre>
+<p>需要注意的是，不管在 import 语句中把一个模块写了多少次，该模块只会执行一次。导入模块的代码执行后，实例化过的模块被保存在内存中，只要另一个 import 语句引用它就可以重复使用它。如果同一个应用程序的其他模块也从该模块中引入绑定，那么那些模块与此代码将使用相同的<strong>模块实例</strong>。</p>
+<p><strong>注意</strong>：export 和 import 的一个重要限制是，它们必须在其他语句和函数之外使用。模块语法存在的一个原因是要让 JavaScript 引擎静态地确定哪些可以导出，因此，只能在顶部使用 export。而 import 语句为变量、函数和类创建的是<strong>只读</strong>绑定，而不是像正常变量一样简单地引用原始绑定。</p>
+<h2 id="导出和导入时重命名">导出和导入时重命名</h2>
+<p>我们可以使用 as 关键字在导出过程和导入过程中改变导出元素和导入元素的名称。</p>
+<pre><code class="language-javascript">function sum(num1, num2) {
+    return num1 + num2;
+}
+
+export { sum as add };
+</code></pre>
+<p>在这里，函数 sum() 是本地名称，add() 是导出时使用的名称。当另一个模块要导入这个函数时，必须使用 add 这个名称：</p>
+<pre><code class="language-javascript">import { add as sum } from &quot;./example.js&quot;;
+
+console.log(typeof add);            //  &quot;undefined&quot;
+console.log(sum(1, 2));         //  3
+</code></pre>
+<p>这段代码导入 add() 函数时使用了一个导入名称来重命名 sum() 函数。</p>
+<h2 id="模块的默认值">模块的默认值</h2>
+<p>模块的默认值值得是通过 <code>default</code> 关键字指定的单个变量、函数或类，只能为每个模块设置一个默认的导出值。</p>
+<h3 id="导出默认值">导出默认值</h3>
+<p>下面是一个使用 default 关键字的简单示例：</p>
+<pre><code class="language-javascript">export default function(num1, num2) {
+    return num1 + num2;
+}
+</code></pre>
+<p>这个模块导出了一个函数作为它的默认值，default 关键字表示这是一个默认的导出，由于函数被模块所代表，因而它不需要一个名称。</p>
+<p>也可以在 export default 之后添加默认导出值的标识符，就像这样：</p>
+<pre><code class="language-javascript">function sum(num1, num2) {
+    return num1 + num2;
+}
+
+export default sum;
+</code></pre>
+<p>为默认导出值指定标识符的第三种方法是使用重命名语法，如下所示：</p>
+<pre><code class="language-javascript">function sum(num1, num2) {
+    return num1 + num2;
+}
+
+export { sum as default };
+</code></pre>
+<p>在重命名导出时标识符 default 具有特殊含义，用来只是模块的默认值。</p>
+<h3 id="导入默认值">导入默认值</h3>
+<p>可以使用以下语法从一个模块中导入一个默认值：</p>
+<pre><code class="language-javascript">//  导入默认值
+import sum from &quot;./examole.js&quot;;
+
+console.log(sum(1, 2));         //  3
+</code></pre>
+<p>对于导出默认值和一或多个非默认绑定的绑定，可以用一条语句导入所有导出的绑定，例如，假设有一下这个模块：</p>
+<pre><code class="language-javascript">export let color = &quot;red&quot;;
+
+export default function(num1, num2) {
+    return num1 + num2;
+}
+</code></pre>
+<p>可以用一下这条 import 语句导入 color 和默认函数：</p>
+<pre><code class="language-javascript">import sum, { color } from &quot;./example.js&quot;;
+
+console.log(sum(1, 2));         //  3
+console.log(color);         //  &quot;red&quot;
+</code></pre>
+<p>用逗号将默认的本地名称与大括号包裹的非默认值分隔开，请记住，在 export 语句中，默认值必须排在非默认值之前。</p>
+<p>与导出默认值相同，也可以在导入默认值时使用重命名语法：</p>
+<pre><code class="language-javascript">import { default as sum, color } from &quot;./example.js&quot;;
+
+console.log(sum(1, 2));         //  3
+console.log(color);         //  &quot;red&quot;
+</code></pre>
+<h2 id="重新导出一个绑定">重新导出一个绑定</h2>
+<p>如果需要重新导入模块中已经导入的内容，可以使用一条语句完成：</p>
+<pre><code class="language-javascript">export { sum } from &quot;./example.js&quot;;
+</code></pre>
+<p>同样的我们也可以使用不同的名称导出：</p>
+<pre><code class="language-javascript">export { sum as add } from &quot;./example.js&quot;;
+</code></pre>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/DEJyveMLT/">
+            <span class="flex-auto">JavaScript</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/hxjHtHlc-E/">
+            <span class="flex-auto">深入理解ES6学习笔记</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://https://pineapple126.github.io/post/debounce-and-throttle/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  防抖和节流
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://https://pineapple126.github.io/post/deconstruction/">
+                <h3 class="post-title">
+                  解构
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

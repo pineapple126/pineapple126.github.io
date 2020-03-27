@@ -1,0 +1,1354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://https://pineapple126.github.io/</id>
+    <title>深海大菠萝盖饭</title>
+    <updated>2020-03-27T11:20:45.133Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://https://pineapple126.github.io/"/>
+    <link rel="self" href="https://https://pineapple126.github.io/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://https://pineapple126.github.io/images/avatar.png</logo>
+    <icon>https://https://pineapple126.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2020, 深海大菠萝盖饭</rights>
+    <entry>
+        <title type="html"><![CDATA[LeetCode - 23 合并K个排序链表（分治）]]></title>
+        <id>https://https://pineapple126.github.io/post/leetcode-23-mergeKLists/</id>
+        <link href="https://https://pineapple126.github.io/post/leetcode-23-mergeKLists/">
+        </link>
+        <updated>2020-03-23T11:16:04.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>问题描述：</strong></p>
+<p>合并 k 个排序链表，返回合并后的排序链表。</p>
+<p><strong>示例：</strong></p>
+<pre><code>输入:
+[
+  1-&gt;4-&gt;5,
+  1-&gt;3-&gt;4,
+  2-&gt;6
+]
+输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6
+</code></pre>
+<p><strong>基本思路：</strong></p>
+<p>对于合并两个排序链表的问题，我们可以轻松解决。只要创建一个新的哑巴节点，再选择两个链表头节点较小的一个与哑巴节点链接起来，循环该操作，直至合并完成。</p>
+<p>那么对于合并K个排序链表，我们可以运用分治的思想，不断地将数组不断拆分。（我们用数组 lists 存储着这些链表）</p>
+<p>这里借用官方题解的一张图片：</p>
+<figure data-type="image" tabindex="1"><img src="https://https://pineapple126.github.io//post-images/1584964378982.png" alt="分治演示" loading="lazy"></figure>
+<p>那么拆分过程中有以下情形：</p>
+<ul>
+<li>
+<p><code>lists.length === 0</code>        数组 lists 中已无链表，则返回一个空节点；</p>
+</li>
+<li>
+<p><code>lists.length === 1</code>        数组 lists 中仅剩一个链表，因此直接返回该链表；</p>
+</li>
+<li>
+<p><code>lists.length === 2</code>        数组 lists 中有两个链表，我们执行合并操作；</p>
+</li>
+<li>
+<p><code>other</code>         数组 lists 中的链表数过多，需要继续拆分。</p>
+</li>
+<li>
+<p>时间复杂度：O(nlogK)</p>
+<ul>
+<li>k 为链表总数</li>
+<li>n 为合并两个链表所用的时间</li>
+</ul>
+</li>
+<li>
+<p>空间复杂度：O(n)</p>
+</li>
+</ul>
+<p>代码如下：</p>
+<pre><code class="language-javascript">/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode[]} lists
+ * @return {ListNode}
+ */
+var mergeKLists = function(lists) {
+    // 如果列表中的 链表 为空 则直接返回
+    if (lists.length === 0) return null;
+    // 如果列表中的 链表 只剩一个直接返回
+    if (lists.length === 1) return lists[0];
+    // 如果列表中的 链表 有两个 则合并两个链表
+    if (lists.length === 2) return mergeTwoLists(lists[0], lists[1]);
+    // 否则继续拆分
+    let mid = lists.length &gt;&gt; 1;
+    let left = lists.slice(0, mid),
+        right = lists.slice(mid);
+    return mergeTwoLists(mergeKLists(left), mergeKLists(right));
+};
+
+function mergeTwoLists(list1, list2) {
+    let ans = new ListNode(-1),
+        preAns = ans;
+    while(list1 &amp;&amp; list2) {
+        if (list1.val &lt; list2.val) {
+            preAns.next = list1;
+            list1 = list1.next;
+        } else {
+            preAns.next = list2;
+            list2 = list2.next;
+        }
+        preAns = preAns.next;
+    }
+    preAns.next = list1 ? list1 : list2;
+    return ans.next;
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[事件委托]]></title>
+        <id>https://https://pineapple126.github.io/post/event-delegation/</id>
+        <link href="https://https://pineapple126.github.io/post/event-delegation/">
+        </link>
+        <updated>2020-03-21T10:08:22.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="概念">概念</h2>
+<p>事件委托就是通过事件冒泡的机制，利用父级元素去触发子级元素的事件。</p>
+<p>使用事件委托可以减少内存开销，提高性能。</p>
+<h2 id="示例">示例</h2>
+<p>例如，我们要对一堆 li 元素绑定相同的事件，如果将事件都绑定到 li 元素上，会增加内存开销、降低性能。而我们可以将事件侦听器绑定到这些 li 元素的父级元素 ul 或 ol 元素上，这样子我们仅需绑定一次事件。当我们需要触发事件时，会通过冒泡机制传递给父级元素触发事件。</p>
+<pre><code class="language-html">&lt;ul&gt;
+    &lt;li&gt;something&lt;/li&gt;
+    &lt;li&gt;something&lt;/li&gt;
+    &lt;li&gt;something&lt;/li&gt;
+    &lt;li&gt;something&lt;/li&gt;
+    &lt;li&gt;something&lt;/li&gt;
+    &lt;li&gt;something&lt;/li&gt;
+    &lt;li&gt;something&lt;/li&gt;
+    &lt;li&gt;something&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script&gt;
+    /* 事件委托的核心原理：给父节点添加侦听器，
+        利用事件冒泡机制影响每一个子节点 */
+        var ul = document.querySelector(&quot;ul&quot;);
+        ul.addEventListener(&quot;click&quot;, function(e) {
+            //  e.target 可以得到我们点击的对象
+            e.target.style.backgroundColor = &quot;red&quot;;
+        });
+&lt;/script&gt;
+</code></pre>
+<p>在这个示例中：</p>
+<ul>
+<li>我们只操作了一次 DOM，提高了程序的性能</li>
+<li>动态创建的子元素，也将拥有事件</li>
+</ul>
+<h2 id="总结">总结</h2>
+<p>综上所述，当我们需要给一组元素添加相同事件时，我们可以通过事件委托的方式将事件直接添加给父级元素。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[二叉树的三序遍历]]></title>
+        <id>https://https://pineapple126.github.io/post/traversal-binary-tree/</id>
+        <link href="https://https://pineapple126.github.io/post/traversal-binary-tree/">
+        </link>
+        <updated>2020-03-20T02:48:14.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="先序遍历preordertraversal">先序遍历（preorderTraversal）</h2>
+<p>节点遍历顺序：根 -&gt; 左 -&gt; 右</p>
+<h3 id="递归方式">递归方式</h3>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function preorderTraversal(root) {
+    if (!root) return [];
+    return [
+        root.val,
+        ...preorderTraversal(root.left),
+        ...preorderTraversal(root.right)
+    ];
+}
+</code></pre>
+<h3 id="迭代方式">迭代方式</h3>
+<p>利用栈存储遍历的节点</p>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function preorderTraversal(root) {
+    if (!root) return [];
+    let res = [],
+        stack = [],
+        curr = root;
+    while(curr || stack.length &gt; 0) {
+        while(curr) {
+            stack.push(curr);
+            res.push(curr.val);
+            curr = curr.left;
+        }
+        curr = stack.pop();
+        curr = curr.right;
+    }
+    return res;
+}
+</code></pre>
+<h2 id="中序遍历inordertraversal">中序遍历（inorderTraversal）</h2>
+<p>节点遍历顺序：左 -&gt; 根 -&gt; 右</p>
+<h2 id="递归方式-2">递归方式</h2>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function inorderTraversal(root) {
+    if (!root) return [];
+    return [
+        ...inorderTraversal(root.left),
+        root.val,
+        ...inorderTraversal(root.right)
+    ];
+}
+</code></pre>
+<h3 id="迭代方式-2">迭代方式</h3>
+<p>利用栈存储遍历的节点</p>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function inorderTraversal(root) {
+    if (!root) return [];
+    let res = [],
+        stack = [],
+        curr = root;
+    while(curr || stack.length &gt; 0) {
+        while(curr) {
+            stack.push(curr);
+            curr = curr.left;
+        }
+        curr = stack.pop();
+        res.push(curr.val);
+        curr = curr.right;
+    }
+    return res;
+}
+</code></pre>
+<h2 id="后序遍历postordertraversal">后序遍历（postorderTraversal)</h2>
+<p>节点遍历顺序：左 -&gt; 右 -&gt; 根</p>
+<h3 id="递归方式-3">递归方式</h3>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function postorderTraversal(root) {
+    if (!root) return [];
+    return [
+        ...postorderTraversal(root.left),
+        ...postorderTraversal(root.right),
+        root.val
+    ];
+}
+</code></pre>
+<h3 id="迭代方式-3">迭代方式</h3>
+<p><strong>方式一：正序解</strong></p>
+<p>实现（1）：如果某一结点的子节点已被遍历过，则将其子节点指向 null。（整个过程就像是给一棵树不断地修剪叶子一样）</p>
+<p>基本思路：</p>
+<ol>
+<li>先遍历左节点，当遍历到叶子节点时，记录其值；</li>
+<li>返回至该叶子节点的上一层，并让该叶子节点指向 null；</li>
+<li>再遍历右节点，当遍历到叶子节点时，记录值；</li>
+<li>再次返回上一层节点，顺便让该叶子节点指向 null。</li>
+</ol>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function postorderTraversal(root) {
+    if (!root) return [];
+    let res = [],
+        stack = [],
+        curr = root;
+    while(curr || stack.length &gt; 0) {
+        if (curr.left) {
+            stack.push(curr);
+            curr = curr.left;
+        } else if (curr.right) {
+            stack.push(curr);
+            curr = curr.right;
+        } else {
+            res.push(curr.val);
+            curr = stack.pop();
+            if (curr &amp;&amp; curr.left) curr.left = null;
+            else if (curr &amp;&amp; curr.right) curr.right = null;
+        }
+    }
+    return res;
+}
+</code></pre>
+<p>实现（2）：添加标志位 flag，当某一节点的左右子节点的值都已被记录时 flag 为 true，否则为 false。</p>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function postorderTraversal(root) {
+    if (!root) return [];
+    let res = [],
+        stack = [],
+        curr = root;
+    while (curr || stack.length &gt; 0) {
+        while(curr) {
+            stack.push([curr, false]);
+            curr = curr.left;
+        }
+        let [node, flag] = stack.pop();
+        if (!flag) {
+            stack.push([node, true]);
+            curr = node.right;
+        } else {
+            res.push(node.val);
+        }
+    }
+    return res;
+}
+</code></pre>
+<p><strong>方式二：倒序解</strong></p>
+<p>思路：该方式类似于先序遍历，只是遍历顺序为 根 -&gt; 右 -&gt; 左。而记录值是从数组的头部插入。</p>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function postorderTraversal(root) {
+    if (!root) return [];
+    let res = [],
+        stack = [],
+        curr = root;
+    while(curr || stack.length) {
+        while(curr) {
+            stack.push(curr);
+            res.unshift(curr.val);
+            curr = curr.right;
+        }
+        curr = stack.pop();
+        curr = curr.left;
+    }
+    return res;
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[排序算法]]></title>
+        <id>https://https://pineapple126.github.io/post/sort-algorithm/</id>
+        <link href="https://https://pineapple126.github.io/post/sort-algorithm/">
+        </link>
+        <updated>2020-03-19T03:05:08.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="快速排序">快速排序</h2>
+<p>基本思想：采用分治的思想，选取一个基准，将待排序数组分为两个小、大数组，不断重复这个过程直至数组有序。</p>
+<p>基本步骤：</p>
+<ol>
+<li>选取基准（pivot）；</li>
+<li>根据基准将待排序数组分割为两个数组；</li>
+<li>重复以上步骤，直至数组有序。</li>
+</ol>
+<pre><code class="language-javascript">function quickSort(arr) {
+    if (arr.length &lt; 2) return arr;
+    let pivot = arr[0];
+    let left = [],
+        right = [];
+    for(let i  = 1; i &lt; arr.length; i++) {
+        if (arr[i] &lt; pivot) {
+            left.push(arr[i]);
+        } else {
+            right.push(arr[i]);
+        }
+    }
+    return quickSort(left).concat(pivot, quickSort(right));
+}
+</code></pre>
+<h2 id="插入排序">插入排序</h2>
+<p>基本思想：将数组的第一位视为一个有序数组，将剩下的待排序数组逐个插入到已排序数组中。</p>
+<pre><code class="language-javascript">function insertSort(arr) {
+    for(let i = 1; i &lt; arr.length; i++) {
+        let tmp = arr[i],
+            j = i;
+        for( ; j &gt; 0; j--) {
+            if (tmp &gt; arr[j-1]) {
+                break;
+            }
+            arr[j] = arr[j-1];
+        }
+        arr[j] = tmp;
+    }
+    return arr;
+}
+</code></pre>
+<h2 id="归并排序">归并排序</h2>
+<p>基本思想：采取分治的思想，将两个有序数组合并为一个有序数组。</p>
+<pre><code class="language-javascript">function mergeSort(arr) {
+    if (arr.length &lt; 2) return arr;
+    let res = [];
+    let mid = arr.length &gt;&gt; 1;
+    let left = mergeSort(arr.slice(0, mid)),
+        right = mergeSort(arr.slice(mid));
+    while(left.length &amp;&amp; right.length) {
+        if (left[0] &lt; right[0]) {
+            res.push(left.shift());
+        } else {
+            res.push(right.shift());
+        }
+    }
+    return res.concat(left, right);
+}
+</code></pre>
+<h2 id="冒泡排序">冒泡排序</h2>
+<pre><code class="language-javascript">function bubbleSort(arr) {
+    for(let i = 0; i &lt; arr.length; i++) {
+        for(let j = 0; j &lt; arr.length - i - 1; j++) {
+            if (arr[j] &gt; arr[j+1]) {
+                [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
+            }
+        }
+    }
+    return arr;
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[类型判断]]></title>
+        <id>https://https://pineapple126.github.io/post/type-judgement/</id>
+        <link href="https://https://pineapple126.github.io/post/type-judgement/">
+        </link>
+        <updated>2020-03-13T08:47:22.000Z</updated>
+        <content type="html"><![CDATA[<p>JavaScript 中有 8 种数据类型，又分为基本数据类型和引用数据类型。</p>
+<ul>
+<li>基本数据类型：Null、Undefined、Number、Boolean、String、Symbol、BigInt</li>
+<li>引用数据类新：Object</li>
+</ul>
+<p>判断数据类型的方法有以下几种：<code>typeof</code> 运算符、<code>instanceof</code> 运算符、<code>constructor</code> 方法和 <code>Object.prototype.toString.call()</code> 方法</p>
+<p>我们先创建这些数据类型的变量：</p>
+<pre><code class="language-javascript">let nul = null,
+    und= undefined,
+    num = 1,
+    bool = true,
+    str = &quot;string&quot;,
+    sym = Symbol(),
+    bigint = 1n,
+    obj = {name: &quot;zs&quot;},
+    arr = [1, 2, 3],
+    fn = function() { console.log(&quot;function&quot;); };
+</code></pre>
+<h2 id="typeof">typeof</h2>
+<p><code>typeof</code> 可以识别出数据类型，但是不能识别 null 和 array，会将它们归为 Object 类型。判断示例如下：</p>
+<pre><code class="language-javascript">console.log(typeof nul);            //  object
+console.log(typeof und);            //  undefined
+console.log(typeof num);            //  number
+console.log(typeof bool);           //  boolean
+console.log(typeof str);            //  string
+console.log(typeof sym);            //  symbol
+console.log(typeof bigint);         //  bigint
+console.log(typeof obj);            //  object
+console.log(typeof arr);            //  object
+console.log(typeof fn);         //  function
+</code></pre>
+<h2 id="instanceof">instanceof</h2>
+<p><code>instanceof</code> 不能识别基本数据类型，但是可以识别出 Array、Function 与 Object。同时，对于 new 声明的类型，还可以检测出多层继承关系。</p>
+<pre><code class="language-javascript">console.log(nul instanceof Object);         //  false
+console.log(und instanceof Object);         //  false
+console.log(num instanceof Number);         //  false
+console.log(bool instanceof Boolean);           //  false
+console.log(str instanceof String);         //  false
+console.log(sym instanceof Symbol);         //  false
+console.log(bigint instanceof BigInt);          //  false
+console.log(obj instanceof Object);         //  true
+console.log(arr instanceof Array);          //  true
+console.log(fn instanceof Function);            //  true
+</code></pre>
+<h2 id="constructor">constructor</h2>
+<p>null、undefined 没有 constructor 方法，因此 constructor 不能用于判断 null 和 undefined。并且，constructor 是不安全的，因此 constructor 的指向是可以被改变的。</p>
+<pre><code class="language-javascript">console.log(num.constructor === Number);            //  true
+console.log(bool.constructor === Boolean);          //  true
+console.log(str.constructor === String);            //  true
+console.log(sym.constructor === Symbol);            //  true
+console.log(bigint.constructor === BigInt);         //  true
+console.log(obj.constructor === Object);            //  true
+console.log(arr.constructor === Array);         //  true
+console.log(fn.constructor === Function);           //  true
+</code></pre>
+<h2 id="objectprototypetostringcall">Object.prototype.toString.call()</h2>
+<p>该方法可以相对较全的判断 JavaScript 的数据类型。</p>
+<pre><code class="language-javascript">console.log(Object.prototype.toString.call(nul));           //  [object Null]
+console.log(Object.prototype.toString.call(und));           //  [object Undefined]
+console.log(Object.prototype.toString.call(num));           //  [object Number]
+console.log(Object.prototype.toString.call(bool));          //  [object Boolean]
+console.log(Object.prototype.toString.call(str));           //  [object String]
+console.log(Object.prototype.toString.call(sym));           //  [object Symbol]
+console.log(Object.prototype.toString.call(bigint));            //  [object BigInt]
+console.log(Object.prototype.toString.call(obj));           //  [object Object]
+console.log(Object.prototype.toString.call(arr));           //  [object Array]
+console.log(Object.prototype.toString.call(fn));            //  [object Function]
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Set 集合与 Map集合（2）]]></title>
+        <id>https://https://pineapple126.github.io/post/map/</id>
+        <link href="https://https://pineapple126.github.io/post/map/">
+        </link>
+        <updated>2020-03-12T03:16:01.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="es6-中的-map-集合">ES6 中的 Map 集合</h2>
+<p>ES6 中的 Map 类型是一种<strong>储存着许多键值对</strong>的<strong>有序列表</strong>，其中的键名和对应的值支持所有的数据类型。键名的等价性判断是通过调用 <code>Object.is()</code> 方法实现的，所以数字 5 与字符串 &quot;5&quot; 会被判定为两种类型，可以分别作为独立的两个键出现在程序中。</p>
+<h3 id="map-集合创建方法以及支持的方法和属性">Map 集合创建方法以及支持的方法和属性</h3>
+<p>创建方法：调用 <code>new Map()</code> 即可创建一个 Map 集合。</p>
+<p>支持方法：</p>
+<ul>
+<li><code>set(key, value)</code> 方法：向 Map 集合中添加新的元素；</li>
+<li><code>get(key)</code> 方法：从 Map 集合中获取信息，若传入的键名不存在，则返回 undefined；</li>
+<li><code>has(key)</code> 方法：检测指定的键名在 Map 集合中是否已经存在；</li>
+<li><code>delete(key)</code> 方法：从 Map 集合中移除指定键名及其对应的值；</li>
+<li><code>clear()</code> 方法：移除 Map 集合中所有的键值对；</li>
+<li><code>size</code> 属性：获取当前集合中包含的键值对数量。</li>
+</ul>
+<p>请看以下这段代码：</p>
+<pre><code class="language-javascript">let map = new Map();
+map.set(&quot;name&quot;, &quot;Nicholas&quot;);
+map.set(&quot;age&quot;, 25);
+
+console.log(map.size);          //  2
+
+console.log(map.has(&quot;name&quot;));           //  true
+console.log(map.get(&quot;name&quot;));           //  &quot;Nicholas&quot;
+
+console.log(map.has(&quot;age&quot;));            //  true
+console.log(map.get(&quot;age&quot;));            //  25
+
+map.delete(&quot;name&quot;);
+console.log(map.has(&quot;name&quot;));           //  false
+console.log(map.get(&quot;name&quot;));           //  undefined
+console.log(map.size);          //  1
+
+map.clear();
+console.log(map.has(&quot;name&quot;));           //  false
+console.log(map.get(&quot;name&quot;));           //  undefined
+console.log(map.has(&quot;age&quot;));            //  false
+console.log(map.get(&quot;age&quot;));            //  undefined
+console.log(map.size);          //  0
+</code></pre>
+<p>也可以向 Map 构造函数传入数组来初始化一个 Map 集合，数组中的每一个元素都是一个子数组，子数组包含一个键值对的键名与值两个元素。示例如下：</p>
+<pre><code class="language-javascript">let map = new Map([[&quot;name&quot;, &quot;Nicholas&quot;], [&quot;age&quot;, 25]]);
+
+console.log(map.has(&quot;name&quot;));           //  true
+console.log(map.get(&quot;name&quot;));           //  &quot;Nicholas&quot;
+console.log(map.has(&quot;age&quot;));            //  true
+console.log(map.get(&quot;age&quot;));            //  25
+console.log(map.size);          //  2
+</code></pre>
+<h3 id="map-集合中的-foreach-方法">Map 集合中的 forEach() 方法</h3>
+<p>Map集合的 <code>forEach()</code> 方法与 Set 集合和数组中的 <code>forEach()</code> 方法类似，回调函数都接受 3 个参数：</p>
+<ul>
+<li>Map 集合中下一次索引的值</li>
+<li>值对应的键名</li>
+<li>Map 集合本身</li>
+</ul>
+<p>这些回调参数与数组中的更相近，第一个参数是值，第二个参数是键名。请看这个示例：</p>
+<pre><code class="language-javascript">let map = new Map([[&quot;name&quot;, &quot;Nicholas&quot;], [&quot;age&quot;, 25]]);
+
+map.forEach(function (value, key, ownerMap) {
+    console.log(key + &quot; &quot; + value);
+    console.log(ownerMap === map);
+});
+</code></pre>
+<p>这段代码会输出以下内容：</p>
+<pre><code class="language-javascript">name Nicholas
+true
+age 25
+true
+</code></pre>
+<p>遍历过程中，会按照键值对插入 Map 集合的顺序将相应信息传入 <code>forEach()</code> 方法的回调函数，而在数组中，则会按照数值型索引值的顺序依次传入回调函数。</p>
+<p><strong>注意</strong>：可以指定 <code>forEach()</code> 函数的第二个参数作为回调函数的 <code>this</code> 值。</p>
+<h2 id="weak-map-集合">Weak Map 集合</h2>
+<p>Weak Set 集合是弱引用的 Set 集合，相对应的，Weak Map 集合是弱引用的 Map 集合，也用于存储对象的弱引用。Weak Map 集合中的键名必须是一个对象。集合中保存的是这些对象的弱引用，如果在弱引用之外不存在其他的强引用，引擎的垃圾回收机制会自动回收这个对象，同时也会移除 Weak Map 集合中的键值对。但是只有集合的键名遵从这个规则，键名对应的值如果是个对象，则保存的是对象的强引用，不会触发垃圾回收机制。</p>
+<p>Weak Map 集合最大的用途是跟踪 Web 页面中的 DOM 元素，当 DOM 元素消失时，可以自动销毁集合中的相关对象。</p>
+<h3 id="使用-weak-map-集合">使用 Weak Map 集合</h3>
+<p>ES6 中的 Weak Map 类型是一种存储着许多键值对的无序列表，列表的键名必须是非 null 类型的对象，键名对应的值则可以是任意类型。</p>
+<p>我们可以通过 WeakMap 构造函数来创建一个 Weak Map 集合。Weak Map 集合也支持以下方法：</p>
+<ul>
+<li><code>set()</code></li>
+<li><code>get()</code></li>
+<li><code>has()</code></li>
+<li><code>delete()</code></li>
+</ul>
+<p>请看以下这段代码：</p>
+<pre><code class="language-javascript">let map = new WeakMap(),
+    element = document.querySelector(&quot;.element&quot;);
+
+map.set(element, &quot;Original&quot;);
+
+console.log(map.has(element));          //  true
+console.log(map.get(element));          //  &quot;Original&quot;
+
+map.delete(element);
+console.log(map.has(element));          //  false
+console.log(map.get(element));          //  undefined
+</code></pre>
+<h2 id="小结">小结</h2>
+<p>Set 集合是一种包含多个非重复值的有序列表，值与值之间的等价性是通过 <code>Object.is()</code> 方法来判断的，如果相同，则会自动过滤重复的值，所以可以用 Set 集合来过滤数组中的重复元素。</p>
+<p>Weak Set 集合是一类特殊的 Set 集合，集合只支持存放对象的弱引用。由于内存管理非常复杂，Weak Set 集合不可以被检查，因此追踪成组的对象是该集合最好的使用方式。</p>
+<p>Map 是多个键值对组成的有序集合，键名支持任意数据类型，与 Set 集合相似的是，Map 集合也是通过 <code>Object.is()</code> 方法来过滤重复值。</p>
+<p>Weak Map 集合是一类特殊的 Map 集合，只支持对象类型的键名，集合中存放的键是对象的弱引用。Weak Map 集合可以为那些实际使用与生命周期管理分离的对象添加额外信息。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Set 集合与 Map 集合（1）]]></title>
+        <id>https://https://pineapple126.github.io/post/set/</id>
+        <link href="https://https://pineapple126.github.io/post/set/">
+        </link>
+        <updated>2020-03-09T11:55:04.000Z</updated>
+        <content type="html"><![CDATA[<p>这是学习阅读《深入理解ES6》第七章 Set 集合与 Map 集合 后整理而成的学习笔记。</p>
+<p>Set 集合是一种<strong>无重复元素</strong>的列表；Map 集合内含多组键值对，集合中每个元素分别存放着可访问的键名和它对应的值，Map 集合经常被用于缓存频繁取用的数据。</p>
+<h2 id="es5-中的-set-集合与-map-集合">ES5 中的 Set 集合与 Map 集合</h2>
+<p>在 ES5 中，开发者们用对象属性来模拟这两种集合：</p>
+<pre><code class="language-javascript">var set = Object.create(null);
+
+set.foo = true;
+
+//  检查属性是否存在
+if (set.foo) {
+    //  要执行的代码
+}
+</code></pre>
+<p>这里的变量 set 是一个原型为 null 的对象，不继承任何属性。在 ES5 中，开发者们经常使用类似的方法检查对象的某个属性值是否存在。</p>
+<p>模拟这两种集合的唯一区别是存储的值不同，以下这个示例是用对象模拟 Map 集合：</p>
+<pre><code class="language-javascript">var map = Object.create(null);
+map.foo = &quot;bar&quot;;
+
+//  获取已存值
+var value = map.foo;
+
+console.log(value);         //  &quot;bar&quot;
+</code></pre>
+<p>一般来说，Set 集合经常被用于检查对象中是否存在某个键名，而 Map 集合常被用于获取已存值的信息。</p>
+<h3 id="该方案可能存在的问题">该方案可能存在的问题</h3>
+<p>需要注意的是，所有对象的属性名必须是字符串类型，因此必须确保每个键名都是字符串类型且在对象中是唯一的。若以数字为属性名，数字则会被自动转换成字符串；若以对象为属性名，则会被自动转换为对象对应的默认字符串 &quot;[object Object]&quot;。如果不不注意的话，则内部的自动转换机制将会导致很多问题。</p>
+<h2 id="es6-中的-set-集合">ES6 中的 Set 集合</h2>
+<p>ES6 新增的 Set 类型是一种有序列表，其中含有一些<strong>相互独立</strong>的<strong>非重复值</strong>，通过 Set 集合可以快速访问其中的数据，更有效地追踪各种离散值。</p>
+<h3 id="创建-set-集合以及支持的方法与属性">创建 Set 集合以及支持的方法与属性</h3>
+<p>调用 <code>new Set()</code> 即可创建 Set 集合。</p>
+<p>Set 集合支持以下方法和属性：</p>
+<ul>
+<li><code>add(value)</code> 方法，用于给 Set 集合添加元素；</li>
+<li><code>has(value)</code> 方法，用于判断 Set 集合是否含有 value 值；</li>
+<li><code>delete(value)</code> 方法，用于从 Set 集合中删除指定的 value 值；</li>
+<li><code>clear()</code> 方法，用于清空 Set 集合；</li>
+<li><code>size</code> 属性，可以获取集合中目前的元素数量。</li>
+</ul>
+<p>请看以下这段代码：</p>
+<pre><code class="language-javascript">let set = new Set();
+set.add(5);
+set.add(&quot;5&quot;);
+
+let key1 = {};
+let key2 = {};
+set.add(key1);
+set.add(key2);
+
+console.log(set.has(5));            //  true
+console.log(set.has(&quot;5&quot;));          //  true
+console.log(set.has(key1));         //  true
+console.log(set.has(key2));         //  true
+
+set.delete(5);
+set.delete(key1);
+console.log(set.has(5));            //  false
+console.log(set.has(key1));            //  false
+console.log(set.size);          //  2
+
+set.clear();
+
+console.log(set.has(&quot;5&quot;));          //  false
+console.log(set.has(key2));         //  false
+console.log(set.size);          //  0
+</code></pre>
+<p>通过这个示例，我们发现数字 5 和字符串 &quot;5&quot;、key1 和 key2 作为独立的值存储入 Set 集合中。实际上，在 Set 集合中，不会对所存值进行强制的类型转换，数字 5 和字符串 &quot;5&quot; 是作为两个独立元素存在，对象key1 和 key2 也不会被转换成字符串，因而两者在 Set 集合中是两个对立的元素。（引擎内部使用 <code>Object.is()</code> 方法检测两个值是否一致，唯一例外的是，Set 集合中的 +0 和 -0 被认为是相等的）</p>
+<p><strong>提示</strong>：Set 构造函数可以接受所有可迭代对象作为参数，数组、Set 集合、Map 集合都是可迭代的，因而都可以作为 Set 构造函数的参数使用；构造函数通过迭代器从参数中提取值。</p>
+<p>Set 构造函数同样会过滤掉重复的值从而保证集合中的元素各自唯一。示例如下：</p>
+<pre><code class="language-javascript">let set = new Set([1,2,2,3,4,5,5,6]);
+
+console.log(set.size);          //  6
+</code></pre>
+<h3 id="set-集合的-foreach-方法">Set 集合的 forEach() 方法</h3>
+<p>ES6 也为 Set 集合添加了 <code>forEach()</code> 方法，其运行机制和数组的 <code>forEach()</code> 方法类似。</p>
+<p><code>forEach()</code> 方法的回调函数接受以下 3 个参数：</p>
+<ul>
+<li>Set 集合中下一次索引的位置</li>
+<li>与第一个参数一样的值</li>
+<li>被遍历的 Set 集合本身</li>
+</ul>
+<p>数组和 Map 集合的 <code>forEach()</code> 方法的回调函数都是接受 3 个参数，前两个分别为值和键名，而 Set 集合没有键名，ES6 为了保持方法分歧不大，因此也将 Set 集合中的每个元素也按照键名和值的形式存储，从而保证所有 <code>forEach()</code> 方法的回调函数中前两个参数具有相同意义。</p>
+<p>请看以下示例：</p>
+<pre><code class="language-javascript">let set = new Set([1, 2]);
+
+set.forEach(function(value, index, ownerSet) {
+    console.log(key + &quot; &quot; + value);
+    console.log(ownerSet === set);
+});
+</code></pre>
+<p>输出结果如下：</p>
+<pre><code class="language-javascript">1 1
+true
+2 2
+true
+</code></pre>
+<p>在 Set 集合的 <code>forEach()</code> 方法中，第二个参数也与数组的一样，如果需要在回调函数中使用 <code>this</code> 引用，则可以将它作为第二个参数传入 <code>forEach()</code> 函数：</p>
+<pre><code class="language-javascript">let set = new Set([1, 2]);
+
+let processor = {
+    output(value) {
+        console.log(value);
+    },
+    process(dataSet) {
+        dataSet.forEach(function(value) {
+            this.output(value);
+        }, this);
+    }
+};
+
+processor.process(set);
+</code></pre>
+<p>当然我们也可以使用箭头函数，这样在这里就不用向回调函数传入 <code>this</code> 参数了。</p>
+<h3 id="将-set-集合转换为数组">将 Set 集合转换为数组</h3>
+<p>将数组转换为 Set 集合的过程很简单，只需要给 Set 构造函数传入数组即可；将 Set 集合再转换回数组的过程也很简单，只需要使用<strong>展开运算符</strong>即可。（展开运算符可以将可迭代对象转换为数组）举个例子：</p>
+<pre><code class="language-javascript">let set = new Set([1, 2, 3, 3, 3, 4, 5]),
+    array = [...set];
+
+console.log(array);             //  [1, 2, 3, 4, 5]
+</code></pre>
+<p>在这里，用一个含有重复元素的数组初始化 Set 集合，集合会自动移除这些重复元素；然后再用展开运算符将这些元素放到一个新数组中。</p>
+<h3 id="weak-set-集合">Weak Set 集合</h3>
+<p>将对象存储在 Set 的实例与存储在变量中完全一样，只要 Set 实例中的引用存在，垃圾回收机制就不能释放该对象的内存空间，于是可以将前面的 Set 类型看作是一个<strong>强引用</strong>的 Set 集合。</p>
+<p>为了解决这个问题，ES6 引入了另外一个类型：Weak Set 集合（弱引用 Set 集合）。Weak Set 集合只存储对象的弱引用，并且不可以存储原始值；集合中的弱引用如果是对象唯一的引用，则会被回收并释放相应内存。</p>
+<p>用 WeakSet 构造函数可以创建 Weak Set 集合，集合支持 3 个方法：</p>
+<ul>
+<li>add()</li>
+<li>has()</li>
+<li>delete()</li>
+</ul>
+<p>示例如下：</p>
+<pre><code class="language-javascript">let set = new WeakSet(),
+    key = {};
+
+//  向集合 set 中添加元素
+set.add(key);
+
+console.log(set.has(key));          //  true
+
+set.delete(key);
+
+console.log(set.has(key));          //  false
+</code></pre>
+<p>WeakSet 构造函数也可以传入一个可迭代对象来创建 Weak Set 集合：</p>
+<pre><code class="language-javascript">let key1 = {},
+    key2 = {},
+    set = new WeakSet([key1, key2]);
+
+console.log(set.has(key1));         //  true
+console.log(set.has(key2));         //  true
+</code></pre>
+<p><strong>注意</strong>：WeakSet 构造函数不接受任何原始值，如果数组中包含其他非对象值，程序会抛出错误。</p>
+<h3 id="两种-set-类型的主要区别">两种 Set 类型的主要区别</h3>
+<p>两种 Set 类型之间最大的区别是 <strong>Weak Set 保存的是对象值得弱引用</strong>。</p>
+<p>普通 Set 集合和 Weak Set 集合还有下面几个特性：</p>
+<ul>
+<li>在 WeakSet 实例中，如果向 <code>add()</code> 方法传入非对象参数会导致程序报错，而向 <code>has()</code> 和 <code>delete()</code> 方法传入非对象参数则会返回 false。</li>
+<li>Weak Set 集合不可迭代，所以不能被用于 for-of 循环。</li>
+<li>Weak Set 集合不暴露任何迭代器，所以无法通过程序本身来检测其中的内容。</li>
+<li>Weak Set 集合不支持 forEach() 方法。</li>
+<li>Weak Set 集合不支持 size 属性。</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[防抖和节流]]></title>
+        <id>https://https://pineapple126.github.io/post/debounce-and-throttle/</id>
+        <link href="https://https://pineapple126.github.io/post/debounce-and-throttle/">
+        </link>
+        <updated>2020-03-06T11:36:04.000Z</updated>
+        <content type="html"><![CDATA[<p><strong>防抖</strong>（debounce）：动作绑定事件，在动作发生一段时间后再触发事件。如果这段时间内动作再次发生，则重新等待一段时间后再触发事件。</p>
+<pre><code class="language-javascript">/**
+ * @param { function } func
+ * @param { number } wait 延迟执行毫秒数
+ * @param { boolean } immediate  true 表立即执行，false 表非立即执行
+ */
+function debounce(func,wait,immediate) {
+    let timeout;
+    return function () {
+        let context = this;
+        let args = arguments;
+
+        if (timeout) clearTimeout(timeout);
+        if (immediate) {
+            let callNow = !timeout;
+            timeout = setTimeout(() =&gt; {
+                timeout = null;
+            }, wait);
+            if (callNow) func.apply(context, args)
+        }
+        else {
+            timeout = setTimeout(() =&gt; {
+                func.apply(context, args)
+            }, wait);
+        }
+    }
+}
+</code></pre>
+<p><strong>节流</strong>（throttle）：动作绑定事件，在动作发生一段时间后再触发事件。如果在这段时间内动作再次发生，则无视此次动作，等待事件完成后，才能重新触发。</p>
+<pre><code class="language-javascript">/**
+ * @param { function } func 函数
+ * @param { number } wait 延迟执行毫秒数
+ * @param { number } type 1 表时间戳版，2 表定时器版
+ */
+function throttle(func, wait ,type) {
+    let previous, timeout;
+    if(type===1){
+        previous = 0;
+    }else if(type===2){
+        timeout = null;
+    }
+    return function() {
+        let context = this;
+        let args = arguments;
+        if(type===1){
+            let now = Date.now();
+
+            if (now - previous &gt; wait) {
+                func.apply(context, args);
+                previous = now;
+            }
+        }else if(type===2){
+            if (!timeout) {
+                timeout = setTimeout(() =&gt; {
+                    timeout = null;
+                    func.apply(context, args)
+                }, wait)
+            }
+        }
+
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[用模块封装代码]]></title>
+        <id>https://https://pineapple126.github.io/post/module/</id>
+        <link href="https://https://pineapple126.github.io/post/module/">
+        </link>
+        <updated>2020-02-28T08:12:23.000Z</updated>
+        <content type="html"><![CDATA[<p>这是学习阅读《深入理解ES6》第十三章 用模块封装代码 后整理而成的学习笔记。</p>
+<p>JavaScript 用“共享一切”的方法加载代码，这是语言中最容易出错且容易令人感到困惑的地方。为了解决作用域问题，也为了使 JavaScript 应用程序显得有序，因此 ES6 引入了模块。</p>
+<h2 id="什么是模块">什么是模块</h2>
+<p><strong>模块是自动运行在严格模式下并且没有办法退出运行的 JavaScript 代码</strong>。与共享一切架构相反的是，在模块顶部创建的变量不会自动被添加到全局共享作用域，这个变量仅在模块的顶级作用域中存在，而且模块必须导出一些外部代码可以访问的元素，比如变量或函数。模块也可以从其他模块导入绑定。在模块的顶部，this 的值是 undefined。</p>
+<p>模块的魔力所在是仅<strong>导出和导入</strong>我们所需要的绑定，而不是将所有的东西都放到一个文件中。</p>
+<h2 id="导出的基本语法">导出的基本语法</h2>
+<p>我们可以用 <code>export</code> 关键字将一部分已发布的代码暴露给其他模块，例如：</p>
+<pre><code class="language-javascript">//  导出数据
+export var color = &quot;red&quot;;
+export let name = &quot;Nicolas&quot;;
+export const magicNumber = 7;
+
+//  导出函数
+export function sum(num1, num2) {
+    return num1 + num2;
+}
+
+//  导出类
+export class Rectangle {
+    constructor(length, width) {
+        this.length = length;
+        this.width = width;
+    }
+}
+
+//  这个函数模块是私有的
+function substract(num1, num2) {
+    return num1 - num2;
+}
+
+//  定义一个函数
+function multiply(num1, num2) {
+    return num1 * num2;
+}
+
+//  再将其导出
+export multiply;
+</code></pre>
+<p>导出的函数和类声明需要有一个名字，除非是用 <code>default</code> 关键字否则不能用这个语法导出匿名函数或类。任何未显式导出的变量、函数或类都是模块私有的，无法从模块外访问。</p>
+<h2 id="导入的基本语法">导入的基本语法</h2>
+<p>从模块中导出的功能可以使用 <code>import</code> 关键字在另一个模块中访问，<code>import</code> 语句的两个部分是：<strong>要导入的标识符</strong>和<strong>标识符应当从哪个模块导入</strong>。</p>
+<p>语句的基本形式如下：</p>
+<pre><code class="language-javascript">import { identifier1, identifier2 } from &quot;./example.js&quot;;
+</code></pre>
+<p><code>import</code> 后面的大括号表示从给定模块导入的绑定（binding），关键字 from 表示从哪个模块导入给定的绑定，该模块由表示模块路径的字符串指定（模块说明符）。</p>
+<p>当从模块中导入一个绑定时，它就好像使用 const 定义的一样。结果是我们无法定义另一个同名变量（包括导入另一个同名绑定），也无法在 import 语句前使用标识符或改变绑定的值。</p>
+<h3 id="导入单个绑定">导入单个绑定</h3>
+<p>假设在一个名为 &quot;example.js&quot; 的模块中，我们可以导入并以多种方式使用这个模块中的绑定。举例来说，可以只导入一个标识符：</p>
+<pre><code class="language-javascript">//  只导入一个
+import { sum } from &quot;./example.js&quot;;
+
+console.log(sum(1, 2));     //  3
+
+sum = 1;            //  抛出错误
+</code></pre>
+<p>尽管 example.js 导出的函数不止一个，但是我们导入的只有 sum() 函数。如果尝试给 sum 赋新值，结果会抛出错误，因为<strong>不能给导入的绑定重新赋值</strong>。</p>
+<h3 id="导入多个绑定">导入多个绑定</h3>
+<p>如果要导入多个绑定，则可以明确的将他们列出：</p>
+<pre><code class="language-javascript">//  导入多个
+import { sum, multiply, magicNumber } from &quot;./example.js&quot;;
+
+console.log(sum(1, magicNumber));           //  8
+console.log(multiply(1, 2));            //  2
+</code></pre>
+<h3 id="导入整个模块">导入整个模块</h3>
+<p>特殊情况下，可以导入整个模块作为一个单一的对象。然后所有的导出都可以作为对象的属性使用。例如：</p>
+<pre><code class="language-javascript">//  导入一切
+import * as example from &quot;./example.js&quot;;
+
+console.log(example.sum(1, example.magicNumber));           //  8
+console.log(example.multiply(1, 2));            //  2
+</code></pre>
+<p>需要注意的是，不管在 import 语句中把一个模块写了多少次，该模块只会执行一次。导入模块的代码执行后，实例化过的模块被保存在内存中，只要另一个 import 语句引用它就可以重复使用它。如果同一个应用程序的其他模块也从该模块中引入绑定，那么那些模块与此代码将使用相同的<strong>模块实例</strong>。</p>
+<p><strong>注意</strong>：export 和 import 的一个重要限制是，它们必须在其他语句和函数之外使用。模块语法存在的一个原因是要让 JavaScript 引擎静态地确定哪些可以导出，因此，只能在顶部使用 export。而 import 语句为变量、函数和类创建的是<strong>只读</strong>绑定，而不是像正常变量一样简单地引用原始绑定。</p>
+<h2 id="导出和导入时重命名">导出和导入时重命名</h2>
+<p>我们可以使用 as 关键字在导出过程和导入过程中改变导出元素和导入元素的名称。</p>
+<pre><code class="language-javascript">function sum(num1, num2) {
+    return num1 + num2;
+}
+
+export { sum as add };
+</code></pre>
+<p>在这里，函数 sum() 是本地名称，add() 是导出时使用的名称。当另一个模块要导入这个函数时，必须使用 add 这个名称：</p>
+<pre><code class="language-javascript">import { add as sum } from &quot;./example.js&quot;;
+
+console.log(typeof add);            //  &quot;undefined&quot;
+console.log(sum(1, 2));         //  3
+</code></pre>
+<p>这段代码导入 add() 函数时使用了一个导入名称来重命名 sum() 函数。</p>
+<h2 id="模块的默认值">模块的默认值</h2>
+<p>模块的默认值值得是通过 <code>default</code> 关键字指定的单个变量、函数或类，只能为每个模块设置一个默认的导出值。</p>
+<h3 id="导出默认值">导出默认值</h3>
+<p>下面是一个使用 default 关键字的简单示例：</p>
+<pre><code class="language-javascript">export default function(num1, num2) {
+    return num1 + num2;
+}
+</code></pre>
+<p>这个模块导出了一个函数作为它的默认值，default 关键字表示这是一个默认的导出，由于函数被模块所代表，因而它不需要一个名称。</p>
+<p>也可以在 export default 之后添加默认导出值的标识符，就像这样：</p>
+<pre><code class="language-javascript">function sum(num1, num2) {
+    return num1 + num2;
+}
+
+export default sum;
+</code></pre>
+<p>为默认导出值指定标识符的第三种方法是使用重命名语法，如下所示：</p>
+<pre><code class="language-javascript">function sum(num1, num2) {
+    return num1 + num2;
+}
+
+export { sum as default };
+</code></pre>
+<p>在重命名导出时标识符 default 具有特殊含义，用来只是模块的默认值。</p>
+<h3 id="导入默认值">导入默认值</h3>
+<p>可以使用以下语法从一个模块中导入一个默认值：</p>
+<pre><code class="language-javascript">//  导入默认值
+import sum from &quot;./examole.js&quot;;
+
+console.log(sum(1, 2));         //  3
+</code></pre>
+<p>对于导出默认值和一或多个非默认绑定的绑定，可以用一条语句导入所有导出的绑定，例如，假设有一下这个模块：</p>
+<pre><code class="language-javascript">export let color = &quot;red&quot;;
+
+export default function(num1, num2) {
+    return num1 + num2;
+}
+</code></pre>
+<p>可以用一下这条 import 语句导入 color 和默认函数：</p>
+<pre><code class="language-javascript">import sum, { color } from &quot;./example.js&quot;;
+
+console.log(sum(1, 2));         //  3
+console.log(color);         //  &quot;red&quot;
+</code></pre>
+<p>用逗号将默认的本地名称与大括号包裹的非默认值分隔开，请记住，在 export 语句中，默认值必须排在非默认值之前。</p>
+<p>与导出默认值相同，也可以在导入默认值时使用重命名语法：</p>
+<pre><code class="language-javascript">import { default as sum, color } from &quot;./example.js&quot;;
+
+console.log(sum(1, 2));         //  3
+console.log(color);         //  &quot;red&quot;
+</code></pre>
+<h2 id="重新导出一个绑定">重新导出一个绑定</h2>
+<p>如果需要重新导入模块中已经导入的内容，可以使用一条语句完成：</p>
+<pre><code class="language-javascript">export { sum } from &quot;./example.js&quot;;
+</code></pre>
+<p>同样的我们也可以使用不同的名称导出：</p>
+<pre><code class="language-javascript">export { sum as add } from &quot;./example.js&quot;;
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[解构]]></title>
+        <id>https://https://pineapple126.github.io/post/deconstruction/</id>
+        <link href="https://https://pineapple126.github.io/post/deconstruction/">
+        </link>
+        <updated>2020-02-25T10:25:15.000Z</updated>
+        <content type="html"><![CDATA[<p>这是学习阅读《深入理解ES6》第五章 解构：使数据访问更便捷 后整理而成的学习笔记。</p>
+<p>对象和数组字面量是 JavaScript 中的两种最常用的数据结构，由于 JSON 数据结构的普及，二者已经称为语言中的特别重要的一部分。ES6 中添加了一种可以简化有组织地从对象或数组中提取相关地信息片段的新特性：解构。<strong>解构是一种打破数据结构，将其拆分为更小部分的过程。</strong></p>
+<h2 id="为何使用解构功能">为何使用解构功能</h2>
+<p>在 ES5 以及早期版本中，为了从对象和数组中获取特定数据并赋值给变量，编写了许多看起来同质化的代码，例如：</p>
+<pre><code class="language-javascript">let options = {
+    repeat: true,
+    save: false
+};
+
+//  从对象中提取数据
+let repeat = options.repeat,
+    save = options.save;
+</code></pre>
+<p>如果你要提取的内容还包含嵌套解构，则必须要深挖整个数据结构才能找到所需数据。</p>
+<p>所以 ES6 为对象和数组都添加了解构功能，将数据结构打散的过程变得更加简单，可以从打散后更小的部分中获取所需信息。</p>
+<h2 id="对象解构">对象解构</h2>
+<p>对象解构的语法形式是在一个赋值操作符左边放置一个对象字面量，例如：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;,
+    name: &quot;foo&quot;
+};
+
+let { type, name } = node;
+
+console.log(type);          //  &quot;Identifier&quot;
+console.log(name);          //  &quot;foo&quot;
+</code></pre>
+<p><strong>注意</strong>：<strong>不要忘记初始化程序</strong>，使用 var、let 或 const 解构声明变量时，必须要提供初始化程序。</p>
+<h3 id="解构赋值">解构赋值</h3>
+<p>我们已经将对象结构应用到了变量的声明中。同样的，我们可以在给变量赋值时使用解构语法。例如：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;,
+    name: &quot;foo&quot;
+};
+
+let type = &quot;Literal&quot;,
+    name = 5;
+
+//  使用解构语法为多个变量赋值
+({ type, name } = node);
+
+console.log(type);          //  &quot;Identifier&quot;
+console.log(name);          //  &quot;foo&quot;
+</code></pre>
+<p>一定要用一对小括号包裹解构赋值语句，JavaScript 引擎将一对开放的花括号视为一个代码块，而语法规定，代码块语句不允许出现在赋值语句左侧，添加小括号后可以将块语句转化为一个表达式，从而实现整个解构赋值的语句。</p>
+<p><strong>注意</strong>：解构赋值表达式如果为 null 或 undefined 会导致程序抛出错误。</p>
+<h3 id="默认值">默认值</h3>
+<p>使用解构赋值表达式时，如果指定的局部变量名称在对象中不存在，那么这个局部变量会被赋值为 undefined，例如：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;,
+    name: &quot;foo&quot;
+};
+
+let { type, name, value } = node;
+
+console.log(type);          //  &quot;Identifier&quot;
+console.log(name);          //  &quot;foo&quot;
+console.log(value);         //  undefined
+</code></pre>
+<p>当指定的属性不存在时，可以随意设置一个默认值，在属性名称后添加一个等号（=）和相应的默认值即可：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;,
+    name: &quot;foo&quot;
+};
+
+let { type, name, value = true } = node;
+
+console.log(type);          //  &quot;Identifier&quot;
+console.log(name);          //  &quot;foo&quot;
+console.log(value);         //  true
+</code></pre>
+<p>这里为变量 value 设置了默认值 true，与函数的默认参数值有相似之处。</p>
+<h3 id="为非同名局部变量赋值">为非同名局部变量赋值</h3>
+<p>如果我们希望使用不同命名的局部变量来存储对象属性的值，ES6 的一个扩展语法可以满足。示例如下：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;,
+    name: &quot;foo&quot;
+};
+
+let { type: loaclType, name: localName } = node;
+
+console.log(localType);          //  &quot;Identifier&quot;
+console.log(loacalName);          //  &quot;foo&quot;
+</code></pre>
+<p>当使用其他变量名进行赋值时也可以添加默认值，只需要在变量名后添加等号和默认值即可：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;
+};
+
+let { type: localType, name: localName = &quot;bar&quot; } = node;
+
+console.log(localType);         //  &quot;Identifier&quot;
+console.log(localName);         //  &quot;bar&quot;
+</code></pre>
+<h3 id="嵌套对象解构">嵌套对象解构</h3>
+<p>解构嵌套对象仍然与对象字面量相似，可以将对象拆解以获取我们想要的信息：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;,
+    name: &quot;foo&quot;,
+    loc: {
+        start: {
+            line: 1,
+            column: 1
+        },
+        end: {
+            line: 1,
+            column: 4
+        }
+    }
+};
+
+let { loc: { start } } = node;
+
+console.log(start.line);            //  1
+console.log(start.column);          //  1
+</code></pre>
+<p>在该解构示例中，所有冒号前的标识符都代表在对象中的检索位置，其右侧为被赋值的变量名。如果冒号后面是花括号，则意味着要赋予的最终值嵌套在对象内部更深的层级中。同样的，我们也可以像刚才使用一个与对象属性名不同的局部变量名。</p>
+<p><strong>解构模式可以应用与任意层级深度的对象，且每一层都具备同等的功能。</strong></p>
+<h2 id="数组解构">数组解构</h2>
+<p>数组解构相较于对象解构简单一些，它使用的是数组字面量，而且解构操作全都在数组内完成。示例如下：</p>
+<pre><code class="language-javascript">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];
+
+let [ firstColor, secondColor ] = colors;
+
+console.log(firstColor);            //  &quot;red&quot;
+console.log(secondColor);           //  &quot;green&quot;
+</code></pre>
+<p>在数组解构语法中，我们通过值在数组中的位置进行选取，且可以将其存储在任意变量中，未显式声明的元素都会被忽略。数组本身不会发生变化。</p>
+<p>在解构模式中，也可以直接忽略元素，只为感兴趣的元素提供变量名。例如：</p>
+<pre><code class="language-javascript">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];
+
+let [ , , thirdColor ] = colors;
+
+console.log(thirdColor);            // &quot;blue&quot;
+</code></pre>
+<p>这段代码使用解构赋值语法从 colors 中获取第 3 个元素，thirdColor 前的逗号是前方元素的占位符。</p>
+<p><strong>注意</strong>，当通过 var、let 或 const 声明数组解构的绑定时，必须要提供一个初始化程序。</p>
+<h3 id="解构赋值-2">解构赋值</h3>
+<p>数组解构也可以用于赋值上下文，但不需要用小括号包裹表达式。</p>
+<pre><code class="language-javascript">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ],
+    firstColor = &quot;black&quot;,
+    secondColor = &quot;white&quot;;
+
+[ firstColor, secondColor ] = colors;
+
+console.log(firstColor);            //  &quot;red&quot;
+console.log(secondColor);           //  &quot;green&quot;
+</code></pre>
+<p>数组解构还有一个独特的用法：交换两个变量的值。例如：</p>
+<pre><code class="language-javascript">//  在 ES6 中交换变量
+let a = 1,
+    b = 2;
+
+[ a, b ] = [ b, a ];
+
+console.log(a);         //  2
+console.log(b);         //  1
+</code></pre>
+<p><strong>注意</strong>：如果右侧数组解构赋值表达式的值为 null 或 undefined，则会导致程序抛出错误。</p>
+<h3 id="默认值-2">默认值</h3>
+<p>我们也可以在数组解构赋值表达式中为数组中的任意位置添加默认值，当指定位置的属性不存在或其值为 undefined 时使用默认值：</p>
+<pre><code class="language-javascript">let colors = [ &quot;red&quot; ];
+
+let [ firstColor, secondColor = &quot;green&quot; ] = colors;
+
+console.log(firstColor);            //  &quot;red&quot;
+console.log(secondColor);           //  &quot;green&quot;
+</code></pre>
+<h3 id="嵌套数组解构">嵌套数组解构</h3>
+<p>嵌套数组结构与嵌套对象解构的语法类似，在原有的数组模式中插入另一个数组模式，即可将解构过程深入到下一个层级：</p>
+<pre><code class="language-javascript">let colors = [ &quot;red&quot;, [ &quot;green&quot;, &quot;lightgreent&quot; ], &quot;blue&quot; ];
+
+let [ firstColor, [ secondColor ] ] = colors;
+
+console.log(firstColor);            //  &quot;red&quot;
+console.log(secondColor);           //  &quot;green&quot;
+</code></pre>
+<p>在数组中也可以无限深入去解构，就像在对象中一样。</p>
+<h3 id="不定元素">不定元素</h3>
+<p>在数组解构语法中有一个与不定参数相似的概念：不定元素。在数组中，可以通过 <code>...</code> 语法将数组中的其余元素赋值给一个特定的变量，例如：</p>
+<pre><code class="language-javascript">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];
+
+let [ firstColor, ...restColors ] = colors;
+
+console.log(firstColor);            //  &quot;red&quot;
+console.log(restColors.length);         //  2
+console.log(restColors[0]);         //  &quot;green&quot;
+console.log(restColors[1]);         //  &quot;blue&quot;
+</code></pre>
+<p>在 ES6 中，我们还可以通过不定元素的语法来实现数组复制的功能：</p>
+<pre><code class="language-javascript">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];
+
+let [ ...clonedColors ] = colors;
+
+console.log(clonedColors);          //  [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ]
+</code></pre>
+<p><strong>注意</strong>：在被解构的数组中，不变元素必须为<strong>最后一个条目</strong>，在后面继续添加逗号会导致程序抛出语法错误。</p>
+<h2 id="混合解构">混合解构</h2>
+<p>可以混合使用对象解构和数组解构来创建更多的复杂表达式，这样，我们可以从任何混杂着对象和数组的数据解构中提取我们想要的信息。例如：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;,
+    name: &quot;foo&quot;,
+    loc: {
+        start: {
+            line: 1,
+            column: 1
+        },
+        end: {
+            line: 1,
+            column: 4
+        }
+    },
+    range: [0, 3]
+};
+
+let {
+    loc: { start },
+    range: [ startIndex ]
+} = node;
+
+console.log(start.line);            //  1
+console.log(start.column);          //  1
+console.log(startIndex);            //  0
+</code></pre>
+<p>当使用混合解构的语法时，可以从目标中提取任意想要的信息。这种方法极为有效，尤其是从 JSON 配置中提取信息时，不再需要遍历整个结构了。</p>
+<h2 id="解构参数">解构参数</h2>
+<p>解构也可以用在函数参数的传递过程中。</p>
+<p>当我们定义一个接受大量可选参数的函数时，我们通常会创建一个可选对象，将额外的参数定义为这个对象的属性。例如：</p>
+<pre><code class="language-javascript">//  options 的属性表示其他参数
+function setCookie(name, value, options) {
+    options = options || {};
+
+    let secure =  options.secure,
+        path = options.path,
+        domain = options.domain,
+        expires = options.expires;
+
+    //  设置 cookie 代码
+}
+
+//  第三个参数映射到 options 中
+setCookie(&quot;type&quot;, &quot;js&quot;, {
+    secure: true,
+    expires: 60000
+});
+</code></pre>
+<p>如果将 options 定义为解构参数，则可以更清晰地了解函数预期传入的参数。解构参数需要使用对象或数组解构模式代替命名参数，改写如下：</p>
+<pre><code class="language-javascript">function setCookie(name, value, { secure, path, domain,expires }) {
+    //  设置 cookie 的代码
+}
+
+setCookie(&quot;type&quot;,&quot;js&quot;, {
+    secure: true,
+    expires: 60000
+});
+</code></pre>
+<p><strong>注意</strong>：解构参数支持所有解构特性。可以使用默认值、混合对象和数组的解构模式及非同名变量存储提取出来的信息。</p>
+<h3 id="必须传值的解构参数">必须传值的解构参数</h3>
+<p>默认情况下，如果调用函数时不提供被解构的参数会导致程序抛出错误。</p>
+<p>因此如果解构参数是必需的，那么可以忽略这个问题；但是如果希望将解构参数定义为可选的，那么必须为其提供默认值来解决这个问题。</p>
+<pre><code class="language-javascript">function setCookie(name, value, { secure, path, domain, expires } = {}) {
+    //  ...
+}
+</code></pre>
+<h3 id="解构参数的默认值">解构参数的默认值</h3>
+<p>可以为解构参数指定默认值，就像在解构赋值语句中的那样：</p>
+<pre><code class="language-javascript">function setCookie(name, value,
+    {
+        secure = false,
+        path = &quot;/&quot;,
+        domain = &quot;example.com&quot;,
+        expires = new Date(Date.now() + 360000000)
+    } = {
+        secure = false,
+        path = &quot;/&quot;,
+        domain = &quot;example.com&quot;,
+        expires = new Date(Date.now() + 360000000)
+    }
+) {
+    //  ...
+}
+</code></pre>
+<p>现在函数参数中第一个对象字面量是解构参数，第二个为默认值。但是这样的写法会造成代码冗余，因此我们可以将默认值提取到一个独立对象中，并且使用该对象作为解构和默认参数的一部分，从而消除冗余：</p>
+<pre><code class="language-javascript">const setCookieDefaults = {
+    secure: false,
+    path： &quot;/&quot;,
+    domain: &quot;example.cpm&quot;,
+    expires: new Date(Date.new() + 360000000)
+};
+
+function setCookie(name, value,
+    {
+        secure = setCookieDefaults.secure,
+        path = setCookieDefaults.path,
+        domain = setCookieDefaults.domain,
+        expires = setCookieDefaults.epires
+    } = setCookieDefaults
+) {
+    //  ...
+}
+</code></pre>
+]]></content>
+    </entry>
+</feed>

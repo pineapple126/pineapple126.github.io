@@ -1,0 +1,334 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://https://pineapple126.github.io//favicon.ico?v=1585308037774">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://https://pineapple126.github.io//images/avatar.png?v=1585308037774" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#getter">Getter</a>
+<ul>
+<li><a href="#%E9%80%9A%E8%BF%87%E5%B1%9E%E6%80%A7%E8%AE%BF%E9%97%AE">通过属性访问</a></li>
+<li><a href="#%E9%80%9A%E8%BF%87%E6%96%B9%E6%B3%95%E8%AE%BF%E9%97%AE">通过方法访问</a></li>
+<li><a href="#mapgetters-%E8%BE%85%E5%8A%A9%E5%87%BD%E6%95%B0"><code>mapGetters</code> 辅助函数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Vuex 学习笔记（三）—— Getter</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-02-06 / 3 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://https://pineapple126.github.io//post-images/vuex-notes-3.jpg" alt="">
+        
+        <div class="post-content yue">
+          <h2 id="getter">Getter</h2>
+<p>有时候我们需要从 store 中的 state 中派生出一些状态，比如对列表进行过滤并计数：</p>
+<pre><code class="language-javascript">computed: {
+    doneTodosCount () {
+        return this.$store.state.todos.filter(todo =&gt; todo.done).length;
+    }
+}
+</code></pre>
+<p>如果有多个组件需要使用这个属性，无论是我们复制这个函数，或者是抽取一个共享函数然后在多处导入它都不是很理想的解决方式。</p>
+<p>Vuex 允许我们在 store 实例中定义&quot;getter&quot;（可以认为是 store 的计算属性）。就像计算属性一样，getter 的返回值会根据它的依赖被缓存起来，且只有它的依赖值发生改变时才会被重新计算。</p>
+<p>Getter 接受 state 作为它的第一个参数：</p>
+<pre><code class="language-javascript">const store = new Vuex.Store({
+    state: {
+        todos: [
+            { id: 1, text: '...',done: true },
+            { id: 2, text: '...',done: false }
+        ]
+    },
+    getters: {
+        doneTodos (state) {
+            return state.$store.todos.filter(todo =&gt; todo.done);
+        }
+        //  doneTodos: state =&gt; {
+        //      return state.$store.todos.filter(todo =&gt; todo.done);
+        //  }
+    }
+})
+</code></pre>
+<h3 id="通过属性访问">通过属性访问</h3>
+<p>Getter 会暴露为 <code>store.getters</code> 对象，我们可以通过属性的形式访问到这些值：</p>
+<pre><code class="language-javascript">store.getters.doneTodos;        //   -&gt; [{ id: 1, text: '...', done: true }]
+</code></pre>
+<p>Getter 也接受其他 getter 作为第二个参数：</p>
+<pre><code class="language-javascript">getters: {
+    //  ...
+    doneTodosCount: (state, getters) =&gt; {
+        return getters.doneTodos.length;
+    }
+}
+</code></pre>
+<pre><code class="language-javascript">store.getters.doneTodosCount;           //  -&gt; 1
+</code></pre>
+<p>我们也因此很容易的在其他组件中使用它：</p>
+<pre><code class="language-javascript">computed: {
+    donoTodosCount () {
+        return this.$store.getters.donoTodosCount;
+    }
+}
+</code></pre>
+<p><strong>注意</strong>，getter 在通过属性访问时是作为 Vue 的响应式系统的一部分缓存其中的。</p>
+<h3 id="通过方法访问">通过方法访问</h3>
+<p>我们也可以让 getter 返回一个函数，来实现给 getter 传参。这在我们对 store 中的数组进行查询时很有帮助。</p>
+<pre><code class="language-javascript">getters: {
+    //  ...
+    getTodoById: (state) =&gt; (id) =&gt; {
+        return state.todos.find(todo =&gt; todo.id === id);
+    }
+    //  getTodoById (state) {
+    //      return function (id) {
+    //          return state.todos.find(todo =&gt; todo.id === id);
+    //      }
+    //  }
+}
+</code></pre>
+<pre><code class="language-javascript">store.getters.getTodoById(2);       //  -&gt; { id: 2, text: '...', done: false }
+</code></pre>
+<p><strong>注意</strong>，getter 在通过方法访问时，每次都会去进行调用，而不会缓存结果。</p>
+<h3 id="mapgetters-辅助函数"><code>mapGetters</code> 辅助函数</h3>
+<p><code>mapGetters</code> 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性中：</p>
+<pre><code class="language-javascript">import { mapGetters } from 'vuex'
+
+export default {
+    //   ...
+    computed: {
+        //   ...
+        //  使用对象展开运算符将 getter 混入 computed 对象中
+        ...mapGetters([
+            'doneTodosCount',
+            'anotherGetter',
+            // ...
+        ])
+    }
+}
+</code></pre>
+<p>我们也可以使用对象形式为 getter 重新取一个名字：</p>
+<pre><code class="language-javascript">mapGetters({
+    //  把 `this.doneCount` 映射为 `this.$store.getters.doneTodosCount`
+    doneCount: 'doneTodosCount'
+})
+</code></pre>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/DEJyveMLT/">
+            <span class="flex-auto">JavaScript</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/urdU7hwoxU/">
+            <span class="flex-auto">vue.js</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://https://pineapple126.github.io/post/vuex-notes-4/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  Vuex 学习笔记（四）—— Mutation
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://https://pineapple126.github.io/post/vuex-notes-2/">
+                <h3 class="post-title">
+                  Vuex 学习笔记（二）—— State
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

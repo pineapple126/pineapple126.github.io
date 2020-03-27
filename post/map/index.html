@@ -1,0 +1,349 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://https://pineapple126.github.io//favicon.ico?v=1585308037774">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://https://pineapple126.github.io//images/avatar.png?v=1585308037774" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#es6-%E4%B8%AD%E7%9A%84-map-%E9%9B%86%E5%90%88">ES6 中的 Map 集合</a>
+<ul>
+<li><a href="#map-%E9%9B%86%E5%90%88%E5%88%9B%E5%BB%BA%E6%96%B9%E6%B3%95%E4%BB%A5%E5%8F%8A%E6%94%AF%E6%8C%81%E7%9A%84%E6%96%B9%E6%B3%95%E5%92%8C%E5%B1%9E%E6%80%A7">Map 集合创建方法以及支持的方法和属性</a></li>
+<li><a href="#map-%E9%9B%86%E5%90%88%E4%B8%AD%E7%9A%84-foreach-%E6%96%B9%E6%B3%95">Map 集合中的 forEach() 方法</a></li>
+</ul>
+</li>
+<li><a href="#weak-map-%E9%9B%86%E5%90%88">Weak Map 集合</a>
+<ul>
+<li><a href="#%E4%BD%BF%E7%94%A8-weak-map-%E9%9B%86%E5%90%88">使用 Weak Map 集合</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Set 集合与 Map集合（2）</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-03-12 / 6 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://https://pineapple126.github.io//post-images/map.jpg" alt="">
+        
+        <div class="post-content yue">
+          <h2 id="es6-中的-map-集合">ES6 中的 Map 集合</h2>
+<p>ES6 中的 Map 类型是一种<strong>储存着许多键值对</strong>的<strong>有序列表</strong>，其中的键名和对应的值支持所有的数据类型。键名的等价性判断是通过调用 <code>Object.is()</code> 方法实现的，所以数字 5 与字符串 &quot;5&quot; 会被判定为两种类型，可以分别作为独立的两个键出现在程序中。</p>
+<h3 id="map-集合创建方法以及支持的方法和属性">Map 集合创建方法以及支持的方法和属性</h3>
+<p>创建方法：调用 <code>new Map()</code> 即可创建一个 Map 集合。</p>
+<p>支持方法：</p>
+<ul>
+<li><code>set(key, value)</code> 方法：向 Map 集合中添加新的元素；</li>
+<li><code>get(key)</code> 方法：从 Map 集合中获取信息，若传入的键名不存在，则返回 undefined；</li>
+<li><code>has(key)</code> 方法：检测指定的键名在 Map 集合中是否已经存在；</li>
+<li><code>delete(key)</code> 方法：从 Map 集合中移除指定键名及其对应的值；</li>
+<li><code>clear()</code> 方法：移除 Map 集合中所有的键值对；</li>
+<li><code>size</code> 属性：获取当前集合中包含的键值对数量。</li>
+</ul>
+<p>请看以下这段代码：</p>
+<pre><code class="language-javascript">let map = new Map();
+map.set(&quot;name&quot;, &quot;Nicholas&quot;);
+map.set(&quot;age&quot;, 25);
+
+console.log(map.size);          //  2
+
+console.log(map.has(&quot;name&quot;));           //  true
+console.log(map.get(&quot;name&quot;));           //  &quot;Nicholas&quot;
+
+console.log(map.has(&quot;age&quot;));            //  true
+console.log(map.get(&quot;age&quot;));            //  25
+
+map.delete(&quot;name&quot;);
+console.log(map.has(&quot;name&quot;));           //  false
+console.log(map.get(&quot;name&quot;));           //  undefined
+console.log(map.size);          //  1
+
+map.clear();
+console.log(map.has(&quot;name&quot;));           //  false
+console.log(map.get(&quot;name&quot;));           //  undefined
+console.log(map.has(&quot;age&quot;));            //  false
+console.log(map.get(&quot;age&quot;));            //  undefined
+console.log(map.size);          //  0
+</code></pre>
+<p>也可以向 Map 构造函数传入数组来初始化一个 Map 集合，数组中的每一个元素都是一个子数组，子数组包含一个键值对的键名与值两个元素。示例如下：</p>
+<pre><code class="language-javascript">let map = new Map([[&quot;name&quot;, &quot;Nicholas&quot;], [&quot;age&quot;, 25]]);
+
+console.log(map.has(&quot;name&quot;));           //  true
+console.log(map.get(&quot;name&quot;));           //  &quot;Nicholas&quot;
+console.log(map.has(&quot;age&quot;));            //  true
+console.log(map.get(&quot;age&quot;));            //  25
+console.log(map.size);          //  2
+</code></pre>
+<h3 id="map-集合中的-foreach-方法">Map 集合中的 forEach() 方法</h3>
+<p>Map集合的 <code>forEach()</code> 方法与 Set 集合和数组中的 <code>forEach()</code> 方法类似，回调函数都接受 3 个参数：</p>
+<ul>
+<li>Map 集合中下一次索引的值</li>
+<li>值对应的键名</li>
+<li>Map 集合本身</li>
+</ul>
+<p>这些回调参数与数组中的更相近，第一个参数是值，第二个参数是键名。请看这个示例：</p>
+<pre><code class="language-javascript">let map = new Map([[&quot;name&quot;, &quot;Nicholas&quot;], [&quot;age&quot;, 25]]);
+
+map.forEach(function (value, key, ownerMap) {
+    console.log(key + &quot; &quot; + value);
+    console.log(ownerMap === map);
+});
+</code></pre>
+<p>这段代码会输出以下内容：</p>
+<pre><code class="language-javascript">name Nicholas
+true
+age 25
+true
+</code></pre>
+<p>遍历过程中，会按照键值对插入 Map 集合的顺序将相应信息传入 <code>forEach()</code> 方法的回调函数，而在数组中，则会按照数值型索引值的顺序依次传入回调函数。</p>
+<p><strong>注意</strong>：可以指定 <code>forEach()</code> 函数的第二个参数作为回调函数的 <code>this</code> 值。</p>
+<h2 id="weak-map-集合">Weak Map 集合</h2>
+<p>Weak Set 集合是弱引用的 Set 集合，相对应的，Weak Map 集合是弱引用的 Map 集合，也用于存储对象的弱引用。Weak Map 集合中的键名必须是一个对象。集合中保存的是这些对象的弱引用，如果在弱引用之外不存在其他的强引用，引擎的垃圾回收机制会自动回收这个对象，同时也会移除 Weak Map 集合中的键值对。但是只有集合的键名遵从这个规则，键名对应的值如果是个对象，则保存的是对象的强引用，不会触发垃圾回收机制。</p>
+<p>Weak Map 集合最大的用途是跟踪 Web 页面中的 DOM 元素，当 DOM 元素消失时，可以自动销毁集合中的相关对象。</p>
+<h3 id="使用-weak-map-集合">使用 Weak Map 集合</h3>
+<p>ES6 中的 Weak Map 类型是一种存储着许多键值对的无序列表，列表的键名必须是非 null 类型的对象，键名对应的值则可以是任意类型。</p>
+<p>我们可以通过 WeakMap 构造函数来创建一个 Weak Map 集合。Weak Map 集合也支持以下方法：</p>
+<ul>
+<li><code>set()</code></li>
+<li><code>get()</code></li>
+<li><code>has()</code></li>
+<li><code>delete()</code></li>
+</ul>
+<p>请看以下这段代码：</p>
+<pre><code class="language-javascript">let map = new WeakMap(),
+    element = document.querySelector(&quot;.element&quot;);
+
+map.set(element, &quot;Original&quot;);
+
+console.log(map.has(element));          //  true
+console.log(map.get(element));          //  &quot;Original&quot;
+
+map.delete(element);
+console.log(map.has(element));          //  false
+console.log(map.get(element));          //  undefined
+</code></pre>
+<h2 id="小结">小结</h2>
+<p>Set 集合是一种包含多个非重复值的有序列表，值与值之间的等价性是通过 <code>Object.is()</code> 方法来判断的，如果相同，则会自动过滤重复的值，所以可以用 Set 集合来过滤数组中的重复元素。</p>
+<p>Weak Set 集合是一类特殊的 Set 集合，集合只支持存放对象的弱引用。由于内存管理非常复杂，Weak Set 集合不可以被检查，因此追踪成组的对象是该集合最好的使用方式。</p>
+<p>Map 是多个键值对组成的有序集合，键名支持任意数据类型，与 Set 集合相似的是，Map 集合也是通过 <code>Object.is()</code> 方法来过滤重复值。</p>
+<p>Weak Map 集合是一类特殊的 Map 集合，只支持对象类型的键名，集合中存放的键是对象的弱引用。Weak Map 集合可以为那些实际使用与生命周期管理分离的对象添加额外信息。</p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/DEJyveMLT/">
+            <span class="flex-auto">JavaScript</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/hxjHtHlc-E/">
+            <span class="flex-auto">深入理解ES6学习笔记</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://https://pineapple126.github.io/post/type-judgement/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  类型判断
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://https://pineapple126.github.io/post/set/">
+                <h3 class="post-title">
+                  Set 集合与 Map 集合（1）
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

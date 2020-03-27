@@ -1,0 +1,537 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://https://pineapple126.github.io//favicon.ico?v=1585308037774">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://https://pineapple126.github.io//images/avatar.png?v=1585308037774" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%88%AB">对象类别</a></li>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E8%AF%AD%E6%B3%95%E6%89%A9%E5%B1%95">对象字面量语法扩展</a>
+<ul>
+<li><a href="#%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%80%BC%E7%9A%84%E7%AE%80%E5%86%99">属性初始值的简写</a></li>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95%E7%9A%84%E7%AE%80%E5%86%99%E8%AF%AD%E6%B3%95">对象方法的简写语法</a></li>
+<li><a href="#%E5%8F%AF%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%90%8Dcomputed-property-name">可计算属性名（Computed Property Name）</a></li>
+</ul>
+</li>
+<li><a href="#%E6%96%B0%E5%A2%9E%E6%96%B9%E6%B3%95">新增方法</a>
+<ul>
+<li><a href="#objectis-%E6%96%B9%E6%B3%95">Object.is() 方法</a></li>
+<li><a href="#objectassign-%E6%96%B9%E6%B3%95">Object.assign() 方法</a></li>
+</ul>
+</li>
+<li><a href="#%E9%87%8D%E5%A4%8D%E7%9A%84%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F%E5%B1%9E%E6%80%A7">重复的对象字面量属性</a></li>
+<li><a href="#%E8%87%AA%E6%9C%89%E5%B1%9E%E6%80%A7%E6%9E%9A%E4%B8%BE%E9%A1%BA%E5%BA%8F">自有属性枚举顺序</a></li>
+<li><a href="#%E5%A2%9E%E5%BC%BA%E5%AF%B9%E8%B1%A1%E5%8E%9F%E5%9E%8B">增强对象原型</a>
+<ul>
+<li><a href="#%E6%94%B9%E5%8F%98%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8E%9F%E5%9E%8B">改变对象的原型</a></li>
+<li><a href="#%E7%AE%80%E5%8C%96%E5%8E%9F%E5%9E%8B%E8%AE%BF%E9%97%AE%E7%9A%84-super-%E5%BC%95%E7%94%A8">简化原型访问的 Super 引用</a></li>
+</ul>
+</li>
+<li><a href="#%E6%AD%A3%E5%BC%8F%E7%9A%84%E6%96%B9%E6%B3%95%E5%AE%9A%E4%B9%89">正式的方法定义</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">扩展对象的功能性</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-02-20 / 12 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://https://pineapple126.github.io//post-images/extend-object-functionality.jpg" alt="">
+        
+        <div class="post-content yue">
+          <p>这是学习阅读《深入理解ES6》第四章 扩展对象的功能性 后整理而成的学习笔记。</p>
+<p>在 JavaScript 中，几乎每一个值都是某种特定类型的对象，于是 ES6 也着重提升了对象的功能性。ES6 通过多种方式加强了对象的使用，通过简单的语法扩展，提供更多操作对象及与对象交互的方法。本文将讲解这些改进。</p>
+<h2 id="对象类别">对象类别</h2>
+<p>在浏览器这样的执行环境中，对象没有统一的标准，在标准中又使用不同的术语描述对象，ES6 规范清晰定义了每一个类别的对象。对象类别如下：</p>
+<ul>
+<li><strong>普通（Ordinary）对象</strong> 具有 JavaScript 对象所有的默认内部行为。</li>
+<li><strong>特异（Exotic）对象</strong> 具有某些与默认行为不符的内部行为。</li>
+<li><strong>标准（Standard）对象</strong> ES6 规范中定义的对象，例如：Array、Date 等。标准对象既可以普通对象，也可以是特异对象。</li>
+<li><strong>内建对象</strong> 脚本开始执行时存在于 JavaScript 执行环境中的对象，所有标准对象都是内建对象。</li>
+</ul>
+<h2 id="对象字面量语法扩展">对象字面量语法扩展</h2>
+<p>在 ES6 中，通过下面几种语法，可以让对象字面量变得更简洁、更强大。</p>
+<h3 id="属性初始值的简写">属性初始值的简写</h3>
+<p>在 ES6 中，通过使用属性初始化的简写语法，可以消除属性名称与局部变量之间的重复书写。当一个对象的属性与本地变量名同名时，不必再写冒号和值，简单地只写属性名即可。例如：</p>
+<pre><code class="language-javascript">function createPerson(name, age) {
+    return {
+        name,
+        age
+    };
+}
+</code></pre>
+<p>当对象字面量里只有一个属性的名称时，JavaScript 引擎会在可访问作用域中查找其同名变量；如果找到，则该变量的值被赋给对象字面量里的同名属性。</p>
+<h3 id="对象方法的简写语法">对象方法的简写语法</h3>
+<p>在 ES6 中，如果为对象添加方法，语法相较于之前更简洁，消除了冒号和 function 关键字。例如：</p>
+<pre><code class="language-javascript">var person = {
+    name: &quot;Nicholas&quot;,
+    sayName() {
+        console.log(this.name);
+    }
+};
+</code></pre>
+<p>在这个示例中，通过对象方法简写语法，在 person 对象中创建一个 sayName() 方法，该属性被赋值为一个匿名函数表达式，它拥有在 ES5 中定义的对象方法所具有的全部特性。二者唯一的区别是，简写方法可以使用 super 关键字。</p>
+<p><strong>注意</strong>：通过对象方法简写语法创建的方法有一个 name 属性，其值为小括号前的名称，在上述示例中，person.sayName() 方法的 name 属性的值为 &quot;sayName&quot;。</p>
+<h3 id="可计算属性名computed-property-name">可计算属性名（Computed Property Name）</h3>
+<p>在 ES6 中，可以在对象字面量中使用可计算属性名称，其语法与引用对象实例的可计算属性名称相同，也是使用方括号。例如：</p>
+<pre><code class="language-javascript">let lastName = &quot;last name&quot;;
+
+let person = {
+    &quot;first name&quot;: &quot;Nicholas&quot;,
+    [lastName]: &quot;Zakas&quot;
+};
+
+console.log(person[&quot;first name&quot;]);          //  &quot;Nicholas&quot;
+console.log(person[lastName]);          //  &quot;Zalas&quot;
+</code></pre>
+<p>在对象字面量中使用方括号表示的该属性名称是可计算的，它的内容将被求之并被最终转化为一个字符串，因而同样可以使用表达式作为属性的可计算名称，例如：</p>
+<pre><code class="language-javascript">var suffix = &quot; name&quot;;
+
+var person = {
+    [&quot;first&quot; + suffix]: &quot;Nicholas&quot;,
+    [&quot;last&quot; + suffix]: &quot;Zakas&quot;
+};
+
+console.log(person[&quot;first name&quot;]);          //  &quot;Nicholas&quot;
+console.log(person[&quot;last name&quot;]);          //  &quot;Zalas&quot;
+</code></pre>
+<h2 id="新增方法">新增方法</h2>
+<p>在 ES6 中，为了使某些任务更易完成，在全局 Object 对象上引入了一些新方法。</p>
+<h3 id="objectis-方法">Object.is() 方法</h3>
+<p>在 JS 中，要比较两个值时，可能习惯于使用相等运算符（==）或全等运算符（===）。许多人喜欢使用后者，从而避免触发强制类型转换的行为。但是全等运算符也不是完全正确，在 JS 中 +0 和 -0 被表示为两个完全不同的实体，从而使用全等运算符 === 对两者进行比较，得到的结果是两者相等；同样，NaN === NaN 的返回值为 false，需要使用 <code>isNaN()</code> 方法才可以正确检测 NaN。</p>
+<p>ES6 引入了 <code>Object.is()</code> 方法来弥补全等运算符的不准确运算。这个方法接受两个参数，如果这两个参数类型相同且具有相同的值，则返回 true。</p>
+<pre><code class="language-javascript">console.log(+0 == -0);                                         //  true
+console.log(+0 === -0);                                      //  true
+console.log(Object.is(+0, -0));                             //  false
+
+console.log(NaN == NaN);                                 //  false
+console.log(NaN === NaN);                              //  false
+console.log(Object.is(NaN, NaN));                     //  true
+
+console.log(5 == &quot;5&quot;);                                        //  true
+console.log(5 === &quot;5&quot;);                                     //  false
+console.log(Object.is(5, &quot;5&quot;));                            //  false
+</code></pre>
+<p>对于 <code>Object.is()</code> 方法来说，其运行结果大部分情况与 === 运算符相同，唯一的区别在于 +0 和 -0 被识别为不相等并且 NaN 和 NaN 等价。</p>
+<p>在 ES5 及之前的版本，我们可以为 <code>Object.is()</code> 写一个 polyfill：</p>
+<pre><code class="language-javascript">if(!Object.is) {
+    Object.is = function(value1, value2) {
+        if(value1 === value2) {
+            return value1 !== 0 || 1/value1 &amp;&amp; 1/value2;
+        } else {
+            return value1 !== value1 &amp;&amp; value2 !== value2;
+        }
+    }
+}
+</code></pre>
+<h3 id="objectassign-方法">Object.assign() 方法</h3>
+<p>ES6 中添加了 <code>Object.assign()</code> 方法来实现混合（Mixin）功能，该方法接受<strong>一个接收对象</strong>和<strong>任意数量的源对象</strong>，最终返回接收对象。</p>
+<p><code>Object.assign()</code> 方法可以接受任意数量的源对象，并按照指定的顺序将属性复制到接收对象中。所以如果多个源对象具有同名属性，则排位靠后的源对象会覆盖排位靠前的。例如：</p>
+<pre><code class="language-javascript">var receiver = {};
+
+Object.assign(receiver, 
+    {
+        type: &quot;js&quot;,
+        name: &quot;file.js&quot;
+    },
+    {
+        type: &quot;css&quot;
+    }
+);
+
+console.log(receiver.type);                     //  &quot;css&quot;
+console.log(receiver.name);                   //  &quot;file.js&quot;
+</code></pre>
+<h2 id="重复的对象字面量属性">重复的对象字面量属性</h2>
+<p>ES5 严格模式中加入了对象字面量重复属性的校验，当同时存在多个同名属性时会抛出错误。例如：</p>
+<pre><code class="language-javascript">&quot;use strict&quot;;
+
+var person = {
+    name: &quot;Nicholas&quot;,
+    name: &quot;Greg&quot;                    //  ES5 严格模式下会有语法错误
+}
+</code></pre>
+<p>但是在 ES6 中重复属性检查被移除了，无论是在严格模式下还是非严格模式下，代码不再检查重复属性，对于每一组重复属性，都会选取最后一个取值。例如：</p>
+<pre><code class="language-javascript">&quot;use strict&quot;;
+
+var person = {
+    name: &quot;Nicholas&quot;,
+    name: &quot;Greg&quot;                    //  ES6 严格模式下没有错误
+};
+
+console.log(person.name);           //  &quot;Greg&quot;
+</code></pre>
+<h2 id="自有属性枚举顺序">自有属性枚举顺序</h2>
+<p>ES5 中未定义对象属性的枚举顺序，由 JS 引擎厂商自行决定。然而，ES6 严格规定了对象的自由属性被枚举时的返回顺序，这会影响到 <code>Object.getOwnPropertyNames()</code> 方法及 <code>Reflect.ownKeys()</code> 返回属性的方式，<code>Object.assign()</code> 方法处理属性的顺序也将随之改变。</p>
+<p>自有属性枚举顺序的基本规则是：</p>
+<ol>
+<li>所有数字键按升序排序。</li>
+<li>所有字符串键按照它们被加入对象的顺序排序。</li>
+<li>所有 symbol 键按照他们被加入的顺序排序。</li>
+</ol>
+<p>示例如下：</p>
+<pre><code class="language-javascript">var obj = {
+    a: 1,
+    0: 1,
+    c: 1,
+    2: 1,
+    b: 1,
+    1: 1
+};
+
+obj.d = 1;
+
+console.log(Object.getOwnPropertyNames(obj).join(&quot; &quot;));
+//  &quot;0 1 2 a c b d&quot;
+</code></pre>
+<p><strong>注意</strong>：对于 for-in 循环，仍未指定一个明确的枚举顺序；而 <code>Object.keys()</code> 方法和 <code>JSON.stringify()</code> 方法都指明与 for-in 使用相同的枚举顺序，因此它们的枚举顺序也不明晰。</p>
+<h2 id="增强对象原型">增强对象原型</h2>
+<p>原型是 JavaScript 继承的基础，随着语言逐渐成熟，ES6 针对原型进行了改进。</p>
+<h3 id="改变对象的原型">改变对象的原型</h3>
+<p>正常情况下，无论是通过构造函数还是 <code>Object.create()</code> 方法创建对象，其原型是在对象被创建时指定的。对象原型在实例化之后保持不变，直到 ES5 都是 JavaScript 编程最重要的设定之一。虽然 ES5 中添加了 <code>Object.getPrototypeOf()</code> 方法来返回任意指定对象的原型，但仍然缺少对象在实例化后改变原型的标准方法。</p>
+<p>所以，在 ES6 中添加了 <code>Object.setPrototypeOf()</code> 方法来实现改变任意指定对象的原型，它接受两个参数：<strong>被改变原型的对象</strong>及<strong>替代第一个参数原型的对象</strong>。例如：</p>
+<pre><code class="language-javascript">let person = {
+    getGreeting() {
+        return &quot;Hello&quot;;
+    }
+};
+
+let dog = {
+    getGreeting() {
+        return &quot;Woof&quot;;
+    }
+};
+
+//  以 person 对象为原型
+let friend = Object.create(person);
+console.log(friend.getGreeting());              //  &quot;Hello&quot;
+console.log(Object.getPrototypeOf(friend) === person);          //  true
+
+//  将原型设置为 dog
+Object.setPrototypeOf(friend, dog);
+console.log(friend.getGreeting());              //  &quot;Woof&quot;
+console.log(Object.getPrototypeOf(friend) === dog);          //  true
+</code></pre>
+<p>对象原型的真实值被储存在内部专用属性 <code>[[Prototype]]</code> 中，调用 <code>Object.getPrototypeOf()</code> 方法返回储存在其中的值，调用 <code>Object.setPrototypeOf()</code> 方法改变其中的值。</p>
+<h3 id="简化原型访问的-super-引用">简化原型访问的 Super 引用</h3>
+<p>ES6 引入了 Super 调用的特性，使用它可以更便捷地访问对象原型。举个例子，如果我们想要重写对象实例的方法，又需要调用与它同名的原型方法，则在 ES5 中可以这样实现：</p>
+<pre><code class="language-javascript">let person = {
+    getGreeting() {
+        return &quot;Hello&quot;;
+    }
+};
+
+let dog = {
+    getGreeting() {
+        return &quot;Woof&quot;;
+    }
+};
+
+let friend = {
+    getGreeting() {
+        return Object.getPrototypeOf(this).getGreeting.call(this) + &quot;, hi!&quot;;
+    }
+};
+
+//  将原型设置为 person
+Object.setPrototypeOf(friend, person);
+console.log(friend.getGreeting());          //  &quot;Hello, hi!&quot;
+console.log(Object.getPrototypeOf(friend) === person);          //  true
+
+//  将原型设置为 dog
+Object.setPrototypeOf(friend, dog);
+console.log(friend.getGreeting());          //  &quot;Woof, hi!&quot;
+console.log(Object.getPrototypeOf(friend) === dog);          //  true
+</code></pre>
+<p>在这个示例中，<code>Object.getPrototypeOf()</code> 方法可以确保调用正确的原型，并向输出字符串叠加另一个字符串；后面的 <code>.call(this)</code> 可以确保正确设置原型方法中的 this 值。</p>
+<p>要准确记住如何使用 <code>Object.getPrototypeOf()</code> 方法和 <code>.call(this)</code> 方法来调用原型上的方法实在复杂，所以 ES6 引入了 <code>super</code> 关键字。简单来说，Super 引用相当于<strong>指向对象原型的指针</strong>，实际上也是 <code>Object.getPrototypeOf(this)</code> 的值。于是，可以这样简化上面的方法：</p>
+<pre><code class="language-javascript">let friend = {
+    getGreeting() {
+        //  这段代码与之前的示例中的
+        //  Object.getPrototypeOf(this).getGreeting.call(this) 相同
+        return super.getGreeting() + &quot;,  hi!&quot;;
+    }
+};
+</code></pre>
+<p>调用 <code>super.getGreeting()</code> 方法相当于在当前上下文中调用 <code>Object.getPrototypeOf(this).getGreeting.call(this)</code>。同样的，可以通过 Super 引用调用对象原型上所有的其他的方法。</p>
+<p><strong>注意</strong>：必须要在使用简写方法的对象中使用 Super 引用，但如果在其他方法声明中使用会导致语法错误。</p>
+<p>Super 引用在多重继承的情况下非常有用，因为在这种情况下，使用 <code>Object.getPrototypeOf()</code> 方法将会出现问题。例如：</p>
+<pre><code class="language-javascript">let person = {
+    getGreeting() {
+        return &quot;Hello&quot;;
+    }
+};
+
+//  以 person 对象为原型
+let friend = {
+    getGreeting() {
+        return Object.getPrototypeOf(this).getGreeting.call(this) + &quot;, hi!&quot;;
+    }
+};
+Object.setPrototypeOf(friend, person);
+
+//  原型是 friend
+let relative = Object.create(friend);
+
+console.log(person.getGreeting());              //  &quot;Hello&quot;
+console.log(friend.getGreeting());              //  &quot;Hello, hi!&quot;
+console.log(relative.getGreeting());                //  error!
+</code></pre>
+<p>这里会进入递归调用直到触发栈溢出报错。</p>
+<p>在 ES6 中，使用 Super 引用便可以迎刃而解：</p>
+<pre><code class="language-javascript">let person = {
+    getGreeting() {
+        return &quot;Hello&quot;;
+    }
+};
+
+//  以 person 对象为原型
+let friend = {
+    getGreeting() {
+        return super.getGreeting() + &quot;, hi!&quot;;
+    }
+};
+Object.setPrototypeOf(friend, person);
+
+//  原型是 friend
+let relative = Object.create(friend);
+
+console.log(person.getGreeting());              //  &quot;Hello&quot;
+console.log(friend.getGreeting());              //  &quot;Hello, hi!&quot;
+console.log(relative.getGreeting());                //  &quot;Hello, hi!&quot;
+</code></pre>
+<h2 id="正式的方法定义">正式的方法定义</h2>
+<p>在 ES6 以前，方法仅仅是一个具有功能而非数据的对象属性。而在 ES6 中正式将方法定义为一个函数，它会有一个内部的 <code>[[HomeObject]]</code> 属性来容纳这个方法从属的对象。</p>
+<pre><code class="language-javascript">let person = {
+
+    //  是方法
+    getGreeting() {
+        return &quot;Hello&quot;;
+    }
+};
+
+//  不是方法
+function shareGreeting() {
+    return &quot;Hi!&quot;;
+}
+</code></pre>
+<p>Super 的所有引用都通过 <code>[[HomeObject]]</code> 属性来确定后续的运动行动。第一步是在 <code>[[HomeObject]]</code> 属性上调用 <code>Object.getPrototypeOf()</code> 方法来检索原型的引用；然后搜索原型找到同名函数；最后，设置 this 绑定并且调用相应的方法。</p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/DEJyveMLT/">
+            <span class="flex-auto">JavaScript</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/hxjHtHlc-E/">
+            <span class="flex-auto">深入理解ES6学习笔记</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://https://pineapple126.github.io/post/deconstruction/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  解构
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://https://pineapple126.github.io/post/common-methods/">
+                <h3 class="post-title">
+                  学习中使用到的常见方法记录
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

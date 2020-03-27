@@ -1,0 +1,562 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://https://pineapple126.github.io//favicon.ico?v=1585308037774">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://https://pineapple126.github.io//images/avatar.png?v=1585308037774" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%B8%BA%E4%BD%95%E4%BD%BF%E7%94%A8%E8%A7%A3%E6%9E%84%E5%8A%9F%E8%83%BD">为何使用解构功能</a></li>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E8%A7%A3%E6%9E%84">对象解构</a>
+<ul>
+<li><a href="#%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC">解构赋值</a></li>
+<li><a href="#%E9%BB%98%E8%AE%A4%E5%80%BC">默认值</a></li>
+<li><a href="#%E4%B8%BA%E9%9D%9E%E5%90%8C%E5%90%8D%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E8%B5%8B%E5%80%BC">为非同名局部变量赋值</a></li>
+<li><a href="#%E5%B5%8C%E5%A5%97%E5%AF%B9%E8%B1%A1%E8%A7%A3%E6%9E%84">嵌套对象解构</a></li>
+</ul>
+</li>
+<li><a href="#%E6%95%B0%E7%BB%84%E8%A7%A3%E6%9E%84">数组解构</a>
+<ul>
+<li><a href="#%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC-2">解构赋值</a></li>
+<li><a href="#%E9%BB%98%E8%AE%A4%E5%80%BC-2">默认值</a></li>
+<li><a href="#%E5%B5%8C%E5%A5%97%E6%95%B0%E7%BB%84%E8%A7%A3%E6%9E%84">嵌套数组解构</a></li>
+<li><a href="#%E4%B8%8D%E5%AE%9A%E5%85%83%E7%B4%A0">不定元素</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B7%B7%E5%90%88%E8%A7%A3%E6%9E%84">混合解构</a></li>
+<li><a href="#%E8%A7%A3%E6%9E%84%E5%8F%82%E6%95%B0">解构参数</a>
+<ul>
+<li><a href="#%E5%BF%85%E9%A1%BB%E4%BC%A0%E5%80%BC%E7%9A%84%E8%A7%A3%E6%9E%84%E5%8F%82%E6%95%B0">必须传值的解构参数</a></li>
+<li><a href="#%E8%A7%A3%E6%9E%84%E5%8F%82%E6%95%B0%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC">解构参数的默认值</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">解构</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-02-25 / 11 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://https://pineapple126.github.io//post-images/deconstruction.jpg" alt="">
+        
+        <div class="post-content yue">
+          <p>这是学习阅读《深入理解ES6》第五章 解构：使数据访问更便捷 后整理而成的学习笔记。</p>
+<p>对象和数组字面量是 JavaScript 中的两种最常用的数据结构，由于 JSON 数据结构的普及，二者已经称为语言中的特别重要的一部分。ES6 中添加了一种可以简化有组织地从对象或数组中提取相关地信息片段的新特性：解构。<strong>解构是一种打破数据结构，将其拆分为更小部分的过程。</strong></p>
+<h2 id="为何使用解构功能">为何使用解构功能</h2>
+<p>在 ES5 以及早期版本中，为了从对象和数组中获取特定数据并赋值给变量，编写了许多看起来同质化的代码，例如：</p>
+<pre><code class="language-javascript">let options = {
+    repeat: true,
+    save: false
+};
+
+//  从对象中提取数据
+let repeat = options.repeat,
+    save = options.save;
+</code></pre>
+<p>如果你要提取的内容还包含嵌套解构，则必须要深挖整个数据结构才能找到所需数据。</p>
+<p>所以 ES6 为对象和数组都添加了解构功能，将数据结构打散的过程变得更加简单，可以从打散后更小的部分中获取所需信息。</p>
+<h2 id="对象解构">对象解构</h2>
+<p>对象解构的语法形式是在一个赋值操作符左边放置一个对象字面量，例如：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;,
+    name: &quot;foo&quot;
+};
+
+let { type, name } = node;
+
+console.log(type);          //  &quot;Identifier&quot;
+console.log(name);          //  &quot;foo&quot;
+</code></pre>
+<p><strong>注意</strong>：<strong>不要忘记初始化程序</strong>，使用 var、let 或 const 解构声明变量时，必须要提供初始化程序。</p>
+<h3 id="解构赋值">解构赋值</h3>
+<p>我们已经将对象结构应用到了变量的声明中。同样的，我们可以在给变量赋值时使用解构语法。例如：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;,
+    name: &quot;foo&quot;
+};
+
+let type = &quot;Literal&quot;,
+    name = 5;
+
+//  使用解构语法为多个变量赋值
+({ type, name } = node);
+
+console.log(type);          //  &quot;Identifier&quot;
+console.log(name);          //  &quot;foo&quot;
+</code></pre>
+<p>一定要用一对小括号包裹解构赋值语句，JavaScript 引擎将一对开放的花括号视为一个代码块，而语法规定，代码块语句不允许出现在赋值语句左侧，添加小括号后可以将块语句转化为一个表达式，从而实现整个解构赋值的语句。</p>
+<p><strong>注意</strong>：解构赋值表达式如果为 null 或 undefined 会导致程序抛出错误。</p>
+<h3 id="默认值">默认值</h3>
+<p>使用解构赋值表达式时，如果指定的局部变量名称在对象中不存在，那么这个局部变量会被赋值为 undefined，例如：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;,
+    name: &quot;foo&quot;
+};
+
+let { type, name, value } = node;
+
+console.log(type);          //  &quot;Identifier&quot;
+console.log(name);          //  &quot;foo&quot;
+console.log(value);         //  undefined
+</code></pre>
+<p>当指定的属性不存在时，可以随意设置一个默认值，在属性名称后添加一个等号（=）和相应的默认值即可：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;,
+    name: &quot;foo&quot;
+};
+
+let { type, name, value = true } = node;
+
+console.log(type);          //  &quot;Identifier&quot;
+console.log(name);          //  &quot;foo&quot;
+console.log(value);         //  true
+</code></pre>
+<p>这里为变量 value 设置了默认值 true，与函数的默认参数值有相似之处。</p>
+<h3 id="为非同名局部变量赋值">为非同名局部变量赋值</h3>
+<p>如果我们希望使用不同命名的局部变量来存储对象属性的值，ES6 的一个扩展语法可以满足。示例如下：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;,
+    name: &quot;foo&quot;
+};
+
+let { type: loaclType, name: localName } = node;
+
+console.log(localType);          //  &quot;Identifier&quot;
+console.log(loacalName);          //  &quot;foo&quot;
+</code></pre>
+<p>当使用其他变量名进行赋值时也可以添加默认值，只需要在变量名后添加等号和默认值即可：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;
+};
+
+let { type: localType, name: localName = &quot;bar&quot; } = node;
+
+console.log(localType);         //  &quot;Identifier&quot;
+console.log(localName);         //  &quot;bar&quot;
+</code></pre>
+<h3 id="嵌套对象解构">嵌套对象解构</h3>
+<p>解构嵌套对象仍然与对象字面量相似，可以将对象拆解以获取我们想要的信息：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;,
+    name: &quot;foo&quot;,
+    loc: {
+        start: {
+            line: 1,
+            column: 1
+        },
+        end: {
+            line: 1,
+            column: 4
+        }
+    }
+};
+
+let { loc: { start } } = node;
+
+console.log(start.line);            //  1
+console.log(start.column);          //  1
+</code></pre>
+<p>在该解构示例中，所有冒号前的标识符都代表在对象中的检索位置，其右侧为被赋值的变量名。如果冒号后面是花括号，则意味着要赋予的最终值嵌套在对象内部更深的层级中。同样的，我们也可以像刚才使用一个与对象属性名不同的局部变量名。</p>
+<p><strong>解构模式可以应用与任意层级深度的对象，且每一层都具备同等的功能。</strong></p>
+<h2 id="数组解构">数组解构</h2>
+<p>数组解构相较于对象解构简单一些，它使用的是数组字面量，而且解构操作全都在数组内完成。示例如下：</p>
+<pre><code class="language-javascript">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];
+
+let [ firstColor, secondColor ] = colors;
+
+console.log(firstColor);            //  &quot;red&quot;
+console.log(secondColor);           //  &quot;green&quot;
+</code></pre>
+<p>在数组解构语法中，我们通过值在数组中的位置进行选取，且可以将其存储在任意变量中，未显式声明的元素都会被忽略。数组本身不会发生变化。</p>
+<p>在解构模式中，也可以直接忽略元素，只为感兴趣的元素提供变量名。例如：</p>
+<pre><code class="language-javascript">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];
+
+let [ , , thirdColor ] = colors;
+
+console.log(thirdColor);            // &quot;blue&quot;
+</code></pre>
+<p>这段代码使用解构赋值语法从 colors 中获取第 3 个元素，thirdColor 前的逗号是前方元素的占位符。</p>
+<p><strong>注意</strong>，当通过 var、let 或 const 声明数组解构的绑定时，必须要提供一个初始化程序。</p>
+<h3 id="解构赋值-2">解构赋值</h3>
+<p>数组解构也可以用于赋值上下文，但不需要用小括号包裹表达式。</p>
+<pre><code class="language-javascript">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ],
+    firstColor = &quot;black&quot;,
+    secondColor = &quot;white&quot;;
+
+[ firstColor, secondColor ] = colors;
+
+console.log(firstColor);            //  &quot;red&quot;
+console.log(secondColor);           //  &quot;green&quot;
+</code></pre>
+<p>数组解构还有一个独特的用法：交换两个变量的值。例如：</p>
+<pre><code class="language-javascript">//  在 ES6 中交换变量
+let a = 1,
+    b = 2;
+
+[ a, b ] = [ b, a ];
+
+console.log(a);         //  2
+console.log(b);         //  1
+</code></pre>
+<p><strong>注意</strong>：如果右侧数组解构赋值表达式的值为 null 或 undefined，则会导致程序抛出错误。</p>
+<h3 id="默认值-2">默认值</h3>
+<p>我们也可以在数组解构赋值表达式中为数组中的任意位置添加默认值，当指定位置的属性不存在或其值为 undefined 时使用默认值：</p>
+<pre><code class="language-javascript">let colors = [ &quot;red&quot; ];
+
+let [ firstColor, secondColor = &quot;green&quot; ] = colors;
+
+console.log(firstColor);            //  &quot;red&quot;
+console.log(secondColor);           //  &quot;green&quot;
+</code></pre>
+<h3 id="嵌套数组解构">嵌套数组解构</h3>
+<p>嵌套数组结构与嵌套对象解构的语法类似，在原有的数组模式中插入另一个数组模式，即可将解构过程深入到下一个层级：</p>
+<pre><code class="language-javascript">let colors = [ &quot;red&quot;, [ &quot;green&quot;, &quot;lightgreent&quot; ], &quot;blue&quot; ];
+
+let [ firstColor, [ secondColor ] ] = colors;
+
+console.log(firstColor);            //  &quot;red&quot;
+console.log(secondColor);           //  &quot;green&quot;
+</code></pre>
+<p>在数组中也可以无限深入去解构，就像在对象中一样。</p>
+<h3 id="不定元素">不定元素</h3>
+<p>在数组解构语法中有一个与不定参数相似的概念：不定元素。在数组中，可以通过 <code>...</code> 语法将数组中的其余元素赋值给一个特定的变量，例如：</p>
+<pre><code class="language-javascript">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];
+
+let [ firstColor, ...restColors ] = colors;
+
+console.log(firstColor);            //  &quot;red&quot;
+console.log(restColors.length);         //  2
+console.log(restColors[0]);         //  &quot;green&quot;
+console.log(restColors[1]);         //  &quot;blue&quot;
+</code></pre>
+<p>在 ES6 中，我们还可以通过不定元素的语法来实现数组复制的功能：</p>
+<pre><code class="language-javascript">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];
+
+let [ ...clonedColors ] = colors;
+
+console.log(clonedColors);          //  [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ]
+</code></pre>
+<p><strong>注意</strong>：在被解构的数组中，不变元素必须为<strong>最后一个条目</strong>，在后面继续添加逗号会导致程序抛出语法错误。</p>
+<h2 id="混合解构">混合解构</h2>
+<p>可以混合使用对象解构和数组解构来创建更多的复杂表达式，这样，我们可以从任何混杂着对象和数组的数据解构中提取我们想要的信息。例如：</p>
+<pre><code class="language-javascript">let node = {
+    type: &quot;Identifier&quot;,
+    name: &quot;foo&quot;,
+    loc: {
+        start: {
+            line: 1,
+            column: 1
+        },
+        end: {
+            line: 1,
+            column: 4
+        }
+    },
+    range: [0, 3]
+};
+
+let {
+    loc: { start },
+    range: [ startIndex ]
+} = node;
+
+console.log(start.line);            //  1
+console.log(start.column);          //  1
+console.log(startIndex);            //  0
+</code></pre>
+<p>当使用混合解构的语法时，可以从目标中提取任意想要的信息。这种方法极为有效，尤其是从 JSON 配置中提取信息时，不再需要遍历整个结构了。</p>
+<h2 id="解构参数">解构参数</h2>
+<p>解构也可以用在函数参数的传递过程中。</p>
+<p>当我们定义一个接受大量可选参数的函数时，我们通常会创建一个可选对象，将额外的参数定义为这个对象的属性。例如：</p>
+<pre><code class="language-javascript">//  options 的属性表示其他参数
+function setCookie(name, value, options) {
+    options = options || {};
+
+    let secure =  options.secure,
+        path = options.path,
+        domain = options.domain,
+        expires = options.expires;
+
+    //  设置 cookie 代码
+}
+
+//  第三个参数映射到 options 中
+setCookie(&quot;type&quot;, &quot;js&quot;, {
+    secure: true,
+    expires: 60000
+});
+</code></pre>
+<p>如果将 options 定义为解构参数，则可以更清晰地了解函数预期传入的参数。解构参数需要使用对象或数组解构模式代替命名参数，改写如下：</p>
+<pre><code class="language-javascript">function setCookie(name, value, { secure, path, domain,expires }) {
+    //  设置 cookie 的代码
+}
+
+setCookie(&quot;type&quot;,&quot;js&quot;, {
+    secure: true,
+    expires: 60000
+});
+</code></pre>
+<p><strong>注意</strong>：解构参数支持所有解构特性。可以使用默认值、混合对象和数组的解构模式及非同名变量存储提取出来的信息。</p>
+<h3 id="必须传值的解构参数">必须传值的解构参数</h3>
+<p>默认情况下，如果调用函数时不提供被解构的参数会导致程序抛出错误。</p>
+<p>因此如果解构参数是必需的，那么可以忽略这个问题；但是如果希望将解构参数定义为可选的，那么必须为其提供默认值来解决这个问题。</p>
+<pre><code class="language-javascript">function setCookie(name, value, { secure, path, domain, expires } = {}) {
+    //  ...
+}
+</code></pre>
+<h3 id="解构参数的默认值">解构参数的默认值</h3>
+<p>可以为解构参数指定默认值，就像在解构赋值语句中的那样：</p>
+<pre><code class="language-javascript">function setCookie(name, value,
+    {
+        secure = false,
+        path = &quot;/&quot;,
+        domain = &quot;example.com&quot;,
+        expires = new Date(Date.now() + 360000000)
+    } = {
+        secure = false,
+        path = &quot;/&quot;,
+        domain = &quot;example.com&quot;,
+        expires = new Date(Date.now() + 360000000)
+    }
+) {
+    //  ...
+}
+</code></pre>
+<p>现在函数参数中第一个对象字面量是解构参数，第二个为默认值。但是这样的写法会造成代码冗余，因此我们可以将默认值提取到一个独立对象中，并且使用该对象作为解构和默认参数的一部分，从而消除冗余：</p>
+<pre><code class="language-javascript">const setCookieDefaults = {
+    secure: false,
+    path： &quot;/&quot;,
+    domain: &quot;example.cpm&quot;,
+    expires: new Date(Date.new() + 360000000)
+};
+
+function setCookie(name, value,
+    {
+        secure = setCookieDefaults.secure,
+        path = setCookieDefaults.path,
+        domain = setCookieDefaults.domain,
+        expires = setCookieDefaults.epires
+    } = setCookieDefaults
+) {
+    //  ...
+}
+</code></pre>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/DEJyveMLT/">
+            <span class="flex-auto">JavaScript</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/hxjHtHlc-E/">
+            <span class="flex-auto">深入理解ES6学习笔记</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://https://pineapple126.github.io/post/module/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  用模块封装代码
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://https://pineapple126.github.io/post/extend-object-functionality/">
+                <h3 class="post-title">
+                  扩展对象的功能性
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

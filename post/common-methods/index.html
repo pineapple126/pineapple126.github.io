@@ -1,0 +1,375 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://https://pineapple126.github.io//favicon.ico?v=1585308037774">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://https://pineapple126.github.io//images/avatar.png?v=1585308037774" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#math">Math</a>
+<ul>
+<li><a href="#mathfloor">Math.floor()</a></li>
+<li><a href="#mathceil">Math.ceil()</a></li>
+<li><a href="#mathround">Math.round()</a></li>
+<li><a href="#mathabs">Math.abs()</a></li>
+<li><a href="#mathmax">Math.max()</a></li>
+<li><a href="#mathmin">Math.min()</a></li>
+<li><a href="#mathrandom">Math.random()</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">学习中使用到的常见方法记录</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-02-17 / 5 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://https://pineapple126.github.io//post-images/common-methods.jpg" alt="">
+        
+        <div class="post-content yue">
+          <h2 id="math">Math</h2>
+<h3 id="mathfloor">Math.floor()</h3>
+<p><code>Math.floor()</code> 返回小于或等于一个给定数字的最大整数。如果传递的参数是一个整数，该值不变。</p>
+<p>Note：<code>Math.floor()</code> 向下取整</p>
+<p><strong>语法</strong>：Math.floor(x)</p>
+<p>参数：x -&gt; 一个数值</p>
+<p>返回值：一个表示小于或等于指定数字的最大整数的数字。</p>
+<p><strong>描述</strong>：由于 <code>floor()</code> 是 <code>Math</code> 的一个静态方法，我们应该像这样使用它 <code>Math.floor()</code>，而不是作为创建的一个 Math 对象的一种方法。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-javascript">Math.floor( 45.95 );
+//  45
+
+Mah.floot( 9 );
+//  9
+</code></pre>
+<p>沧海轻舟 23:36:15</p>
+<h3 id="mathceil">Math.ceil()</h3>
+<p><code>Math.ceil()</code> 函数返回大于或等于一个给定数字的最小整数。</p>
+<p>Note：<code>Math.ceil()</code> 向上取整</p>
+<p><strong>语法</strong>：Math.ceil(x)</p>
+<p>参数：x -&gt; 一个数值</p>
+<p>返回值：大于或等于给定数字的最小整数。</p>
+<p><strong>描述</strong>：由于 <code>ceil()</code> 是 <code>Math</code> 的静态方法，所以应该以这种方式使用：<code>Math.ceil()</code>，而不是作为创建的 Math 对象的一种方法。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-javascript">Math.ceil( 0.95 );
+//  1
+
+Math.ceil( 4 );
+//  4
+</code></pre>
+<h3 id="mathround">Math.round()</h3>
+<p><code>Math.round()</code> 函数返回一个数字四舍五入后最接近的整数</p>
+<p><strong>语法</strong>：Math.round(x)</p>
+<p>参数：x -&gt; 一个数值</p>
+<p>返回值：给定数字的值四舍五入到最接近的整数。</p>
+<p><strong>描述</strong>：<br>
+如果参数的小数部分大于 0.5，则舍入到相邻的绝对值更大的整数。如果参数的小数部分小于 0.5，则舍入到相邻的绝对值更小的整数。如果参数的小数部分等于 0.5，则舍入到相邻的在正无穷（+∞）方向上的整数。</p>
+<p>由于 <code>round()</code> 是 <code>Math</code> 的静态方法，所以应该以这种方式使用：<code>Math.round()</code>，而不是作为创建的 Math 对象的一种方法。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-javascript">Math.round( 20.49 );
+//  20
+Math.round( 20.5 );
+//  21
+
+Math.round( -20.5 );
+//  -20
+Math.round( -20.51 );
+//  -21
+</code></pre>
+<h3 id="mathabs">Math.abs()</h3>
+<p><code>Math.abs()</code> 函数返回指定数字“x”的绝对值。</p>
+<p><strong>语法</strong>：Math.abs(x)</p>
+<p>参数：x -&gt; 一个数值</p>
+<p>返回值：指定数字“x”的绝对值。</p>
+<p><strong>描述</strong>：<br>
+传入一个非数字形式的字符串或者 undefined/empty 变量，将返回 NaN。传入 null 将返回 0。</p>
+<p>由于 <code>abs()</code> 是 <code>Math</code> 的静态方法，所以应该以这种方式使用：<code>Math.abs()</code>，而不是作为创建的 Math 对象的一种方法。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-javascript">Math.abs( '-1' );
+//  1
+Math.abs( -2 );
+//  2
+Math.abs( null );
+//  0
+Math.abs( &quot;string&quot; );
+//  NaN
+Math.abs();
+//  NaN
+</code></pre>
+<h3 id="mathmax">Math.max()</h3>
+<p><code>Math.max()</code> 函数返回一组数中的最大值。</p>
+<p><strong>语法</strong>：Math.max(value1[, value2, ...])</p>
+<p>参数：value1, value2, ...  -&gt; 一组数值</p>
+<p>返回值：返回给定的一组数字中的最大值。如果给定的参数中至少有一个参数无法被转换成数字，则会返回 <code>NaN</code>。</p>
+<p><strong>描述</strong>：<br>
+由于 <code>max()</code> 是 <code>Math</code> 的静态方法，所以应该像这样使用：<code>Math.max()</code>，而不是创建的 Math 实例的方法（Math 不是构造函数）。</p>
+<p>如果没有参数，则结果为 -<code>Infinity</code>。</p>
+<p>如果有任一参数不能被转换为数值，则结果为 <code>NaN</code>。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-javascript">Math.max( 10, 20 );
+//  20
+Math.max( -10, -20 );
+//  -10
+
+var arr = [1, 2, 3];
+
+//  使用 `apply` 方法寻找一个数值数组中的最大元素，使用该方法可以作用在任意长度的数组上。
+Math.max.apply( null, arr );
+//  3
+
+//  使用 `spread` 运算符，使得 max() 作用在任意长度的数组上。
+Math.max( ...arr );
+//  3
+</code></pre>
+<h3 id="mathmin">Math.min()</h3>
+<p><code>Math.min()</code> 函数返回一组数中的最小值。</p>
+<p><strong>语法</strong>：Math.min(value1[, value2, ...])</p>
+<p>参数：value1, value2, ...  -&gt; 一组数值</p>
+<p>返回值：给定数值中最小的数。如果任一参数不能转换为数值，则返回 <code>NaN</code>。</p>
+<p><strong>描述</strong>：<br>
+由于 <code>min()</code> 是 <code>Math</code> 的静态方法，所以应该像这样使用：<code>Math.min()</code>，而不是创建的 Math 实例的方法（Math 不是构造函数）。</p>
+<p>如果没有参数，则结果为 <code>Infinity</code>。</p>
+<p>如果有任一参数不能被转换为数值，则结果为 <code>NaN</code>。</p>
+<p><strong>示例</strong>：</p>
+<pre><code class="language-javascript">Math.min( 10, 20 );
+//  10
+Math.min( -10, -20 );
+//  -20
+
+var arr = [1, 2, 3];
+
+//  使用 `apply` 方法寻找一个数值数组中的最小元素，使用该方法可以作用在任意长度的数组上。
+Math.min.apply( null, arr );
+//  1
+
+//  使用 `spread` 运算符，使得 min() 作用在任意长度的数组上。
+Math.min( ...arr );
+//  1
+</code></pre>
+<h3 id="mathrandom">Math.random()</h3>
+<p><code>Math.random()</code> 函数返回一个浮点数，伪随机数在范围 <strong>[0, 1)</strong>，然后我们可以选择缩放到所需的范围。</p>
+<p><strong>语法</strong>：Math.random()</p>
+<p>返回参数：一个浮点型伪随机数字，范围在 <strong>[0, 1)</strong> 区间中。</p>
+<p><strong>示例</strong>：<br>
+得到一个两数之间的随机整数</p>
+<pre><code class="language-javascript">function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min;   //  不含最大值，含最小值
+}
+</code></pre>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/DEJyveMLT/">
+            <span class="flex-auto">JavaScript</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://https://pineapple126.github.io/post/extend-object-functionality/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  扩展对象的功能性
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://https://pineapple126.github.io/post/vuex-notes-6/">
+                <h3 class="post-title">
+                  Vuex 学习笔记（六）—— Module
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

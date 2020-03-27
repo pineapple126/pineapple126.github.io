@@ -1,0 +1,547 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://https://pineapple126.github.io//favicon.ico?v=1585308037774">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://https://pineapple126.github.io//images/avatar.png?v=1585308037774" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#var-%E5%A3%B0%E6%98%8E%E5%8F%8A%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87-hoisting-%E6%9C%BA%E5%88%B6">var 声明及变量提升 ( Hoisting ) 机制</a></li>
+<li><a href="#%E5%9D%97%E7%BA%A7%E5%A3%B0%E6%98%8E">块级声明</a>
+<ul>
+<li><a href="#let-%E5%A3%B0%E6%98%8E">let 声明</a></li>
+<li><a href="#%E7%A6%81%E6%AD%A2%E9%87%8D%E5%A3%B0%E6%98%8E">禁止重声明</a></li>
+<li><a href="#const-%E5%A3%B0%E6%98%8E">const 声明</a></li>
+</ul>
+</li>
+<li><a href="#const-%E5%92%8C-let">const 和 let</a>
+<ul>
+<li><a href="#%E7%94%A8-const-%E5%A3%B0%E6%98%8E%E5%AF%B9%E8%B1%A1">用 const 声明对象</a></li>
+<li><a href="#%E4%B8%B4%E6%97%B6%E6%AD%BB%E5%8C%BA-temporal-dead-zone">临时死区（ Temporal Dead Zone ）</a></li>
+</ul>
+</li>
+<li><a href="#%E5%BE%AA%E7%8E%AF%E4%B8%AD%E7%9A%84%E5%9D%97%E4%BD%9C%E7%94%A8%E5%9F%9F%E7%BB%91%E5%AE%9A">循环中的块作用域绑定</a>
+<ul>
+<li><a href="#%E5%BE%AA%E7%8E%AF%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0">循环中的函数</a></li>
+<li><a href="#%E5%BE%AA%E7%8E%AF%E4%B8%AD%E7%9A%84-let-%E5%A3%B0%E6%98%8E">循环中的 let  声明</a></li>
+<li><a href="#%E5%BE%AA%E7%8E%AF%E4%B8%AD%E7%9A%84-const-%E5%A3%B0%E6%98%8E">循环中的 const 声明</a></li>
+</ul>
+</li>
+<li><a href="#%E5%85%A8%E5%B1%80%E5%9D%97%E4%BD%9C%E7%94%A8%E5%9F%9F%E7%BB%91%E5%AE%9A">全局块作用域绑定</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">块级作用域的绑定</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-01-28 / 15 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://https://pineapple126.github.io//post-images/block-level-scope-binding.jpg" alt="">
+        
+        <div class="post-content yue">
+          <p>这是学习阅读《深入理解ES6》第一章 块级作用域绑定 后整理而成的学习笔记。</p>
+<h1 id="var-声明及变量提升-hoisting-机制">var 声明及变量提升 ( Hoisting ) 机制</h1>
+<p>在函数作用域或全局作用域中通过关键字 var 声明的变量，无论实际上是在哪里声明的，都会被当作在当前作用域顶部声明的变量，这就是我们常说的提升 ( Hoisting ) 机制。下面以一个函数为例来说明：</p>
+<pre><code class="language-javascript">function getValue(condition) {
+    if(condition) {
+        var value = &quot;blue&quot;;
+
+        // 其他代码
+
+        return value;
+    } else {
+        // 此处可访问变量 value，其值为 undefined
+
+        return null;
+    }
+
+    // 此处可访问变量 value，其值为 undefined
+}
+</code></pre>
+<p>如果不熟悉 JavaScript，可能会认为只有当 condition 的值为 true 的时候才会创建变量 value。事实上，无论如何变量 value 都会被创建。在预编译阶段，JavaScript 引擎会将上面的 getValue 函数修改成下面这样：</p>
+<pre><code class="language-javascript">function getValue(condition) {
+
+    var value;
+
+    if(condition) {
+        value = &quot;blue&quot;;
+
+        // 其他代码
+
+        return value;
+    } else {
+
+        return null;
+    }
+}
+</code></pre>
+<p>变量 value 的声明被提升至函数顶部，而初始化操作依旧留在原处执行，这就意味着在 else 子句中也可以访问到该变量，且由于此时变量尚未初始化，所以其值为 undefined。</p>
+<p>刚接触 JavaScript 的开发者通常会花一些时间来习惯变量提升，有时候会因误解而导致程序中出现 bug。为此，ECMAScript 6 引入块级作用域来强化对变量生命周期的控制。</p>
+<h1 id="块级声明">块级声明</h1>
+<p>块级声明用于声明在指定块的作用域之外无法访问的变量。块级作用域（亦被称为词法作用域）存在于：</p>
+<ul>
+<li>函数内部</li>
+<li>块中（字符 { 和 } 之间的区域）</li>
+</ul>
+<p>很多类C语言都有块级作用域，而 ECMAScript 6 引入块级作用域就是为了让 JavaScript 更灵活也更普适。</p>
+<h2 id="let-声明">let 声明</h2>
+<p>let 声明的用法与 var 相同。用 let 代替 var 来声明变量，就可以把变量的作用域限制在当前代码块中。由于 let 声明不会被提升，因此开发者通常将 let 声明语句放在封闭代码块的顶部，以便于整个代码块都可以访问。下面是 let 声明的示例：</p>
+<pre><code class="language-javascript">function getValue(condition) {
+
+    if(condition) {
+        let value = &quot;blue&quot;;
+
+        // 其他代码
+
+        return value;
+    } else {
+
+        // 变量 value 在此处不存在
+
+        return null;
+    }
+
+    // 变量 value 在此处不存在
+}
+</code></pre>
+<p>现在这个 getValue 函数的运行结果更像类 C 语言。变量 value 改由关键字 let 进行声明后，不再被提升至函数顶部。执行流离开 if 块，value 立刻被销毁。如果 condition 的值为 false，就永远不会声明并初始化 value。</p>
+<h2 id="禁止重声明">禁止重声明</h2>
+<p>假设作用域中已经存在某个标识符，此时再使用 let 关键字声明它就会抛出错误，举例来说：</p>
+<pre><code class="language-javascript">var count = 30;
+
+// 抛出语法错误
+let count = 40;
+</code></pre>
+<p>在这个示例中，变量 count 被声明了两次：一次是用 var 关键字声明，一次是用 let 关键字。如前所述，同一作用域中不能用 let 重复定义已经存在的标识符，所以此处的 let 声明会抛出错误。但如果当前作用域内嵌另一个作用域，便可在内嵌的作用域中用 let 声明同名变量，示例代码如下：</p>
+<pre><code class="language-javascript">var count  = 30;
+
+if(condition) {
+
+    // 不会抛出错误
+    let count = 40;
+
+    // 更多代码
+}
+</code></pre>
+<p>由于此处的 let 是在 if 块内声明了新变量 count，因此不会抛出错误。内部块中的 count 会遮蔽全局作用域中的 count，后者只有在 if 块外才能访问到。</p>
+<h2 id="const-声明">const 声明</h2>
+<p>ECMAScript 6 标准还提供了 const 关键字。使用 const 声明的是常量，其值一旦被设定后不可更改。因此，每个通过 const 声明的常量必须进行初始化，示例如下：</p>
+<pre><code class="language-javascript">const maxItems = 30;
+
+// 语法错误：常量未初始化
+const name;
+</code></pre>
+<p>这里在声明 maxItems 时进行了初始化操作，而声明 name 时没有赋值，因此执行后者时会抛出语法错误。</p>
+<h1 id="const-和-let">const 和 let</h1>
+<p>const 和 let 声明的都是块级标识符，所以常量也只在当前代码块内有效，一旦执行到块外会立即被销毁。常量同样也不会提升至作用域顶部，示例代码如下：</p>
+<pre><code class="language-javascript">if(condition) {
+   const maxItems = 5;
+
+   // 更多代码
+}
+
+// 此处无法访问 maxItems
+</code></pre>
+<p>在这段代码中，在 if 语句中声明了常量 maxItems，语句执行一结束，maxItems 即刻被销毁，在代码块外访问不到这个常量。</p>
+<p>与 let 相似，在同一作用域中用 const 声明已经存在的标识符也会导致语法错误，无论该标识符是使用 var，还是 let 声明的。举例来说：</p>
+<pre><code class="language-javascript">var message = &quot;Hello!&quot;;
+let age = 25;
+
+// 这两条语句都会抛出错误
+const message = &quot;Goodbye!&quot;;
+const age = 30;
+</code></pre>
+<p>后两条 const 声明语句本身没有问题，但由于前面用 var 和 let 声明了两个同名变量，结果代码就无法执行了。</p>
+<p>尽管相似之处很多，但 const 声明与 let 声明有一处很大的不同，即无论在严格模式还是在非严格模式下，都不可以为 const 定义的常量再赋值，否则会抛出错误，例如：</p>
+<pre><code class="language-javascript">const maxItems = 5;
+
+// 抛出语法错误
+maxItems = 6;
+</code></pre>
+<p>此处定义的 maxItems 不可再被赋值，但是需要注意的是，如果常量是对象，则对象中的值可以修改。</p>
+<h2 id="用-const-声明对象">用 const 声明对象</h2>
+<p>注意：const 声明不允许修改绑定，但允许修改值。这意味着用 const 声明对象后，可以修改该对象的属性值。举个例子：</p>
+<pre><code class="language-javascript">const person = {
+    name: &quot;Nicholas&quot;
+};
+
+// 可以修改对象属性的值
+person.name = &quot;Greg&quot;;
+
+// 抛出语法错误
+person = {
+    name: &quot;Greg&quot;
+};
+</code></pre>
+<p>在这段代码中，绑定 person 的值是一个包含一个属性的对象，改变 person.name 的值，不会抛出任何错误，因为修改的是 person 包含的值。如果直接给 person 赋值，即改变 person 的绑定，就会抛出错误。切记，const 声明不允许修改绑定，但允许修改绑定的值。</p>
+<h2 id="临时死区-temporal-dead-zone">临时死区（ Temporal Dead Zone ）</h2>
+<p>与 var 不同，let 和 const 声明的变量不会被提升到作用域顶部，如果在声明之前访问这些变量，即使是相对安全的 typeof 操作符也会触发引用错误，请看一下这段代码：</p>
+<pre><code class="language-javascript">if(condition) {
+    console.log(typeof value);      // 引用错误
+    let value = &quot;blue&quot;;
+}
+</code></pre>
+<p>因为 console.log(typeof value) 语句会抛出错误，所以用 let 定义并初始化变量 value 的语句并不会执行。此时的 value 还位于 “临时死区”（temporal dead zone）或 TDZ 中。虽然 ECMAScript 标准并没有明确提到 TDZ，但人们却常用它来描述 let 和 const 的不提升效果。</p>
+<p>JavaScript 引擎在扫描代码发现变量声明时，要么将他们提升至作用域顶部，要么将声明放到 TDZ 中。访问 TDZ 中的变量会触发运行时错误。只有执行过变量声明语句后，变量才会从 TDZ 中移出，然后方可正常访问。</p>
+<p>在声明前访问由 let 或者 const 定义的变量就是这样。由前面的示例可见，即便是相对不易出错的 typeof 操作符也无法阻挡引擎抛出错误。但在 let 声明的作用域外对该变量使用 typeof 则不会出错，具体示例如下：</p>
+<pre><code class="language-javascript">console.log(typeof value);          // &quot;undefined&quot;
+
+if(condition) {
+    let value = &quot;blue&quot;;
+}
+</code></pre>
+<p>typeof 是在声明变量 value 的代码块外执行的，此时 value 并不在 TDZ 中。这也意味着不存在 value 这个绑定，typeof 操作最终返回 &quot;undefined&quot;。</p>
+<h1 id="循环中的块作用域绑定">循环中的块作用域绑定</h1>
+<p>for 循环的块级作用域可以把随意声明的计数器变量限制在循环内部。例如：</p>
+<pre><code class="language-javascript">for(var i = 0; i &lt; 10; i++) {
+    process(item[i]);
+}
+
+// 在这里仍然可以访问到变量 i
+console.log(i);
+</code></pre>
+<p>在默认拥有块级作用域的其他语言中，这个示例也可以正常运行，并且变量 i 只在 for 循环中才能访问到。而在 JavaScript 中，由于 var 声明的提升机制，变量 i 在循环结束后仍可访问。如果换用 let 声明变量就能得到想要的结果，例如这样：</p>
+<pre><code class="language-javascript">for(let i = 0; i &lt; 10; i++) {
+    process(items[i]);
+}
+
+// i 在这里不可访问，抛出一个错误
+console.log(i);
+</code></pre>
+<p>在这个示例中，变量 i 只存在于 for 循环中，一旦循环结束，在其他地方均无法访问到该变量。</p>
+<h2 id="循环中的函数">循环中的函数</h2>
+<p>长久以来，var 声明使得在循环中创建函数变得异常困难，因为变量到了循环外仍能访问。例如：</p>
+<pre><code class="language-javascript">var funcs = [];
+
+for(var i = 0; i &lt; 10; i++) {
+    funcs.push(function() {
+        console.log(i);
+    });
+}
+
+funcs.forEach(function(func) {
+    func();                         // 输出 10 次数字 10
+});
+</code></pre>
+<p>预期的结果可能是输出数字 0~9，但它却一连串输出了 10 次数字 10。这是因为循环里的每次迭代同时共享着变量 i，循环内部创建的函数全都保留了对相同变量的引用。循环结束时变量 i 的值为 10，所以每次调用 console.log(i) 时都会输出 10.</p>
+<p>为解决这个问题，在循环中使用立即调用函数表达式（IIFE），以强制生成计数器变量的副本，就像这样：</p>
+<pre><code class="language-javascript">var funcs = [];
+
+for(var i = 0; i &lt; 10; i++) {
+    funcs.push((function(value) {
+        return function() {
+            console.log(value);
+        }
+    })(i));
+}
+
+funcs.forEach(function(func) {
+    func();                         // 输出 0、1、2、……、9
+});
+</code></pre>
+<p>在循环内部，IIFE表达式为接受的每一个变量 i 都创建了一个副本并保存为变量 value。这个变量的值就是相应迭代创建的函数所使用的值，因此调用每个函数会像从 0 到 9 循环一样得到期望的值。ECMAScript 6 中的 let 和 const 提供的块级绑定是我们无须再这么折腾。</p>
+<h2 id="循环中的-let-声明">循环中的 let  声明</h2>
+<p>let 声明模仿上述示例中的 IIFE 所做的一切来简化循环过程，每次迭代循环都会创建一个新变量，并以之前迭代中同名变量的值将其初始化。这意味着彻底删除 IIFE 之后仍可得到预期中的结果，就像这样：</p>
+<pre><code class="language-javascript">var funcs = [];
+
+for(let i = 0; i &lt; 10; i++) {
+    funcs.push(function() {
+        console.log(i);
+    });
+}
+
+funcs.forEach(function(func) {
+    func();                            // 输出 0、1、2、……、9
+});
+</code></pre>
+<p>这段循环与之前那段结合了 var 和 IIFE 的循环的运行结果相同，但相比之下更为简洁。每次循环的时候 let 声明都会创建一个新变量 i，并将其初始化为 i 当前的值，所以循环内部创建的每个函数都能得到属于它们自己的 i 副本。对于 for-in 循环和 for-of 循环来说也是一样的，示例如下：</p>
+<pre><code class="language-javascript">var funcs = [],
+    object = {
+        a: true,
+        b: true,
+        c: true
+    };
+
+for(let key in object) {
+    funcs.push(function() {
+        console.log(key);
+    });
+}
+
+funcs.forEach(function(func) {
+    func();                         // 输出 a、b 和 c
+});
+</code></pre>
+<p>在这个示例中，for-in 循环与 for 循环表现的行为一致。每次循环创建一个新的 key 绑定，因此每个函数都有一个变量 key 的副本，于是每个函数都输出不同的值。如果使用 var 声明 key，着这些函数都会输出&quot;c&quot;。</p>
+<h2 id="循环中的-const-声明">循环中的 const 声明</h2>
+<p>ECMAScript 6 标准中没有明确不允许在循环中使用 const 声明，然而，针对不同类型的循环他会表现出不同的行为。对于普通 for 循环来说，可以在初始化变量时使用 const，但是更改这个变量的值就会抛出错误，就像这样：</p>
+<pre><code class="language-javascript">var funcs = [];
+
+// 完成一次迭代后抛出错误
+for(const i = 0; i &lt; 10; i++) {
+    funcs.push(function() {
+        console.log(i);
+    });
+}
+</code></pre>
+<p>在这段代码中，变量 i 被声明为常量。在循环的第一个迭代中，i 是 0，迭代执行成功。然后执行 i++，因为这条语句试图修改常量，因此抛出错误。所以，如果后续循环不会修改该变量，那么可以使用 const 声明。</p>
+<p>在 for-in 或 for-of 循环中使用 const 时的行为与使用 let 一致。下面这段代码应该不会产生错误：</p>
+<pre><code class="language-javascript">var funcs = [],
+    object = {
+        a: true,
+        b: true,
+        c: true
+    };
+
+// 不会产生错误
+for(const key in object) {
+    funcs.push(function() {
+        console.log(key);
+    });
+}
+
+funcs.forEach(function(func) {
+    func();                         // 输出 a、b 和 c
+})；
+</code></pre>
+<p>这段代码中的函数与之前的示例机会完全一样，唯一的区别是在循环内不能改变 key 的值。之所以可以运用在 for-in 和 for-of 循环中，是因为每次迭代不会修改已有绑定，而是会创建一个新绑定。</p>
+<h1 id="全局块作用域绑定">全局块作用域绑定</h1>
+<p>let 和 const 与 var 的另一个区别是它们在全局作用域中的行为。当 var 被用于全局作用域时，它会创建一个新的全局变量作为全局对象的属性。这意味着用 var 很可能会无意中覆盖一个已经存在的全局属性，就像这样：</p>
+<pre><code class="language-javascript">// 在浏览器中
+var RegExp = &quot;Hello!&quot;;
+console.log(window.RegExp);               // &quot;Hello!&quot;
+
+var ncz = &quot;Hi!&quot;;
+console.log(window.ncz);                      // &quot;Hi!&quot;
+</code></pre>
+<p>即使全局对象 RegExp 定义在 window 上，也不能幸免于被 var 声明覆盖，示例中声明的全局变量 RegExp 会覆盖一个已经存在的全局属性。同样，ncz 被定义为一个全局变量，并且立即成为 window 的属性。</p>
+<p>如果在全局作用域中使用 let 或 const，会在全局作用域下创建一个新的绑定，但该绑定不会添加为全局对象的属性。换句话说，用 let 或 const 不能覆盖全局变量，而只能遮蔽它。示例如下：</p>
+<pre><code class="language-javascript">// 在浏览器中
+let RegExp = &quot;Hello!&quot;;
+console.log(RegExp);                                        // &quot;Hello!&quot;
+console.log(window.RegExp === RegExp);      // false
+
+const ncz = &quot;Hi!&quot;;
+console.log(ncz);                                               // &quot;Hi!&quot;
+console.log(&quot;ncz&quot; in window);                           // false    
+</code></pre>
+<p>这里的 let 声明的 RegExp 创建了一个绑定并遮蔽了全局的 RegExp 变量。结果是 window.RegExp 和 RegExp 不相同，但不会破坏全局作用域。同样，comst 声明的 ncz 创建了一个绑定但没有创建为全局对象的属性。如果不想为全局对象创建属性，使用 let 或 const 要安全许多。</p>
+<h1 id="小结">小结</h1>
+<p>块级作用域绑定的 let 和 const 为 JS 引入了词法作用域，它们声明的变量不会提升，而且只可以在声明这些变量的代码块中使用。与此同时，这一新特性还存在一个副作用，即不能在声明变量前访问它们，就算用 typeof 这样安全的操作符也不行。在声明前访问块级绑定会导致错误，因为绑定还在临时死区（TDZ）中。</p>
+<p>let 和 const 的行为很多时候与 var 一致。然而，它们在循环中的行为却不一样。在 for-in 和 for-of 循环中，let 和 const 都会每次迭代时创建新绑定，从而使循环体内创建的函数可以访问到相应迭代的值，而非最后一次迭代后的值。let 在 for 循环中同样如此，但在 for 循环中使用 const 声明则可能引发错误。</p>
+<p><strong>完</strong></p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/DEJyveMLT/">
+            <span class="flex-auto">JavaScript</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/hxjHtHlc-E/">
+            <span class="flex-auto">深入理解ES6学习笔记</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://https://pineapple126.github.io/post/vuex-notes-1/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  Vuex 学习笔记（一）—— 什么是 Vuex
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://https://pineapple126.github.io/post/js-notes-es6api-object/">
+                <h3 class="post-title">
+                  JS学习笔记--ES6新增API Object部分
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

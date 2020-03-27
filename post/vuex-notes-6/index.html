@@ -1,0 +1,466 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://https://pineapple126.github.io//favicon.ico?v=1585308037774">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://https://pineapple126.github.io//images/avatar.png?v=1585308037774" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#module">Module</a>
+<ul>
+<li><a href="#%E6%A8%A1%E5%9D%97%E7%9A%84%E5%B1%80%E9%83%A8%E7%8A%B6%E6%80%81">模块的局部状态</a></li>
+<li><a href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4">命名空间</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Vuex 学习笔记（六）—— Module</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-02-09 / 6 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://https://pineapple126.github.io//post-images/vuex-notes-6.jpg" alt="">
+        
+        <div class="post-content yue">
+          <h2 id="module">Module</h2>
+<p>由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，store 对象就有可能变得相当臃肿。</p>
+<p>为了解决上述问题，Vuex 允许我们将 store 分割成<strong>模块（Module）</strong>。每个模块都拥有自己的 state、mutation、action、getter、甚至是嵌套子模块——从上至下进行同样方式的分割：</p>
+<pre><code class="language-javascript">const moduleA = {
+    state: { ... },
+    mutations: { ... },
+    actions: { ... },
+    getters: { ... }
+}
+
+const moduleB = {
+    state: { ... },
+    mutations: { ... },
+    actions: { ... }
+}
+
+const store = new Vuex.Store({
+    modules: {
+        a: moduleA,
+        b: moduleB
+    }
+})
+
+store.state.a;          //  -&gt; moduleA 的状态
+store.state.b;          //  -&gt; moduleB 的状态
+</code></pre>
+<h3 id="模块的局部状态">模块的局部状态</h3>
+<p>对于模块内部的 mutation 和 getter，接受的第一个参数是<strong>模块的局部状态对象</strong>。</p>
+<pre><code class="language-javascript">const moduleA = {
+    state: { count: 0 },
+    mutations: {
+        increment (state) {
+            //  这里的 `state` 对象是模块的局部状态
+            state.count++;
+        }
+    },
+
+    getters: {
+        doubleCount (state) {
+            return state.count * 2;
+        }
+    }
+}
+</code></pre>
+<p>同样，对于模块内部的 action，局部状态通过 <code>context.state</code> 暴露出来，根节点状态则为 <code>context.rootState</code>:</p>
+<pre><code class="language-javascript">const moduleA = {
+    //  ...
+    actions: {
+        incrementIfOddOnRootSun ({ state, commit, rootState }) {
+            if ((state.count + rootState.count) % 2 === 1) {
+                commit('increment');
+            }
+        }
+    }
+}
+</code></pre>
+<p>对于模块内部的 getter，根节点会作为第三个参数暴露出来：</p>
+<pre><code class="language-javascript">const moduleA = {
+    //  ...
+    getters: {
+        sumWithRootCount (state, getters, rootState) {
+            return state.count + rootState.count;
+        }
+    }
+}
+</code></pre>
+<h3 id="命名空间">命名空间</h3>
+<p>默认情况下，模块内部的 action、mutation 和 getter 是注册在<strong>全局命名空间</strong>的——这样是使得多个模块能够对同一 mutation 或 action 做出响应。</p>
+<p>如果我们希望自己的模块拥有更高的封装度和复用性，我们可以添加 <code>namespaced: true</code> 的方式使其成为带命名空间的模块。当模块被注册后，它的所有 getter、action 及 mutation 都会自动根据模块注册的路径调整命名。例如：</p>
+<pre><code class="language-javascript">const store = new Vue.Store({
+    modules: {
+        account: {
+            namespaced: true,
+
+            //  模块内容（module assets）
+            state: { ... },     //  模块内的状态已经是嵌套的了，使用 `namespaced` 属性不会对其产生影响
+            getters: {
+                isAdmin () { ... }      //  -&gt; getters['account/isAdmin']
+            },
+            actions: {
+                login () { ... }        //  -&gt; dispatch('account/login')
+            },
+            mutations: {
+                login () { ... }        //  -&gt; commit('account/login')
+            },
+
+            //  嵌套模块
+            modules: {
+                //  继承父模块的命名空间
+                myPage： {
+                    state: { ... },
+                    getters: {
+                        profile () { ... }      //  -&gt; getters['account/profile']
+                    }
+                },
+
+                //  进一步嵌套命名空间
+                posts: {
+                    namespaced: true,
+
+                    state: { ... },
+                    getters: {
+                        popular () { ... }      //  -&gt; getters['account/posts/popular']
+                    }
+                }
+            }
+        }
+    }
+})
+</code></pre>
+<p>启用了命名空间的 getter 和 action 会受到局部化的 <code>getter</code>，<code>dispatch</code> 和 <code>commit</code>。换言之，我们在使用模块内容（module assets）时不需要在同一模块内额外添加空间名前缀。更改 <code>namespaced</code> 属性后不需要修改模块内的代码。</p>
+<p><strong>在带命名空间的模块内访问全局内容（Global Assets）</strong></p>
+<p>如果我们希望使用全局 state 和 getter，<code>rootState</code> 和 <code>rootGetters</code> 会作为第三和第四参数传入 getter，也会通过 <code>context</code> 对象的属性传入 action。</p>
+<p>若要在全局命名空间内分发 action 或提交 mutation，将 <code>{ root: true }</code> 作为第三参数传给 <code>dispatch</code> 或 <code>commit</code> 即可。</p>
+<pre><code class="language-javascript">modules: {
+    foo: {
+        namespace: true,
+
+        getters: {
+            //  在这个模块的 getter 中，`getters` 被局部化了
+            //   你可以使用 getter 的第四个参数来调用 `rootGetters`
+            someGetter (state, getters, rootState, rootGetters) {
+                getters.someOtherGetter;        //  -&gt; 'foo/someOtherGetter'
+                rootGetters.someOtherGetter;        //  -&gt; 'someOtherGetter'  
+            },
+            someOtherGetter: state =&gt; { ... }
+        },
+
+        actions: {
+            //  在这个模块中， dispatch 和 commit 也被局部化了
+            //  他们可以接受 `root` 属性以访问根 dispatch 或 commit
+            someAction ({ dispatch, commit, getters, rootGetters }) {
+                getters.someGetter //  -&gt; 'foo/someGetter'
+                rootGetters.someGetter //  -&gt; 'someGetter'
+
+                dispatch('someOtherAction') //  -&gt; 'foo/someOtherAction'
+                dispatch('someOtherAction', null, { root: true }) //  -&gt; 'someOtherAction'
+
+                commit('someMutation') //  -&gt; 'foo/someMutation'
+                commit('someMutation', null, { root: true }) //  -&gt; 'someMutation'
+            },
+            someOtherAction (ctx, payload) { ... }
+        }
+    }
+}
+</code></pre>
+<p><strong>在带命名空间的模块注册全局 action</strong></p>
+<p>若需要在带命名空间的模块注册全局 action，可以添加 <code>root: true</code>，并将这个 action 的定义放在函数 <code>handler</code> 中。例如：</p>
+<pre><code class="language-javascript">{
+    actions: {
+        someOtherAction ({dispatch}) {
+            dispatch('someAction');
+        }
+    },
+    modules: {
+        foo: {
+            namespaced: true,
+
+            actions: {
+                someAction: {
+                    root: true,
+                    handler (namespacedContext, payload) { ... }    //  -&gt; 'someAction'
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p><strong>带命名空间的绑定函数</strong></p>
+<p>当使用 <code>mapState</code>、<code>mapGetters</code>、<code>mapActions</code> 和 <code>mapMutations</code> 这些函数来绑定带命名空间的模块时，写起来可能会比较繁琐：</p>
+<pre><code class="language-javascript">computed: {
+    ...mapState({
+        a: state =&gt; state.some.nested.module.a,
+        b: state =&gt; state.some.nested.module.b
+    })
+},
+methods: {
+    ...mapAction([
+        'some/nested/module/foo',   //  -&gt; this['some/nested/module/foo']()
+        'some/nested/module/bar'    //  -&gt; this['some/nested/module/bar']()
+    ])
+}
+</code></pre>
+<p>对于这种情况，我们可以将模块的空间名称字符串作为第一个参数传递给上述函数，这样所有绑定都会自动将该模块作为上下文。于是上面的例子可以简化为：</p>
+<pre><code class="language-javascript">computed: {
+    ...mapState('some/nested/module', {
+        a: state =&gt; state.a,
+        b: state =&gt; state.b
+    })
+},
+mthods: {
+    ...mapAction('some/nested/module', [
+        'foo',      //  -&gt; this.foo()
+        'bar'       //  -&gt; this.bar()
+    ])
+}
+</code></pre>
+<p>而且，我们可以通过使用 <code>createNamespacedHelpers</code> 创建基于某个命名空间的辅助函数。它返回一个对象，对象里有新的绑定在给定命名空间值上的组件绑定辅助函数：</p>
+<pre><code class="language-javascript">import { createNamespacedHelpers } from 'vuex'
+
+const { mapState, mapActions } = createNamespacedHelpers('some/nested/module')
+
+export default {
+    computed: {
+        //  在 `some/nested/module` 中查找
+        ...mapState({
+            a: state =&gt; state.a,
+            b: state =&gt; state,b
+        })
+    },
+    methods: {
+        //  在 `some/nested/module` 中查找
+        ...mapActions([
+            'foo',
+            'bar'
+        ])
+    }
+}
+</code></pre>
+<h2 id="小结">小结</h2>
+<p>xxx</p>
+<p><strong>完</strong></p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/DEJyveMLT/">
+            <span class="flex-auto">JavaScript</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/urdU7hwoxU/">
+            <span class="flex-auto">vue.js</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://https://pineapple126.github.io/post/common-methods/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  学习中使用到的常见方法记录
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://https://pineapple126.github.io/post/vuex-notes-5/">
+                <h3 class="post-title">
+                  Vuex 学习笔记（五）—— Action
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

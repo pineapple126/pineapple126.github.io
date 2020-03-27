@@ -1,0 +1,486 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://https://pineapple126.github.io//favicon.ico?v=1585308037774">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://https://pineapple126.github.io//images/avatar.png?v=1585308037774" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86preordertraversal">先序遍历（preorderTraversal）</a>
+<ul>
+<li><a href="#%E9%80%92%E5%BD%92%E6%96%B9%E5%BC%8F">递归方式</a></li>
+<li><a href="#%E8%BF%AD%E4%BB%A3%E6%96%B9%E5%BC%8F">迭代方式</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86inordertraversal">中序遍历（inorderTraversal）</a></li>
+<li><a href="#%E9%80%92%E5%BD%92%E6%96%B9%E5%BC%8F-2">递归方式</a>
+<ul>
+<li><a href="#%E8%BF%AD%E4%BB%A3%E6%96%B9%E5%BC%8F-2">迭代方式</a></li>
+</ul>
+</li>
+<li><a href="#%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86postordertraversal">后序遍历（postorderTraversal)</a>
+<ul>
+<li><a href="#%E9%80%92%E5%BD%92%E6%96%B9%E5%BC%8F-3">递归方式</a></li>
+<li><a href="#%E8%BF%AD%E4%BB%A3%E6%96%B9%E5%BC%8F-3">迭代方式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">二叉树的三序遍历</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-03-20 / 4 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://https://pineapple126.github.io//post-images/traversal-binary-tree.webp" alt="">
+        
+        <div class="post-content yue">
+          <h2 id="先序遍历preordertraversal">先序遍历（preorderTraversal）</h2>
+<p>节点遍历顺序：根 -&gt; 左 -&gt; 右</p>
+<h3 id="递归方式">递归方式</h3>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function preorderTraversal(root) {
+    if (!root) return [];
+    return [
+        root.val,
+        ...preorderTraversal(root.left),
+        ...preorderTraversal(root.right)
+    ];
+}
+</code></pre>
+<h3 id="迭代方式">迭代方式</h3>
+<p>利用栈存储遍历的节点</p>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function preorderTraversal(root) {
+    if (!root) return [];
+    let res = [],
+        stack = [],
+        curr = root;
+    while(curr || stack.length &gt; 0) {
+        while(curr) {
+            stack.push(curr);
+            res.push(curr.val);
+            curr = curr.left;
+        }
+        curr = stack.pop();
+        curr = curr.right;
+    }
+    return res;
+}
+</code></pre>
+<h2 id="中序遍历inordertraversal">中序遍历（inorderTraversal）</h2>
+<p>节点遍历顺序：左 -&gt; 根 -&gt; 右</p>
+<h2 id="递归方式-2">递归方式</h2>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function inorderTraversal(root) {
+    if (!root) return [];
+    return [
+        ...inorderTraversal(root.left),
+        root.val,
+        ...inorderTraversal(root.right)
+    ];
+}
+</code></pre>
+<h3 id="迭代方式-2">迭代方式</h3>
+<p>利用栈存储遍历的节点</p>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function inorderTraversal(root) {
+    if (!root) return [];
+    let res = [],
+        stack = [],
+        curr = root;
+    while(curr || stack.length &gt; 0) {
+        while(curr) {
+            stack.push(curr);
+            curr = curr.left;
+        }
+        curr = stack.pop();
+        res.push(curr.val);
+        curr = curr.right;
+    }
+    return res;
+}
+</code></pre>
+<h2 id="后序遍历postordertraversal">后序遍历（postorderTraversal)</h2>
+<p>节点遍历顺序：左 -&gt; 右 -&gt; 根</p>
+<h3 id="递归方式-3">递归方式</h3>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function postorderTraversal(root) {
+    if (!root) return [];
+    return [
+        ...postorderTraversal(root.left),
+        ...postorderTraversal(root.right),
+        root.val
+    ];
+}
+</code></pre>
+<h3 id="迭代方式-3">迭代方式</h3>
+<p><strong>方式一：正序解</strong></p>
+<p>实现（1）：如果某一结点的子节点已被遍历过，则将其子节点指向 null。（整个过程就像是给一棵树不断地修剪叶子一样）</p>
+<p>基本思路：</p>
+<ol>
+<li>先遍历左节点，当遍历到叶子节点时，记录其值；</li>
+<li>返回至该叶子节点的上一层，并让该叶子节点指向 null；</li>
+<li>再遍历右节点，当遍历到叶子节点时，记录值；</li>
+<li>再次返回上一层节点，顺便让该叶子节点指向 null。</li>
+</ol>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function postorderTraversal(root) {
+    if (!root) return [];
+    let res = [],
+        stack = [],
+        curr = root;
+    while(curr || stack.length &gt; 0) {
+        if (curr.left) {
+            stack.push(curr);
+            curr = curr.left;
+        } else if (curr.right) {
+            stack.push(curr);
+            curr = curr.right;
+        } else {
+            res.push(curr.val);
+            curr = stack.pop();
+            if (curr &amp;&amp; curr.left) curr.left = null;
+            else if (curr &amp;&amp; curr.right) curr.right = null;
+        }
+    }
+    return res;
+}
+</code></pre>
+<p>实现（2）：添加标志位 flag，当某一节点的左右子节点的值都已被记录时 flag 为 true，否则为 false。</p>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function postorderTraversal(root) {
+    if (!root) return [];
+    let res = [],
+        stack = [],
+        curr = root;
+    while (curr || stack.length &gt; 0) {
+        while(curr) {
+            stack.push([curr, false]);
+            curr = curr.left;
+        }
+        let [node, flag] = stack.pop();
+        if (!flag) {
+            stack.push([node, true]);
+            curr = node.right;
+        } else {
+            res.push(node.val);
+        }
+    }
+    return res;
+}
+</code></pre>
+<p><strong>方式二：倒序解</strong></p>
+<p>思路：该方式类似于先序遍历，只是遍历顺序为 根 -&gt; 右 -&gt; 左。而记录值是从数组的头部插入。</p>
+<pre><code class="language-javascript">/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+function postorderTraversal(root) {
+    if (!root) return [];
+    let res = [],
+        stack = [],
+        curr = root;
+    while(curr || stack.length) {
+        while(curr) {
+            stack.push(curr);
+            res.unshift(curr.val);
+            curr = curr.right;
+        }
+        curr = stack.pop();
+        curr = curr.left;
+    }
+    return res;
+}
+</code></pre>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/GdAziZEB26/">
+            <span class="flex-auto">算法与数据结构</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://https://pineapple126.github.io/post/event-delegation/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  事件委托
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://https://pineapple126.github.io/post/sort-algorithm/">
+                <h3 class="post-title">
+                  排序算法
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

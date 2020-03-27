@@ -1,0 +1,305 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://https://pineapple126.github.io//favicon.ico?v=1585308037774">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://https://pineapple126.github.io//images/avatar.png?v=1585308037774" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#typeof">typeof</a></li>
+<li><a href="#instanceof">instanceof</a></li>
+<li><a href="#constructor">constructor</a></li>
+<li><a href="#objectprototypetostringcall">Object.prototype.toString.call()</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">类型判断</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-03-13 / 3 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://https://pineapple126.github.io//post-images/type-judgement.webp" alt="">
+        
+        <div class="post-content yue">
+          <p>JavaScript 中有 8 种数据类型，又分为基本数据类型和引用数据类型。</p>
+<ul>
+<li>基本数据类型：Null、Undefined、Number、Boolean、String、Symbol、BigInt</li>
+<li>引用数据类新：Object</li>
+</ul>
+<p>判断数据类型的方法有以下几种：<code>typeof</code> 运算符、<code>instanceof</code> 运算符、<code>constructor</code> 方法和 <code>Object.prototype.toString.call()</code> 方法</p>
+<p>我们先创建这些数据类型的变量：</p>
+<pre><code class="language-javascript">let nul = null,
+    und= undefined,
+    num = 1,
+    bool = true,
+    str = &quot;string&quot;,
+    sym = Symbol(),
+    bigint = 1n,
+    obj = {name: &quot;zs&quot;},
+    arr = [1, 2, 3],
+    fn = function() { console.log(&quot;function&quot;); };
+</code></pre>
+<h2 id="typeof">typeof</h2>
+<p><code>typeof</code> 可以识别出数据类型，但是不能识别 null 和 array，会将它们归为 Object 类型。判断示例如下：</p>
+<pre><code class="language-javascript">console.log(typeof nul);            //  object
+console.log(typeof und);            //  undefined
+console.log(typeof num);            //  number
+console.log(typeof bool);           //  boolean
+console.log(typeof str);            //  string
+console.log(typeof sym);            //  symbol
+console.log(typeof bigint);         //  bigint
+console.log(typeof obj);            //  object
+console.log(typeof arr);            //  object
+console.log(typeof fn);         //  function
+</code></pre>
+<h2 id="instanceof">instanceof</h2>
+<p><code>instanceof</code> 不能识别基本数据类型，但是可以识别出 Array、Function 与 Object。同时，对于 new 声明的类型，还可以检测出多层继承关系。</p>
+<pre><code class="language-javascript">console.log(nul instanceof Object);         //  false
+console.log(und instanceof Object);         //  false
+console.log(num instanceof Number);         //  false
+console.log(bool instanceof Boolean);           //  false
+console.log(str instanceof String);         //  false
+console.log(sym instanceof Symbol);         //  false
+console.log(bigint instanceof BigInt);          //  false
+console.log(obj instanceof Object);         //  true
+console.log(arr instanceof Array);          //  true
+console.log(fn instanceof Function);            //  true
+</code></pre>
+<h2 id="constructor">constructor</h2>
+<p>null、undefined 没有 constructor 方法，因此 constructor 不能用于判断 null 和 undefined。并且，constructor 是不安全的，因此 constructor 的指向是可以被改变的。</p>
+<pre><code class="language-javascript">console.log(num.constructor === Number);            //  true
+console.log(bool.constructor === Boolean);          //  true
+console.log(str.constructor === String);            //  true
+console.log(sym.constructor === Symbol);            //  true
+console.log(bigint.constructor === BigInt);         //  true
+console.log(obj.constructor === Object);            //  true
+console.log(arr.constructor === Array);         //  true
+console.log(fn.constructor === Function);           //  true
+</code></pre>
+<h2 id="objectprototypetostringcall">Object.prototype.toString.call()</h2>
+<p>该方法可以相对较全的判断 JavaScript 的数据类型。</p>
+<pre><code class="language-javascript">console.log(Object.prototype.toString.call(nul));           //  [object Null]
+console.log(Object.prototype.toString.call(und));           //  [object Undefined]
+console.log(Object.prototype.toString.call(num));           //  [object Number]
+console.log(Object.prototype.toString.call(bool));          //  [object Boolean]
+console.log(Object.prototype.toString.call(str));           //  [object String]
+console.log(Object.prototype.toString.call(sym));           //  [object Symbol]
+console.log(Object.prototype.toString.call(bigint));            //  [object BigInt]
+console.log(Object.prototype.toString.call(obj));           //  [object Object]
+console.log(Object.prototype.toString.call(arr));           //  [object Array]
+console.log(Object.prototype.toString.call(fn));            //  [object Function]
+</code></pre>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/DEJyveMLT/">
+            <span class="flex-auto">JavaScript</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://https://pineapple126.github.io/post/sort-algorithm/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  排序算法
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://https://pineapple126.github.io/post/map/">
+                <h3 class="post-title">
+                  Set 集合与 Map集合（2）
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

@@ -1,0 +1,316 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://https://pineapple126.github.io//favicon.ico?v=1585308037774">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://https://pineapple126.github.io//images/avatar.png?v=1585308037774" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#state">State</a>
+<ul>
+<li><a href="#%E5%9C%A8-vue-%E7%BB%84%E4%BB%B6%E4%B8%AD%E8%8E%B7%E5%BE%97-vuex-%E7%8A%B6%E6%80%81">在 Vue 组件中获得 Vuex 状态</a></li>
+<li><a href="#mapstate-%E8%BE%85%E5%8A%A9%E5%87%BD%E6%95%B0"><code>mapState</code> 辅助函数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Vuex 学习笔记（二）—— State</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-02-05 / 3 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://https://pineapple126.github.io//post-images/vuex-notes-2.jpg" alt="">
+        
+        <div class="post-content yue">
+          <h2 id="state">State</h2>
+<h3 id="在-vue-组件中获得-vuex-状态">在 Vue 组件中获得 Vuex 状态</h3>
+<p>由于 Vuex 的状态存储是响应式的，从 store 实例中读取状态最简单的方法就是在计算属性中返回某个状态：</p>
+<pre><code class="language-javascript">//   创建一个 Counter 组件
+const Counter = {
+    template: `&lt;div&gt;{{ count }}&lt;/div&gt;`,
+    computed: {
+        count () {
+            return store.state.count;
+        }
+    }
+}
+</code></pre>
+<p>每当 <code>store.state.count</code> 变化时，都会重新求取计算属性，并且触发更新关联的 DOM。</p>
+<p>但是，这种模式导致组件依赖全局状态单例。在模块化的构建系统中，在每一个需要使用 state 的组件中需要频繁地导入，并且在测试组件时需要模拟状态。</p>
+<p>Vuex 通过 <code>store</code> 选项，提供了一种机制将状态从根组件“注入”到每一个子组件中（需要调用 <code>Vue.use(Vuex)</code>）：</p>
+<pre><code class="language-javascript">const app = new Vue({
+    el: &quot;#app&quot;,
+    //  把 store 对象提供给“store”选项，这可以把 store 的实例注入到所有的子组件
+    store,
+    components: { Counter },
+    template: `
+        &lt;div class=&quot;app&quot;&gt;
+            &lt;counter&gt;&lt;/counter&gt;
+        &lt;/div&gt;
+    `
+})
+</code></pre>
+<p>通过在根实例中注册 <code>store</code> 选项，该 store 实例会注入到根组件的所有子组件中，且子组件可以通过 <code>this.$store</code> 访问到。因此 <code>Counter</code> 将这样实现：</p>
+<pre><code class="language-javascript">const Counter = {
+    template: `&lt;div&gt;{{ count }}&lt;/div&gt;`,
+    computed: {
+        count () {
+            return this.$store.state.count;
+        }
+    }
+}
+</code></pre>
+<h3 id="mapstate-辅助函数"><code>mapState</code> 辅助函数</h3>
+<p>当一个组件需要获取多个状态的时候，将这些状态都声明为计算属性会有些重复和冗余。因此，我们可以使用 <code>mapState</code> 辅助函数帮助我们生成计算属性，让我们少写几行代码：</p>
+<pre><code class="language-javascript">import { mapState } from 'vuex'
+
+export default {
+    //   ...
+    computed: mapState({
+        count: state =&gt; state.count,
+
+        //   传字符串参数 'count' 等同于 `state =&gt; state.count`
+        countAlias: 'count',
+
+        //   为了能够使用 `this` 获取局部状态，必须使用常规函数
+        countPlusLocalState (state) {
+            return state.count + this.localCount
+        }
+    })
+}
+</code></pre>
+<p>当映射的计算属性的名称与 state 的子节点名称相同时，我们也可以给 <code>mapState</code> 传一个字符串数组。</p>
+<pre><code class="language-javascript">computed: mapState([
+    //  映射 this.count 为 store.state.count
+    'count'
+])
+</code></pre>
+<p><code>mapState</code> 辅助函数返回的是一个对象。我们可以使用<strong>对象展开运算符</strong>将它与局部计算属性混合使用：</p>
+<pre><code class="language-javascript">computed: {
+    localComputed () { /* ... */ },
+
+    //  使用对象展开运算符将 mapState 返回的对象混入到外部对象中
+    ...mapState({
+        //   ...
+    })
+}
+</code></pre>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/DEJyveMLT/">
+            <span class="flex-auto">JavaScript</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/urdU7hwoxU/">
+            <span class="flex-auto">vue.js</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://https://pineapple126.github.io/post/vuex-notes-3/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  Vuex 学习笔记（三）—— Getter
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://https://pineapple126.github.io/post/vuex-notes-1/">
+                <h3 class="post-title">
+                  Vuex 学习笔记（一）—— 什么是 Vuex
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

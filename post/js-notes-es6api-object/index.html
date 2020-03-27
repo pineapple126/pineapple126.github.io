@@ -1,0 +1,354 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://https://pineapple126.github.io//favicon.ico?v=1585308037774">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://https://pineapple126.github.io//images/avatar.png?v=1585308037774" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1-%E9%9D%99%E6%80%81%E5%87%BD%E6%95%B0-objectis">1. 静态函数 Object.is(..)</a></li>
+<li><a href="#2-%E9%9D%99%E6%80%81%E5%87%BD%E6%95%B0-objectgetownpropertysymbols">2. 静态函数 Object.getOwnPropertySymbols(..)</a></li>
+<li><a href="#3-%E9%9D%99%E6%80%81%E5%87%BD%E6%95%B0-objectsetprototypeof">3. 静态函数 Object.setPrototypeOf(..)</a></li>
+<li><a href="#4-%E9%9D%99%E6%80%81%E5%87%BD%E6%95%B0-objectassign">4. 静态函数 Object.assign(..)</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">JS学习笔记--ES6新增API Object部分</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-01-19 / 4 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://https://pineapple126.github.io//post-images/js-notes-es6api-object.jpg" alt="">
+        
+        <div class="post-content yue">
+          <p>这篇文章是我学习了《你不知道的JavaScript》下卷 ES6 新增API Object部分，然后摘抄与整理所学到的四种 Object 函数。</p>
+<h2 id="1-静态函数-objectis">1. 静态函数 Object.is(..)</h2>
+<p>静态函数<code>Object.is(..)</code>执行比<code>===</code>比较更严格的值比较。</p>
+<p><code>Object.is(..)</code>调用底层 SameValue 算法。SameValue 算法基本上和<code>===</code>严格相等比较算法一样，但有两个重要的区别。</p>
+<p>考虑：</p>
+<pre><code class="language-javascript">var x = NaN, y = 0, z = -0;
+
+x === x;                    // false
+y === z;                    // true
+
+Object.is( x, x );          // true
+Object.is( y, z );          // false
+</code></pre>
+<p>因此，应该继续使用<code>===</code>进行严格相等比较，不应该把<code>Object.is(..)</code>当作严格相等运算符的替代。但是，如果需要严格识别 NaN 和 -0 值，那么应该选择<code>Object.is(..)</code>。</p>
+<h2 id="2-静态函数-objectgetownpropertysymbols">2. 静态函数 Object.getOwnPropertySymbols(..)</h2>
+<p>ES6中新增了基本值类型 Symbol，而 Symbol 很可能会成为对象最常用的特殊（元）属性。所以引入了工具<code>Object.getOwnPropertySymbols(..)</code>，他直接从对象上取得所有的符号属性：</p>
+<pre><code class="language-javascript">var o = {
+    foo: &quot;42&quot;,
+    [ Symbol( &quot;bar&quot; ) ]: &quot;hello world&quot;,
+    baz: true
+};
+
+Object.getOwnPropertySymbols( o );          // [ Symbol(bar) ]
+</code></pre>
+<h2 id="3-静态函数-objectsetprototypeof">3. 静态函数 Object.setPrototypeOf(..)</h2>
+<p>工具<code>Object.setPrototypeOf(..)</code>设置对象的[[Prototype]]用于<strong>行为委托</strong>。考虑：</p>
+<pre><code class="language-javascript">var o1 = {
+    foo() { console.log( &quot;foo&quot; ); }
+};
+var o2 = {
+    // .. o2的定义 ..
+};
+
+ Object.setPrototypeOf( o2, o1 );
+ 
+ // 委托给o1.foo()
+ o2.foo();                          // foo
+</code></pre>
+<p>也可以：</p>
+<pre><code class="language-javascript">var o1 ={
+    foo() { console.log( &quot;foo&quot; ); }
+};
+
+var o2 =  Object.setPrototypeOf( {
+    // .. o2的定义 ..
+}, o1 );
+
+ // 委托给o1.foo()
+ o2.foo();                          // foo
+</code></pre>
+<p>前面两段代码中，o2 和 o1 的关系都出现在 o2 定义的结尾处。更通俗的说， o2 和 o1 的关系在 o2 的定义上指定，就像类一样，也和字面值对象中的__proto__一样。</p>
+<h2 id="4-静态函数-objectassign">4. 静态函数 Object.assign(..)</h2>
+<p>很多 JavaScript 库/框架提供了用于把一个对象的属性复制/混合到另一个对象中的工具。这些工具之间有各种细微的区别，比如是否忽略值为 undefined 的属性。</p>
+<p>ES6 新增了 Object.assign(..)，这是这些算法的简化版本。第一个参数是 target，其他传入的参数都是源，他们将按照列出的顺序依次被处理。对于每一个源来说，它的可枚举和自己拥有的（即不是“继承来的”）键值，包括 Symbol 都会通过简单 = 赋值被复制。Object.assign(..)返回目标对象。</p>
+<p>考虑这个对象设定：</p>
+<pre><code class="language-javascript">var target = {},
+    o1 = { a: 1 }, o2 = { b: 2 },
+    o3 = { c: 3 }, o4 = { d: 4 };
+    
+// 设定只读属性
+Object.defineProperty( o3, &quot;e&quot;, {
+    value: 5,
+    enumerable: true,
+    writable: false,
+    configurable: false
+} );
+
+// 设定不可枚举属性
+Object.defineProperty( o3, &quot;f&quot;, {
+    value: 6,
+    enumerable: false
+} );
+
+o3[ Symbol( &quot;g&quot; ) ] = 7;
+
+// 设定不可枚举符号
+Object.defineProperty( o3, Symbol( &quot;h&quot; ), {
+    value: 8,
+    enumerable: false
+} );
+
+Object.setPrototypeOf( o3, o4 );
+</code></pre>
+<p>只有属性 a、b、c、e 以及 Symbol(&quot;g&quot;) 会被复制到 target 中：</p>
+<pre><code class="language-javascript">Object.assign( target, o1, o2, o3 );
+
+target.a;                           // 1
+target.b;                           // 2
+target.c;                           // 3
+
+Object.getOwnPropertyDescriptor( target, &quot;e&quot; );
+// { value: 5, writable: true, enumerable: true, configurable: true }
+
+Object.getOwnPropertySymbols( target );
+// [Symbol(&quot;g&quot;)]
+</code></pre>
+<p>复制过程会忽略属性 d、f 和 Symbol(&quot;h&quot;)；不可枚举的属性和非自有的属性都会被排除在复制过程之外。另外，e 作为一个普通属性被复制，而不是作为只读属性复制。</p>
+<p>在前一节中，展示了使用 setPrototypeOf(..) 设定对象 o2 和 o1 之间的 [[Prototype]] 关系。还有另外一种应用了 Object.assign(..) 的形式：</p>
+<pre><code class="language-javascript">var o1 = {
+    foo() { console.log( &quot;foo&quot; ); }
+};
+
+var o2 = Object.assign(
+    Object.create( o1 ),
+    {
+        // .. o2的定义 ..
+    }
+);
+
+ // 委托给o1.foo()
+ o2.foo();                          // foo
+</code></pre>
+<p><strong>完</strong></p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/DEJyveMLT/">
+            <span class="flex-auto">JavaScript</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://https://pineapple126.github.io/tag/MWXepM6P0E/">
+            <span class="flex-auto">你不知道的JS学习笔记</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://https://pineapple126.github.io/post/block-level-scope-binding/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  块级作用域的绑定
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://https://pineapple126.github.io/post/js-notes-es6api-array/">
+                <h3 class="post-title">
+                  JS学习笔记--ES6新增API Array部分
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
