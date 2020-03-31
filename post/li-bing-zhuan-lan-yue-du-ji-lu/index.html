@@ -1,0 +1,516 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://pineapple126.github.io//favicon.ico?v=1585668770782">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://pineapple126.github.io//images/avatar.png?v=1585668770782" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#chrome-%E6%9E%B6%E6%9E%84">Chrome 架构</a>
+<ul>
+<li><a href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B">进程和线程</a></li>
+<li><a href="#%E5%8D%95%E8%BF%9B%E7%A8%8B%E6%B5%8F%E8%A7%88%E5%99%A8%E6%97%B6%E4%BB%A3">单进程浏览器时代</a></li>
+<li><a href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B%E6%B5%8F%E8%A7%88%E5%99%A8%E6%97%B6%E4%BB%A3">多进程浏览器时代</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87executing-context">什么是执行上下文（Executing Context）？</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%B0%83%E7%94%A8%E6%A0%88call-stack">什么是调用栈（Call Stack）？</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BD%9C%E7%94%A8%E5%9F%9Fscope">什么是作用域（Scope）？</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BEscope-chain">什么是作用域链（Scope Chain）？</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%AF%8D%E6%B3%95%E4%BD%9C%E7%94%A8%E5%9F%9Flexical-scope">什么是词法作用域（Lexical Scope）？</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%97%AD%E5%8C%85">什么是闭包？</a></li>
+<li><a href="#new-%E8%BF%90%E7%AE%97%E7%AC%A6%E6%89%A7%E8%A1%8C%E7%9A%84%E6%93%8D%E4%BD%9C">new 运算符执行的操作？</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0">什么是回调函数？</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%92%8C%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF">什么是消息队列和事件循环？</a>
+<ul>
+<li><a href="#%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F">事件循环执行顺序</a></li>
+</ul>
+</li>
+<li><a href="#promise">Promise</a>
+<ul>
+<li><a href="#promise-%E7%BB%83%E4%B9%A0%E9%A2%98">Promise 练习题</a></li>
+</ul>
+</li>
+<li><a href="#asyncawait">async/await</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E5%BC%8F">创建对象的方式</a></li>
+<li><a href="#this-%E5%85%B3%E9%94%AE%E5%AD%97">this 关键字</a>
+<ul>
+<li><a href="#this-%E7%9A%84%E4%BA%94%E7%A7%8D%E7%BB%91%E5%AE%9A%E6%96%B9%E5%BC%8F">this 的五种绑定方式</a></li>
+<li><a href="#this-%E7%9A%84%E7%BC%BA%E9%99%B7">this 的缺陷</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">李兵专栏阅读记录</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2021-04-08 / 12 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="chrome-架构">Chrome 架构</h2>
+<h3 id="进程和线程">进程和线程</h3>
+<p><strong>进程</strong>：<strong>一个进程就是一个程序的实例</strong>。当我们启动一个程序时，操作系统会为该程序创建一块内存，用来存放有效代码、运行中的数据和一个执行任务的主线程，我们把这样的一个运行环境叫做<strong>进程</strong>。（进程支持并行处理任务）</p>
+<p><strong>线程</strong>：线程就是由进程来启动和管理的用于执行任务的一种结构。线程是不能单独存在的。</p>
+<p>线程是依附于进程的，而进程中使用多线程并行处理能提高运算效率。</p>
+<p><strong>进程和线程的之间的关系：</strong></p>
+<pre><code>1. 进程中的任意一线程执行出错，都会导致整个进程崩溃；
+2. 线程之间共享进程中的数据；
+3. 当一个进程关闭之后，操作系统会回收进程所占用的所有内存；
+4. 进程之间的内容相互隔离。
+</code></pre>
+<h3 id="单进程浏览器时代">单进程浏览器时代</h3>
+<p><strong>单进程浏览器是指浏览器的所有功能模块都运行在一个进程里</strong>，这些模块包括了网络、插件、JavaScript 运行环境、渲染引擎和页面等。</p>
+<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1585655641805.png" alt="单进程浏览器架构示意图" loading="lazy"></figure>
+<p>如此多的模块放在同一个进程内运行是导致单进程浏览器<strong>不稳定</strong>、<strong>不流畅</strong>和<strong>不安全</strong>的主要因素。</p>
+<h3 id="多进程浏览器时代">多进程浏览器时代</h3>
+<p><strong>早期多进程架构</strong></p>
+<figure data-type="image" tabindex="2"><img src="https://pineapple126.github.io//post-images/1585661831782.png" alt="早期 Chrome 进程架构图" loading="lazy"></figure>
+<p>不同进程之间的相互隔离解决了<strong>不稳定</strong>的问题；每个页面拥有一个渲染进程，即使 JavaScript 阻塞了渲染进程，也只是影响当前的渲染页面，从而解决了<strong>不流畅</strong>的问题；采用多进程架构的好处是可以使用<strong>安全沙盒</strong>，我们可以将沙盒看成是操作系统给进程上了一把锁，</p>
+<h2 id="什么是执行上下文executing-context">什么是执行上下文（Executing Context）？</h2>
+<p>执行上下文是当前 JavaScript 代码被解析和执行时所在环境的抽象概念。分为全局执行上下文和函数执行上下文。</p>
+<ul>
+<li>当 JavaScript 执行全局代码时，会编译全局代码并创建一个全局执行上下文，在代码的生命周期内，全局执行上下文只有一个。</li>
+<li>当调用一个函数时，会编译函数代码并创建一个函数执行上下文，一般情况下，函数执行完成后，该函数执行上下文会被销毁。</li>
+</ul>
+<h2 id="什么是调用栈call-stack">什么是调用栈（Call Stack）？</h2>
+<p>调用栈就是用来管理函数调用关系的一种数据结构，也是 JavaScript 引擎追踪函数执行的一个机制。调用栈又称执行栈，用于存储代码执行期间创建的所有执行上下文。</p>
+<h2 id="什么是作用域scope">什么是作用域（Scope）？</h2>
+<p>作用域是指在程序中定义变量的区域，该位置决定了变量的生命周期。通俗得理解，作用域就是变量和函数的可访问范围，即作用域控制着变量和函数的可见性与生命周期。</p>
+<ul>
+<li>全局作用域</li>
+<li>函数作用域</li>
+<li>块级作用域</li>
+</ul>
+<h2 id="什么是作用域链scope-chain">什么是作用域链（Scope Chain）？</h2>
+<p>当我们在当前作用域内查找某个变量时，会一层一层的向外层作用域去寻找，直至找到该变量。若直至全局作用域还是没有找到该变量，就宣布放弃。这个通过作用域寻找变量的链条就成为作用域链。</p>
+<h2 id="什么是词法作用域lexical-scope">什么是词法作用域（Lexical Scope）？</h2>
+<p>词法作用域就是指作用域由代码中的函数声明的位置来决定的，所以词法作用域就是静态的作用域，通过它我们可以预测代码在执行过程中如何查找标识符。（词法作用域是在代码阶段就确定的，和函数的调用位置没有关系）</p>
+<h2 id="什么是闭包">什么是闭包？</h2>
+<p>在 JavaScript 中，根据词法作用域的规则，内部函数可以访问在外部函数中声明的变量。当通过调用一个外部函数返回一个内部函数后，即使外部函数已经执行完毕了，但是内部函数引用外部函数的变量仍然保存在内存中。我们把这些被引用的变量的集合称作闭包。</p>
+<h2 id="new-运算符执行的操作">new 运算符执行的操作？</h2>
+<pre><code>1. 创建一个空对象；
+2. 将该对象的原型设置为构造函数的原型；
+3. 将构造函数的 this 值指向该对象；
+4. 若构造函数存在返回值且不为对象，则返回该对象。
+</code></pre>
+<pre><code class="language-javascript">function objectFactory() {
+    var obj = new Object();
+    Constructor = [].shift.call(arguments);
+    obj.__proto__ = Constructor.prototype;
+    var ret = Constructor.apply(obj, arguments);
+    return Object.prototype.toString.call(ret) === &quot;[object Object]&quot;
+        ? ret : obj;
+}
+</code></pre>
+<h2 id="什么是回调函数">什么是回调函数？</h2>
+<p>当我们把一个函数作为参数传递给另外一个函数时，这个被当作参数的函数就是回调函数。</p>
+<p>我们把回调函数在主函数返回之前执行的回调过程称为同步回调；回调函数是在主函数外部执行的回调过程称为异步回调。</p>
+<h2 id="什么是消息队列和事件循环">什么是消息队列和事件循环？</h2>
+<p>消息队列是一种数据结构，可以存放将要执行的任务。而主线程不断从消息队列的头部取出任务并执行的过程称为事件循环。</p>
+<p>不过随着浏览器的应用领域越来越广泛，消息队列中这种粗时间颗粒已经不能胜任部分领域的任务。为了实现任务执行时的实时性和效率的权衡，因此引入了宏任务和微任务的概念。</p>
+<p>宏任务就是在任务队列中的任务；微任务是一个需要异步执行的函数，它的执行时机是在主函数执行结束之后、当前宏任务结束之前。</p>
+<p>当主线程从消息队列中取出宏任务执行时，JS 引擎会为当前宏任务创建执行上下文的同时再创建一个微任务队列，用于存储当前宏任务在执行过程中产生的微任务。</p>
+<p>在当前主函数执行结束之后，宏任务结束之前会执行微任务队列中的任务，微任务执行过程中产生的微任务会再添加到当前微任务队列中，直至为任务队列为空结束。</p>
+<p>宏任务：</p>
+<ul>
+<li>I/O</li>
+<li>setTimeout</li>
+<li>setInterval</li>
+</ul>
+<p>微任务：</p>
+<ul>
+<li>process.nextTick（Node）</li>
+<li>promise 产生的回调函数</li>
+<li>MutationObserver（浏览器）</li>
+</ul>
+<h3 id="事件循环执行顺序">事件循环执行顺序</h3>
+<pre><code>1. 一开始将整个脚本作为一个宏任务执行
+2. 执行过程中同步代码直接执行，宏任务进入宏任务队列，微任务进入微任务队列
+3. 当前宏任务执行完后，检查其微任务队列，有则依次执行，知道全部执行完，然后当前宏任务出队
+4. 执行浏览器 UI 线程的渲染工作
+5. 检查是否有 Web Worker 任务，有则执行
+6. 执行完本轮的宏任务，回到步骤 2，依次循环，直到宏任务和微任务队列都为空
+</code></pre>
+<h2 id="promise">Promise</h2>
+<p>Promise 解决了异步编码风格的问题。传统异步编码中，如果异步之间存在依赖关系，就需要层层嵌套回调来满足依赖关系。如果嵌套层数过多就会产生“回调地狱”，而 Promise 将嵌套回调模式改变为链式回调，从而避免产生“回调地狱”。</p>
+<p>Promise 通过以下两步解决回调地狱问题：</p>
+<pre><code>1. Promise 实现了回调函数的延时绑定
+2. 将回调函数的返回值穿透到最外层
+</code></pre>
+<p>重点部分：Promise 回调函数的延时绑定、Promise 回调函数返回值穿透、Promise 出错的冒泡传递机制</p>
+<p>then 函数传入的参数期待值为函数，若不为函数则会发生值穿透问题。</p>
+<h3 id="promise-练习题">Promise 练习题</h3>
+<ol>
+<li>使用 Promise 实现间隔 1s，依次输出 1，2，3</li>
+</ol>
+<ul>
+<li>先上一个简易版的</li>
+</ul>
+<pre><code class="language-javascript">Promise.resolve()
+    .then(() =&gt; {
+        return new Promise(r =&gt; {
+            setTimeout(() =&gt; {
+                r(console.log(1));
+            }, 1000);
+        })
+    })
+    .then(() =&gt; {
+        return new Promise(r =&gt; {
+            setTimeout(() =&gt; {
+                r(console.log(2));
+            }, 1000);
+        })
+    })
+    .then(() =&gt; {
+        return new Promise(r =&gt; {
+            setTimeout(() =&gt; {
+                r(console.log(3));
+            }, 1000);
+        })
+    });
+</code></pre>
+<ul>
+<li><code>Promise</code> + <code>Array#reduce()</code> 实现</li>
+</ul>
+<pre><code class="language-javascript">const arr = [1, 2, 3];
+arr.reduce((p, x) =&gt; {
+    return p.then(() =&gt; {
+        return new Promise(r =&gt; {
+            setTimeout(() =&gt; {
+                r(console.log(x))
+            }, 1000);
+        });
+    });
+}, Promise.resolve());
+</code></pre>
+<ol start="2">
+<li>使用 Promise 实现红绿灯交替重复</li>
+</ol>
+<pre><code class="language-javascript">function red() {
+    console.log(&quot;red&quot;);
+}
+
+function yellow() {
+    console.log(&quot;yellow&quot;);
+}
+
+function green() {
+    console.log(&quot;green&quot;);
+}
+
+const light = function(timer, cb) {
+    return new Promise(resolve =&gt; {
+        setTimeout(() =&gt; {
+            cb();
+            resolve();
+        }, timer);
+    });
+}
+
+const step = function() {
+    Promise.resolve().then(() =&gt; {
+        return light(3000, red);
+    }).then(() =&gt; {
+        return light(2000, yellow);
+    }).then(() =&gt; {
+        return light(1000, green);
+    }).then(() =&gt; {
+        return step();
+    });
+}
+
+step();
+</code></pre>
+<ol start="3">
+<li>实现 mergePromise 函数</li>
+</ol>
+<p>实现 mergePromise 函数，把传进去的数组按顺序先后执行，并且把返回的数据先后放入到数组 data 中。</p>
+<p>求解思路：</p>
+<ul>
+<li>定义一个 <code>data</code> 存储所有异步操作的结果</li>
+<li>初始化一个 <code>const promise = Promise.resolve()</code>，然后循环遍历数组，在 <code>promise</code> 后面添加执行ajax任务，同时要将添加的结果重新赋值到 <code>promise</code> 上。</li>
+</ul>
+<pre><code class="language-javascript">const time = (timer) =&gt; {
+  return new Promise(resolve =&gt; {
+    setTimeout(() =&gt; {
+      resolve()
+    }, timer)
+  })
+}
+const ajax1 = () =&gt; time(2000).then(() =&gt; {
+  console.log(1);
+  return 1
+})
+const ajax2 = () =&gt; time(1000).then(() =&gt; {
+  console.log(2);
+  return 2
+})
+const ajax3 = () =&gt; time(1000).then(() =&gt; {
+  console.log(3);
+  return 3
+})
+
+function mergePromise (ajaxArray) {
+  // 存放每个ajax的结果
+  const data = [];
+  let promise = Promise.resolve();
+  ajaxArray.forEach(ajax =&gt; {
+  	// 第一次的then为了用来调用ajax
+  	// 第二次的then是为了获取ajax的结果
+    promise = promise.then(ajax).then(res =&gt; {
+      data.push(res);
+      return data; // 把每次的结果返回
+    })
+  })
+  // 最后得到的promise它的值就是data
+  return promise;
+}
+
+mergePromise([ajax1, ajax2, ajax3]).then(data =&gt; {
+  console.log(&quot;done&quot;);
+  console.log(data); // data 为 [1, 2, 3]
+});
+
+// 要求分别输出
+// 1
+// 2
+// 3
+// done
+// [1, 2, 3]
+
+</code></pre>
+<h2 id="asyncawait">async/await</h2>
+<p>Promise 将异步回调函数处理线性化，但是太多的 then 函数使得代码不容易阅读，因此 ES 2016 引入了 async/await，提供了在不阻塞主线程的情况下使用同步代码实现异步访问资源的能力，并使得代码逻辑更加清晰。</p>
+<p>asnyc：async 是一个通过<strong>异步执行</strong>并**隐式返回一个 Promise **作为结果的函数。</p>
+<p>await：执行 await 时，会默认创建一个 Promise 对象，并将其返回。</p>
+<p>async 中 await 的 new Promise 如果没有返回值则不执行后面的内容。</p>
+<p><em>协程</em>：协程是一种比线程更加轻量级的存在。一个线程可以拥有多个协程，同一线程的不同协程之间是交互执行而非并发执行。若现在执行 A 协程，接下来如果要执行 B 协程，那么 A 协程就需要将主线程的控制权交给 B 协程。如果 A 协程启动 B 协程，则称 A 协程是 B 协程的父协程。</p>
+<h2 id="创建对象的方式">创建对象的方式</h2>
+<pre><code>1. 对象字面量
+2. DOM API （document.createElement)
+3. JS 内置对象的 API
+4. 装箱转换
+</code></pre>
+<h2 id="this-关键字">this 关键字</h2>
+<p>this 是和执行上下文绑定的，指向变量或者函数的上下文环境。</p>
+<h3 id="this-的五种绑定方式">this 的五种绑定方式</h3>
+<ol>
+<li>默认绑定：this 默认指向全局对象（严格模式下函数中的 this 指向 <code>undefined</code>）</li>
+<li>隐式绑定：this 指向最后调用它的对象
+<blockquote>
+<p>隐式绑定的隐式丢失：被隐式绑定的函数在特定情况下会丢失绑定对象</p>
+<ul>
+<li>使用另一个变量来给函数起别名</li>
+<li>将函数作为参数传递时会被隐式赋值，回调函数丢失 this 值</li>
+</ul>
+</blockquote>
+</li>
+<li>显示绑定：通过 call、apply、bind 改变 this 指向</li>
+<li>new 绑定：使用 new 来调用一个函数，会构造一个新对象并把这个新对象绑定到调用函数中的 this</li>
+<li>箭头函数绑定：箭头函数中的 this 是由外层作用域来决定的，且指向函数定义时的 this 而非执行时</li>
+</ol>
+<h3 id="this-的缺陷">this 的缺陷</h3>
+<pre><code>1. 嵌套函数中的 this 不会从外层函数中继承；
+2. 普通函数的 this 默认指向全局对象 window</code></pre>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://pineapple126.github.io/post/leetcode-23-mergeKLists/">
+                <h3 class="post-title">
+                  LeetCode - 23 合并K个排序链表（分治）
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
