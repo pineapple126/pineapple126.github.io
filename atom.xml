@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2020-03-31T15:32:53.995Z</updated>
+    <updated>2020-04-01T04:39:50.063Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -34,7 +34,7 @@
 <h3 id="多进程浏览器时代">多进程浏览器时代</h3>
 <p><strong>早期多进程架构</strong></p>
 <figure data-type="image" tabindex="2"><img src="https://pineapple126.github.io//post-images/1585661831782.png" alt="早期 Chrome 进程架构图" loading="lazy"></figure>
-<p>不同进程之间的相互隔离解决了<strong>不稳定</strong>的问题；每个页面拥有一个渲染进程，即使 JavaScript 阻塞了渲染进程，也只是影响当前的渲染页面，从而解决了<strong>不流畅</strong>的问题；采用多进程架构的好处是可以使用<strong>安全沙盒</strong>，我们可以将沙盒看成是操作系统给进程上了一把锁，</p>
+<p>不同进程之间的相互隔离解决了<strong>不稳定</strong>的问题；每个页面拥有一个渲染进程，即使 JavaScript 阻塞了渲染进程，也只是影响当前的渲染页面，从而解决了<strong>不流畅</strong>的问题；采用多进程架构的好处是可以使用<strong>安全沙盒</strong>，我们可以将沙盒看成是操作系统给进程上了一把锁，沙盒里面的</p>
 <h2 id="什么是执行上下文executing-context">什么是执行上下文（Executing Context）？</h2>
 <p>执行上下文是当前 JavaScript 代码被解析和执行时所在环境的抽象概念。分为全局执行上下文和函数执行上下文。</p>
 <ul>
