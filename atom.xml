@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2020-04-06T15:56:20.362Z</updated>
+    <updated>2020-04-10T14:45:05.824Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -10,6 +10,205 @@
     <logo>https://pineapple126.github.io/images/avatar.png</logo>
     <icon>https://pineapple126.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 深海大菠萝盖饭</rights>
+    <entry>
+        <title type="html"><![CDATA[从用户输入 URL 到页面渲染完毕，这中间发生了什么？]]></title>
+        <id>https://pineapple126.github.io/post/cong-yong-hu-shu-ru-url-dao-ye-mian-xuan-ran-wan-bi-zhe-zhong-jian-fa-sheng-liao-shi-me/</id>
+        <link href="https://pineapple126.github.io/post/cong-yong-hu-shu-ru-url-dao-ye-mian-xuan-ran-wan-bi-zhe-zhong-jian-fa-sheng-liao-shi-me/">
+        </link>
+        <updated>2020-04-07T07:23:36.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="从输入-url-到页面展示中间发生了什么">从输入 URL 到页面展示，中间发生了什么？</h2>
+<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1586162608489.png" alt="从输入 URL 到页面展示完整流程示意图" loading="lazy"></figure>
+<p><strong>用户发出 URL 请求到页面开始解析的这个过程，就叫做导航。</strong></p>
+<h2 id="1-用户输入">1. 用户输入</h2>
+<p>当用户在地址栏里输入一个查询关键字时，地址栏会判断输入的关键字是<strong>搜索内容</strong>，还是<strong>请求的 URL</strong>。</p>
+<ul>
+<li>如果是搜索内容，地址栏会使用浏览器默认的搜索引擎，来合成新的带搜索关键字的 URL。</li>
+<li>如果判断输入内容符合 URL 规则，那么地址栏会根据规则，把这段内容加上协议，合为完整的 URL。</li>
+</ul>
+<p>默认情况下，当用户输入关键字并键入回车之后，当前页面将会被替换为新的页面，不过浏览器提供了一个 <code>beforeunload</code> 事件，在这个流程继续之前，<code>beforeunload</code> 事件允许页面在退出之前执行一些数据清理操作，还可以询问用户是否要离开该页面，因此用户可以用通过 <code>beforeunload</code> 事件来取消导航，让浏览器不再进行任何后续工作。</p>
+<h2 id="2-url-请求过程">2. URL 请求过程</h2>
+<p>页面资源请求过程，浏览器进程通过 进程间通讯（IPC）把 URL 请求发送给 网络进程，网络进程接收到 URL 请求后，会发起真正的 URL 请求流程。</p>
+<p>首先，网络进程会在本地缓存中检查是否缓存了请求资源。如果有缓存资源，则直接返回资源给浏览器进程；如果在缓存中没有查找到资源，那么直接进入网络请求流程。请求第一步是进行 DNS 解析（将域名转换为 IP 地址），以获取请求服务器的 IP 地址。如果请求的协议是 HTTPS，那么还要建立 TLS 连接。</p>
+<p>接下来就是利用 IP 地址和服务器建立 TCP 连接。连接建立后，浏览器端会构建请求行、请求头等信息，并把和该域名相关的 Cookie 等数据附加到请求头中，然后向服务器发送构建的请求信息。</p>
+<p>服务器接收到请求信息后，会根据请求信息生成响应数据（包括响应行、响应头、响应体等信息），并发给网络进程。等网络进程接收了响应行和响应头之后，就开始解析响应头的内容了。</p>
+<p><strong>（1）重定向</strong></p>
+<p>在接收到服务器返回的响应头后，网络进程开始解析响应头中的数据，如果发现返回的状态码是 301 或者 302，那么说明服务器需要浏览器重定向到其他 URL。这时网络进程会从响应头的 Location 字段里面读取重定向的地址，然后再发起新的 HTTP 或者 HTTPS 请求，一切又重新开始。</p>
+<p>注意：在导航过程中，如果服务器响应行的状态码包含了 301、302 一类的跳转信息，浏览器会跳转到新的地址继续导航；如果响应行是 200，那么表示浏览器可以继续处理该请求。</p>
+<p><strong>（2）响应数据类型处理</strong></p>
+<p><strong><code>Context-Type</code> 是 HTTP 头中的一个非常重要的字段，它告诉浏览器服务器返回的响应体数据是什么类型。</strong>，然后浏览器会根据 <code>Context-Type</code> 字段的值来决定如何显示响应体的内容。</p>
+<p>不同 <code>Context-Type</code> 的后续处理流程也截然不同。如果 <code>Context-Type</code> 字段的值被浏览器判断为<strong>下载类型</strong>，<strong>那么该请求会被提交给浏览器的下载管理器，同时该 URL 请求的导航栏流程就此结束</strong>。但如果是 <strong>HTML</strong>，<strong>那么浏览器则会继续进行导航流程。</strong></p>
+<h2 id="3-准备渲染进程">3. 准备渲染进程</h2>
+<p>默认情况下，Chrome 会为每个页面分配一个渲染进程。但是，**如果从一个页面打开了另一个新页面，而新页面和当前页面属于同一站点的话，那么新页面会复用父页面的渲染进程。**官方把这个默认策略叫做 process-per-site-instance。</p>
+<p>总结一下：</p>
+<ul>
+<li>通常情况下，打开的新页面都会使用单独的渲染进程；</li>
+<li>如果从 A 页面打开 B 页面，且 A 与 B 都属于<strong>同一站点</strong>的话，B 页面会复用 A 页面的渲染进程。</li>
+</ul>
+<h2 id="4-提交文档">4. 提交文档</h2>
+<p>所谓提交文档，就是指浏览器将网络进程接收到的 HTML 数据提交给渲染进程，具体流程如下：</p>
+<ul>
+<li>首先当浏览器进程接收到网络进程的响应头数据之后，便向渲染进程发起“提交文档”的消息；</li>
+<li>渲染进程接收到“提交文档”的消息后，会和网络进程建立传输数据的“管道”；</li>
+<li>等文档数据传输完成后，渲染进程会返回“确认提交”的消息给浏览器进程；</li>
+<li>浏览器进程在收到“确认提交”的消息后，会更新浏览器界面状态，包括安全状态、地址 URL、前进后退的历史状态，并更新 Web 页面。</li>
+</ul>
+<p>至此，一个完整的导航流程结束，紧接着是渲染阶段</p>
+<h2 id="5-渲染阶段">5. 渲染阶段</h2>
+<p>一旦文档被提交，渲染进程便开始页面解析和子资源加载了。一旦页面生成完毕，渲染进程会发送一个消息给浏览器进程，浏览器接收到消息后，会停止标签图标上的加载动画。</p>
+<p>渲染模块在执行过程中会被划分为许多子阶段。我们把这样一个处理流程叫做<strong>渲染流水线</strong>，其大致流程如下图所示：</p>
+<figure data-type="image" tabindex="2"><img src="https://pineapple126.github.io//post-images/1586244905056.png" alt="渲染流水线示意图" loading="lazy"></figure>
+<p>按照渲染的时间顺序，流水线可分为如下几个阶段：构建 DOM 树、样式计算、布局阶段、分层、绘制、分块、光栅化和合成。在每个阶段中，我们需要注意以下三点内容:</p>
+<ul>
+<li>每个子阶段都有其<strong>输入内容</strong>；</li>
+<li>每个子阶段都有其<strong>处理过程</strong>；</li>
+<li>每个子阶段都会生成<strong>输出内容</strong>。</li>
+</ul>
+<h3 id="构建-dom-树">构建 DOM 树</h3>
+<p><strong>由于浏览器无法直接理解和使用 HTML，所以需要将 HTML 转换为浏览器能够理解的结构——DOM 树。</strong></p>
+<p>DOM 树的构建过程可以参考下图：</p>
+<figure data-type="image" tabindex="3"><img src="https://pineapple126.github.io//post-images/1586245031193.png" alt="DOM 树构建过程示意图" loading="lazy"></figure>
+<p>从图中可以看出，构建 DOM 树的<strong>输入内容</strong>是一个简单的 HTML 文件，然后经由 HTML 解析器解析，最终输入树状结构的 DOM。</p>
+<h3 id="样式计算recalculate-style">样式计算（Recalculate Style）</h3>
+<p>样式计算的目的是为了计算出 DOM 节点中每个元素的具体样式，这个阶段大致可分为三个步骤：</p>
+<p><strong>1. 把 CSS 转换为浏览器可以理解的结构。</strong></p>
+<p>CSS 样式来源主要有三种：</p>
+<ul>
+<li>通过 link 引入的外部 CSS 文件</li>
+<li><code>&lt;style&gt;</code> 标记内的样式</li>
+<li>元素 style 属性内嵌的 CSS</li>
+</ul>
+<p>和 HTML 文件一样，浏览器也是无法直接理解这些纯文本的 CSS 样式，所以<strong>当渲染引擎接收到 CSS 文本时，会执行一个转换操作，将 CSS 文本转换为浏览器可以理解的结构——styleSheets。</strong>（渲染引擎会将获取的 CSS 文本全部转换为 styleSheets 结构中的数据，并且该结构同时具备了查询和修改功能）</p>
+<p><strong>2. 转换样式表中的属性值，使其标准化</strong></p>
+<p>我们已经将 CSS 文本转换为浏览器可以理解的结构了，<strong>接下来我们要对其进行属性值的标准化操作</strong>。</p>
+<p>那什么是标准化呢？假如我们有以下一段 CSS 文本：</p>
+<pre><code class="language-css">body { font-size: 2em }
+p {color:blue;}
+span  {display: none}
+div {font-weight: bold}
+div  p {color:green;}
+div {color:red; }
+</code></pre>
+<p>可以看到文本内有很多属性值，如 2em、blue、bold 等，<strong>这些类型数值不容易被渲染引擎理解，所以需要将所有值转换为渲染引擎所能够理解的、标准化的计算值</strong>，这个过程就是属性值的标准化。</p>
+<p>标准化后的属性值如下图所示：</p>
+<figure data-type="image" tabindex="4"><img src="https://pineapple126.github.io//post-images/1586246231460.png" alt="标准化属性值" loading="lazy"></figure>
+<p><strong>3. 计算出 DOM 树中每个节点的具体样式</strong></p>
+<p>现在样式的属性值已经被标准化了，接下来就要计算 DOM 树中每个节点的样式属性了。而计算过程涉及到 <strong>CSS 的继承规则</strong>和<strong>层叠规则</strong>两部分。</p>
+<p>首先是 CSS 的继承规则。<strong>CSS 继承就是每个 DOM 节点都包含父节点的样式。</strong></p>
+<p>我们结合下面的实例，看看一张样式表如何应用到 DOM 节点上：</p>
+<pre><code class="language-css">body { font-size: 20px }
+p {color:blue;}
+span  {display: none}
+div {font-weight: bold;color:red}
+div  p {color:green;}
+</code></pre>
+<p>这张样式表最终应用到 DOM 节点的效果如下图所示：</p>
+<figure data-type="image" tabindex="5"><img src="https://pineapple126.github.io//post-images/1586246783746.png" alt="计算后 DOM 的样式" loading="lazy"></figure>
+<p>从图中可以看出，所有的子节点都继承了父节点的样式。</p>
+<p>样式计算的第二个规则是样式层叠。<strong>层叠是 CSS 的一个基本特征，它是一个定义了如何合并来自多个源的属性值的算法。它在 CSS 处于核心地位，CSS 的全称是“层叠样式表”正是强调了这一点。</strong></p>
+<h3 id="布局阶段">布局阶段</h3>
+<p>我们现在已经拥有了 DOM 树和 DOM 树中元素的样式，接下来<strong>我们需要计算出 DOM 树中可见元素的几何位置，我们把这个计算过程称为布局。</strong></p>
+<p>Chrome 在布局阶段需要完成两个步骤：创建布局树和布局计算。</p>
+<p><strong>1. 创建布局树</strong></p>
+<p><strong>在 DOM 树显示之前，我们还需要额外地构建一棵只包含可见元素布局树。</strong></p>
+<p>我们可以结合下图来看看布局树的构造过程：</p>
+<figure data-type="image" tabindex="6"><img src="https://pineapple126.github.io//post-images/1586329485462.png" alt="布局树构建流程示意图" loading="lazy"></figure>
+<p>从上图可以看出，DOM 树中所有不可见的节点都没有包含在布局树中。</p>
+<p>为了构建布局树，浏览器大致完成了下面这些工作：</p>
+<ul>
+<li>遍历 DOM 树中的节点，并把这些节点加到布局树中；</li>
+<li>不可见的节点暂时会被忽略掉。</li>
+</ul>
+<p><strong>2. 布局计算</strong></p>
+<p>现在我们拥有一棵完整的布局树，我们要做的是计算布局树中节点的坐标位置。</p>
+<p>在执行布局操作时，会把布局计算的结果重新写回到布局树中，所以布局树既是输入内容，也是输出内容。</p>
+<h3 id="分层">分层</h3>
+<p>因为页面中有很多复杂的 3D 变换、页面滚动，或者使用 z-indexing 做 z 轴排序等，为了更加方便地实现这些效果，<strong>渲染引擎还需要为特定的节点生成专用的图层，并生成一棵对应的图层树</strong>（Layer Tree）。</p>
+<p>通过 Chrome 的“开发者工具”中的“Layers”标签，就可以可视化页面的分层情况。</p>
+<p>渲染引擎给页面分了许多图层，这些图层按照一定顺序叠加在一起，就形成了最终的页面。也即**浏览器的页面实际上被分为了许多图层，这些图层叠加后合成了最终的页面。**我们可以通过下图看看图层和布局树节点之间的关系：</p>
+<figure data-type="image" tabindex="7"><img src="https://pineapple126.github.io//post-images/1586331052930.png" alt="布局树和图层树关系示意图" loading="lazy"></figure>
+<p>通常情况下，**并不是布局树的每个节点都包含一个图层，如果一个节点没有对应的图层，那么这个节点就从属于父节点的图层。**不管如何，最终每个节点都会直接或间接地从属于一个图层。</p>
+<p>通常满足下面两点中任意一点的元素就可以被渲染引擎提升为单独的一个图层：</p>
+<ul>
+<li><strong>拥有层叠上下文属性的元素会被提升为单独的一层。</strong>（我们假定用户正面向视窗或者网页，而 HTML 元素沿着相对于用户的一条虚拟的 z 轴排开，层叠上下文就是对这些 HTML 元素的一个三维构想）</li>
+<li><strong>需要裁剪（clip）的地方也会被创建为图层。</strong>（当元素内容超出元素限定范围时，就会发生裁剪。出现裁剪时，渲染引擎会为元素内容单独创建一个图层）</li>
+</ul>
+<h3 id="图层绘制">图层绘制</h3>
+<p>在完成图层树的构建之后，渲染引擎会对图层树中的每个图层进行绘制。</p>
+<p>渲染引擎实现图层的绘制时，会把一个图层的绘制拆分成很多小的<strong>绘制指令</strong>，然后再把这些指令按照顺序组成一个待绘制列表，如下图所示：</p>
+<figure data-type="image" tabindex="8"><img src="https://pineapple126.github.io//post-images/1586506394268.png" alt="绘制列表" loading="lazy"></figure>
+<p>绘制一个元素通常需要好几条绘制指令，因此在图层绘制阶段，输出的内容就是这些待绘制列表。</p>
+<h3 id="栅格化raster操作">栅格化（raster）操作</h3>
+<p>当图层的绘制列表准备好之后，主线程会把该绘制列表**提交（commit）**给合成线程。</p>
+<p>通过<strong>视口（viewport）</strong>（用户可以看到页面的部分）用户只能看到页面的很小一部分，如果要绘制出所有图层内容的话，就会产生很大的开销。</p>
+<p>基于这个原因，<strong>合成线程将图层划分为图块（tile）</strong>（图块的大小通常为 256×256 或 512×512），**然后合成线程会按照视口附近的图块来优先生成位图，实际上生成位图的操作是由栅格化来执行的。所谓栅格化，是指将图块转换为位图。**而图块是栅格化的最小单位。渲染进程维护了一个栅格化的线程池，所有图块的栅格化都是在线程池内执行的，运行方式如下图所示：</p>
+<figure data-type="image" tabindex="9"><img src="https://pineapple126.github.io//post-images/1586507976232.png" alt="合成线程提交图块给栅格化线程池" loading="lazy"></figure>
+<p>通常，栅格化过程都会使用 GPU 来加速生成，使用 GPU 生成位图的过程叫做快速栅格化，或者 GPU 栅格化，生成的位图保存在 GPU 内存中。</p>
+<h3 id="合成与显示">合成与显示</h3>
+<p>一旦所有的图块都被栅格化，合成线程就会生成一个绘制图块的命令——“DrawQuad”，然后将该命令提交给浏览器进程。</p>
+<p>浏览器进程中有一个叫 viz 的组件，用于接收来自合成线程发过来的 DrawQuad 命令，然后根据 DrawQuad 命令，将其页面内容绘制到内存中，最后将内存显示在屏幕上。</p>
+<h3 id="渲染总结">渲染总结：</h3>
+<p>完整的渲染流水线示意图：</p>
+<figure data-type="image" tabindex="10"><img src="https://pineapple126.github.io//post-images/1586506955163.png" alt="" loading="lazy"></figure>
+<ol>
+<li>渲染进程将 HTML 内容转换为能够读懂的 <strong>DOM 树</strong>结构。</li>
+<li>渲染引擎将 CSS 样式表转化为浏览器可以理解的 <strong>styleSheets</strong>，计算出 DOM 节点的样式。</li>
+<li>创建<strong>布局树</strong>，并计算元素的布局信息。</li>
+<li>对布局树进行分层，并生成<strong>图层树</strong>。</li>
+<li>为每个图层生成<strong>绘制列表</strong>，并将其提交到合成线程。</li>
+<li>合成线程将图层分为<strong>图块</strong>，并在<strong>光栅化线程池</strong>中将图块转换为位图。</li>
+<li>合成线程发送绘制图块命令 <strong>DrawQuad</strong> 给浏览器进程。</li>
+<li>浏览器进程根绝 DrawQuad 消息<strong>生成页面</strong>，并显示到显示器上。</li>
+</ol>
+<h3 id="相关概念">相关概念：</h3>
+<p><strong>1. 更新了元素的几何位置（重排）</strong></p>
+<p>参考下图：</p>
+<figure data-type="image" tabindex="11"><img src="https://pineapple126.github.io//post-images/1586508485468.png" alt="重排" loading="lazy"></figure>
+<p>如果我们通过 JS 或者 CSS 修改元素的几何位置属性，那么浏览器会触发重新布局，解析之后的一系列子阶段，这个过程就叫做<strong>重排</strong>。<strong>重排需要更新完整的渲染流水线，所以开销也是最大的。</strong></p>
+<p><strong>2. 更新了元素的绘制属性（重绘）</strong></p>
+<p>参考下图：</p>
+<figure data-type="image" tabindex="12"><img src="https://pineapple126.github.io//post-images/1586508688667.png" alt="重绘" loading="lazy"></figure>
+<p>如果我们修改了元素的绘制属性，那么布局阶段将不会被执行，而是直接进入到绘制阶段，然后执行之后的一系列子阶段，这个过程就叫做<strong>重绘</strong>。相较于重排，<strong>重绘省去了布局和分层阶段，所以执行效率会比重排操作要高一些。</strong></p>
+<p><strong>3. 直接合成阶段</strong></p>
+<p>如果我们更改一个既不要布局也不要绘制的属性，会发生什么？渲染引擎将跳过布局和绘制，只执行后续的合成操作，我们把这个过程称作<strong>合成</strong>。参考下图：</p>
+<figure data-type="image" tabindex="13"><img src="https://pineapple126.github.io//post-images/1586508967109.png" alt="合成" loading="lazy"></figure>
+<p><strong>相对于重排和重绘，合成能大大提升绘制效率。</strong></p>
+<h2 id="总结从用户输入-url到最终的页面展示到底发生了什么">总结：从用户输入 URL，到最终的页面展示到底发生了什么？</h2>
+<ol>
+<li>用户输入 URL 并按下回车，浏览器进程检查 URL，组装协议，构成完整的 URL</li>
+<li>浏览器导航栏显示 loading 状态，但是页面还是呈现前一个页面，这是因为还没有获得新页面的响应数据</li>
+<li>浏览器进程通过进程间通信（IPC）把 URL 请求发送给网络进程</li>
+<li>网络进程接收到 URL 请求后检查本地缓存是否含有该请求资源，如果有则直接将该资源返回给浏览器进程（状态码 200）</li>
+<li>如果没有，网络进程向 Web 服务器发起 HTTP 请求（网络请求），请求流程如下:<br>
+5.1 进行 DNS 解析，获取服务器的 IP 地址：如果缓存过当前域名信息，就会直接返回缓存信息；<br>
+5.2 根据 IP 地址和服务器建立 TCP 连接（三次握手）；<br>
+5.3 如果是 HTTPS 请求则还需要建立 TLS 连接；<br>
+5.4 浏览器端构建并发送请求头信息；<br>
+5.5 服务器端响应后，网络进程接收响应头和响应信息，并解析响应内容；<br>
+5.6 数据传输完成后，断开 TCP 连接（四次挥手）。如果浏览器端或服务器端在 HTTP 头部加上 <code>Connection: Keep-Alive</code> 字段，TCP 连接将一直保持下去。保持 TCP 连接可以节省建立连接所需的事件，提高资源加载速度。</li>
+<li>网络进程响应流程：<br>
+6.1 检查状态码，如果是 301/302，则需要重定向，从响应信息中 <code>Location</code> 字段获取地址，重新发起 URL 请求；<br>
+6.2 如果不是重定向，首先服务器会根据请求头中的 <code>if-None-Match</code> 字段的值来判断请求的资源是否被更新，如果没有更新，就返回 304 状态码，相当于告诉浏览器之前的缓存还可以继续使用，就不用再返回数据了。<br>
+6.3 其他状态码响应处理：<br>
+检查响应类型 <code>Context-Type</code> 字段：如果是 字节流 类型，则将该请求提交给下载管理器，该导航流程结束，不再进行后续的渲染阶段；如果是 text/html 类型，则通知浏览器进程，准备进行渲染阶段。</li>
+<li>准备渲染阶段：<br>
+7.1 浏览器进程获取到来自网络进程的通知，根据当前页面 B 是否是从页面 A 打开的并且和页面 A 是同一个站点（根域名和协议相同就被认为同一站点）<br>
+7.2 如果相同，则新页面复用页面 A 的渲染进程；如果不同，则浏览器为页面 B 创建一个新的渲染进程</li>
+<li>传输数据、更新状态<br>
+8.1 渲染进程准备好后，浏览器进程向渲染进程发起“提交文档”的消息，渲染进程接收到消息后，和网络进程建立数据传输的“管道”<br>
+8.2 渲染进程接受完数据后，向浏览器进程发送“确认提交”的消息<br>
+8.3 浏览器进程接收到“确认提交”的消息后，更新浏览器界面的状态：包括安全状态、地址栏的 URL、前进后退的历史状态，并更新 Web 页面，此时 Web 页面是空白页。</li>
+<li>渲染进程渲染页面：<br>
+9.1 构建 DOM 树<br>
+9.2 样式计算（构建 CSSOM 树）<br>
+9.3 页面布局（构建布局树）<br>
+9.4 分层（构建图层树）<br>
+9.5 图层绘制（绘制列表）<br>
+9.6 分块（将图层划分为图块）<br>
+9.7 栅格化（栅格化，是指将图块转换为位图）<br>
+9.8 合成和显示</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[LeetCode - 23 合并K个排序链表（分治）]]></title>
         <id>https://pineapple126.github.io/post/leetcode-23-mergeKLists/</id>
@@ -1114,315 +1313,6 @@ console.log(color);         //  &quot;red&quot;
 </code></pre>
 <p>同样的我们也可以使用不同的名称导出：</p>
 <pre><code class="language-javascript">export { sum as add } from &quot;./example.js&quot;;
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[解构]]></title>
-        <id>https://pineapple126.github.io/post/deconstruction/</id>
-        <link href="https://pineapple126.github.io/post/deconstruction/">
-        </link>
-        <updated>2020-02-25T10:25:15.000Z</updated>
-        <content type="html"><![CDATA[<p>这是学习阅读《深入理解ES6》第五章 解构：使数据访问更便捷 后整理而成的学习笔记。</p>
-<p>对象和数组字面量是 JavaScript 中的两种最常用的数据结构，由于 JSON 数据结构的普及，二者已经称为语言中的特别重要的一部分。ES6 中添加了一种可以简化有组织地从对象或数组中提取相关地信息片段的新特性：解构。<strong>解构是一种打破数据结构，将其拆分为更小部分的过程。</strong></p>
-<h2 id="为何使用解构功能">为何使用解构功能</h2>
-<p>在 ES5 以及早期版本中，为了从对象和数组中获取特定数据并赋值给变量，编写了许多看起来同质化的代码，例如：</p>
-<pre><code class="language-javascript">let options = {
-    repeat: true,
-    save: false
-};
-
-//  从对象中提取数据
-let repeat = options.repeat,
-    save = options.save;
-</code></pre>
-<p>如果你要提取的内容还包含嵌套解构，则必须要深挖整个数据结构才能找到所需数据。</p>
-<p>所以 ES6 为对象和数组都添加了解构功能，将数据结构打散的过程变得更加简单，可以从打散后更小的部分中获取所需信息。</p>
-<h2 id="对象解构">对象解构</h2>
-<p>对象解构的语法形式是在一个赋值操作符左边放置一个对象字面量，例如：</p>
-<pre><code class="language-javascript">let node = {
-    type: &quot;Identifier&quot;,
-    name: &quot;foo&quot;
-};
-
-let { type, name } = node;
-
-console.log(type);          //  &quot;Identifier&quot;
-console.log(name);          //  &quot;foo&quot;
-</code></pre>
-<p><strong>注意</strong>：<strong>不要忘记初始化程序</strong>，使用 var、let 或 const 解构声明变量时，必须要提供初始化程序。</p>
-<h3 id="解构赋值">解构赋值</h3>
-<p>我们已经将对象结构应用到了变量的声明中。同样的，我们可以在给变量赋值时使用解构语法。例如：</p>
-<pre><code class="language-javascript">let node = {
-    type: &quot;Identifier&quot;,
-    name: &quot;foo&quot;
-};
-
-let type = &quot;Literal&quot;,
-    name = 5;
-
-//  使用解构语法为多个变量赋值
-({ type, name } = node);
-
-console.log(type);          //  &quot;Identifier&quot;
-console.log(name);          //  &quot;foo&quot;
-</code></pre>
-<p>一定要用一对小括号包裹解构赋值语句，JavaScript 引擎将一对开放的花括号视为一个代码块，而语法规定，代码块语句不允许出现在赋值语句左侧，添加小括号后可以将块语句转化为一个表达式，从而实现整个解构赋值的语句。</p>
-<p><strong>注意</strong>：解构赋值表达式如果为 null 或 undefined 会导致程序抛出错误。</p>
-<h3 id="默认值">默认值</h3>
-<p>使用解构赋值表达式时，如果指定的局部变量名称在对象中不存在，那么这个局部变量会被赋值为 undefined，例如：</p>
-<pre><code class="language-javascript">let node = {
-    type: &quot;Identifier&quot;,
-    name: &quot;foo&quot;
-};
-
-let { type, name, value } = node;
-
-console.log(type);          //  &quot;Identifier&quot;
-console.log(name);          //  &quot;foo&quot;
-console.log(value);         //  undefined
-</code></pre>
-<p>当指定的属性不存在时，可以随意设置一个默认值，在属性名称后添加一个等号（=）和相应的默认值即可：</p>
-<pre><code class="language-javascript">let node = {
-    type: &quot;Identifier&quot;,
-    name: &quot;foo&quot;
-};
-
-let { type, name, value = true } = node;
-
-console.log(type);          //  &quot;Identifier&quot;
-console.log(name);          //  &quot;foo&quot;
-console.log(value);         //  true
-</code></pre>
-<p>这里为变量 value 设置了默认值 true，与函数的默认参数值有相似之处。</p>
-<h3 id="为非同名局部变量赋值">为非同名局部变量赋值</h3>
-<p>如果我们希望使用不同命名的局部变量来存储对象属性的值，ES6 的一个扩展语法可以满足。示例如下：</p>
-<pre><code class="language-javascript">let node = {
-    type: &quot;Identifier&quot;,
-    name: &quot;foo&quot;
-};
-
-let { type: loaclType, name: localName } = node;
-
-console.log(localType);          //  &quot;Identifier&quot;
-console.log(loacalName);          //  &quot;foo&quot;
-</code></pre>
-<p>当使用其他变量名进行赋值时也可以添加默认值，只需要在变量名后添加等号和默认值即可：</p>
-<pre><code class="language-javascript">let node = {
-    type: &quot;Identifier&quot;
-};
-
-let { type: localType, name: localName = &quot;bar&quot; } = node;
-
-console.log(localType);         //  &quot;Identifier&quot;
-console.log(localName);         //  &quot;bar&quot;
-</code></pre>
-<h3 id="嵌套对象解构">嵌套对象解构</h3>
-<p>解构嵌套对象仍然与对象字面量相似，可以将对象拆解以获取我们想要的信息：</p>
-<pre><code class="language-javascript">let node = {
-    type: &quot;Identifier&quot;,
-    name: &quot;foo&quot;,
-    loc: {
-        start: {
-            line: 1,
-            column: 1
-        },
-        end: {
-            line: 1,
-            column: 4
-        }
-    }
-};
-
-let { loc: { start } } = node;
-
-console.log(start.line);            //  1
-console.log(start.column);          //  1
-</code></pre>
-<p>在该解构示例中，所有冒号前的标识符都代表在对象中的检索位置，其右侧为被赋值的变量名。如果冒号后面是花括号，则意味着要赋予的最终值嵌套在对象内部更深的层级中。同样的，我们也可以像刚才使用一个与对象属性名不同的局部变量名。</p>
-<p><strong>解构模式可以应用与任意层级深度的对象，且每一层都具备同等的功能。</strong></p>
-<h2 id="数组解构">数组解构</h2>
-<p>数组解构相较于对象解构简单一些，它使用的是数组字面量，而且解构操作全都在数组内完成。示例如下：</p>
-<pre><code class="language-javascript">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];
-
-let [ firstColor, secondColor ] = colors;
-
-console.log(firstColor);            //  &quot;red&quot;
-console.log(secondColor);           //  &quot;green&quot;
-</code></pre>
-<p>在数组解构语法中，我们通过值在数组中的位置进行选取，且可以将其存储在任意变量中，未显式声明的元素都会被忽略。数组本身不会发生变化。</p>
-<p>在解构模式中，也可以直接忽略元素，只为感兴趣的元素提供变量名。例如：</p>
-<pre><code class="language-javascript">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];
-
-let [ , , thirdColor ] = colors;
-
-console.log(thirdColor);            // &quot;blue&quot;
-</code></pre>
-<p>这段代码使用解构赋值语法从 colors 中获取第 3 个元素，thirdColor 前的逗号是前方元素的占位符。</p>
-<p><strong>注意</strong>，当通过 var、let 或 const 声明数组解构的绑定时，必须要提供一个初始化程序。</p>
-<h3 id="解构赋值-2">解构赋值</h3>
-<p>数组解构也可以用于赋值上下文，但不需要用小括号包裹表达式。</p>
-<pre><code class="language-javascript">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ],
-    firstColor = &quot;black&quot;,
-    secondColor = &quot;white&quot;;
-
-[ firstColor, secondColor ] = colors;
-
-console.log(firstColor);            //  &quot;red&quot;
-console.log(secondColor);           //  &quot;green&quot;
-</code></pre>
-<p>数组解构还有一个独特的用法：交换两个变量的值。例如：</p>
-<pre><code class="language-javascript">//  在 ES6 中交换变量
-let a = 1,
-    b = 2;
-
-[ a, b ] = [ b, a ];
-
-console.log(a);         //  2
-console.log(b);         //  1
-</code></pre>
-<p><strong>注意</strong>：如果右侧数组解构赋值表达式的值为 null 或 undefined，则会导致程序抛出错误。</p>
-<h3 id="默认值-2">默认值</h3>
-<p>我们也可以在数组解构赋值表达式中为数组中的任意位置添加默认值，当指定位置的属性不存在或其值为 undefined 时使用默认值：</p>
-<pre><code class="language-javascript">let colors = [ &quot;red&quot; ];
-
-let [ firstColor, secondColor = &quot;green&quot; ] = colors;
-
-console.log(firstColor);            //  &quot;red&quot;
-console.log(secondColor);           //  &quot;green&quot;
-</code></pre>
-<h3 id="嵌套数组解构">嵌套数组解构</h3>
-<p>嵌套数组结构与嵌套对象解构的语法类似，在原有的数组模式中插入另一个数组模式，即可将解构过程深入到下一个层级：</p>
-<pre><code class="language-javascript">let colors = [ &quot;red&quot;, [ &quot;green&quot;, &quot;lightgreent&quot; ], &quot;blue&quot; ];
-
-let [ firstColor, [ secondColor ] ] = colors;
-
-console.log(firstColor);            //  &quot;red&quot;
-console.log(secondColor);           //  &quot;green&quot;
-</code></pre>
-<p>在数组中也可以无限深入去解构，就像在对象中一样。</p>
-<h3 id="不定元素">不定元素</h3>
-<p>在数组解构语法中有一个与不定参数相似的概念：不定元素。在数组中，可以通过 <code>...</code> 语法将数组中的其余元素赋值给一个特定的变量，例如：</p>
-<pre><code class="language-javascript">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];
-
-let [ firstColor, ...restColors ] = colors;
-
-console.log(firstColor);            //  &quot;red&quot;
-console.log(restColors.length);         //  2
-console.log(restColors[0]);         //  &quot;green&quot;
-console.log(restColors[1]);         //  &quot;blue&quot;
-</code></pre>
-<p>在 ES6 中，我们还可以通过不定元素的语法来实现数组复制的功能：</p>
-<pre><code class="language-javascript">let colors = [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ];
-
-let [ ...clonedColors ] = colors;
-
-console.log(clonedColors);          //  [ &quot;red&quot;, &quot;green&quot;, &quot;blue&quot; ]
-</code></pre>
-<p><strong>注意</strong>：在被解构的数组中，不变元素必须为<strong>最后一个条目</strong>，在后面继续添加逗号会导致程序抛出语法错误。</p>
-<h2 id="混合解构">混合解构</h2>
-<p>可以混合使用对象解构和数组解构来创建更多的复杂表达式，这样，我们可以从任何混杂着对象和数组的数据解构中提取我们想要的信息。例如：</p>
-<pre><code class="language-javascript">let node = {
-    type: &quot;Identifier&quot;,
-    name: &quot;foo&quot;,
-    loc: {
-        start: {
-            line: 1,
-            column: 1
-        },
-        end: {
-            line: 1,
-            column: 4
-        }
-    },
-    range: [0, 3]
-};
-
-let {
-    loc: { start },
-    range: [ startIndex ]
-} = node;
-
-console.log(start.line);            //  1
-console.log(start.column);          //  1
-console.log(startIndex);            //  0
-</code></pre>
-<p>当使用混合解构的语法时，可以从目标中提取任意想要的信息。这种方法极为有效，尤其是从 JSON 配置中提取信息时，不再需要遍历整个结构了。</p>
-<h2 id="解构参数">解构参数</h2>
-<p>解构也可以用在函数参数的传递过程中。</p>
-<p>当我们定义一个接受大量可选参数的函数时，我们通常会创建一个可选对象，将额外的参数定义为这个对象的属性。例如：</p>
-<pre><code class="language-javascript">//  options 的属性表示其他参数
-function setCookie(name, value, options) {
-    options = options || {};
-
-    let secure =  options.secure,
-        path = options.path,
-        domain = options.domain,
-        expires = options.expires;
-
-    //  设置 cookie 代码
-}
-
-//  第三个参数映射到 options 中
-setCookie(&quot;type&quot;, &quot;js&quot;, {
-    secure: true,
-    expires: 60000
-});
-</code></pre>
-<p>如果将 options 定义为解构参数，则可以更清晰地了解函数预期传入的参数。解构参数需要使用对象或数组解构模式代替命名参数，改写如下：</p>
-<pre><code class="language-javascript">function setCookie(name, value, { secure, path, domain,expires }) {
-    //  设置 cookie 的代码
-}
-
-setCookie(&quot;type&quot;,&quot;js&quot;, {
-    secure: true,
-    expires: 60000
-});
-</code></pre>
-<p><strong>注意</strong>：解构参数支持所有解构特性。可以使用默认值、混合对象和数组的解构模式及非同名变量存储提取出来的信息。</p>
-<h3 id="必须传值的解构参数">必须传值的解构参数</h3>
-<p>默认情况下，如果调用函数时不提供被解构的参数会导致程序抛出错误。</p>
-<p>因此如果解构参数是必需的，那么可以忽略这个问题；但是如果希望将解构参数定义为可选的，那么必须为其提供默认值来解决这个问题。</p>
-<pre><code class="language-javascript">function setCookie(name, value, { secure, path, domain, expires } = {}) {
-    //  ...
-}
-</code></pre>
-<h3 id="解构参数的默认值">解构参数的默认值</h3>
-<p>可以为解构参数指定默认值，就像在解构赋值语句中的那样：</p>
-<pre><code class="language-javascript">function setCookie(name, value,
-    {
-        secure = false,
-        path = &quot;/&quot;,
-        domain = &quot;example.com&quot;,
-        expires = new Date(Date.now() + 360000000)
-    } = {
-        secure = false,
-        path = &quot;/&quot;,
-        domain = &quot;example.com&quot;,
-        expires = new Date(Date.now() + 360000000)
-    }
-) {
-    //  ...
-}
-</code></pre>
-<p>现在函数参数中第一个对象字面量是解构参数，第二个为默认值。但是这样的写法会造成代码冗余，因此我们可以将默认值提取到一个独立对象中，并且使用该对象作为解构和默认参数的一部分，从而消除冗余：</p>
-<pre><code class="language-javascript">const setCookieDefaults = {
-    secure: false,
-    path： &quot;/&quot;,
-    domain: &quot;example.cpm&quot;,
-    expires: new Date(Date.new() + 360000000)
-};
-
-function setCookie(name, value,
-    {
-        secure = setCookieDefaults.secure,
-        path = setCookieDefaults.path,
-        domain = setCookieDefaults.domain,
-        expires = setCookieDefaults.epires
-    } = setCookieDefaults
-) {
-    //  ...
-}
 </code></pre>
 ]]></content>
     </entry>
