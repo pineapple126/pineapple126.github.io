@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2020-04-10T15:23:38.539Z</updated>
+    <updated>2020-04-11T04:50:21.348Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -17,7 +17,7 @@
         </link>
         <updated>2020-04-07T07:23:36.000Z</updated>
         <content type="html"><![CDATA[<h2 id="从输入-url-到页面展示中间发生了什么">从输入 URL 到页面展示，中间发生了什么？</h2>
-<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1586162608489.png" alt="从输入 URL 到页面展示完整流程示意图" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1586580599184.png" alt="从输入 URL 到页面展示完整流程示意图" loading="lazy"></figure>
 <p><strong>用户发出 URL 请求到页面开始解析的这个过程，就叫做导航。</strong></p>
 <h2 id="1-用户输入">1. 用户输入</h2>
 <p>当用户在地址栏里输入一个查询关键字时，地址栏会判断输入的关键字是<strong>搜索内容</strong>，还是<strong>请求的 URL</strong>。</p>
