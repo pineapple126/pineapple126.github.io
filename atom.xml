@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2020-04-11T09:55:05.317Z</updated>
+    <updated>2020-04-13T16:20:17.044Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -10,6 +10,91 @@
     <logo>https://pineapple126.github.io/images/avatar.png</logo>
     <icon>https://pineapple126.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 深海大菠萝盖饭</rights>
+    <entry>
+        <title type="html"><![CDATA[HTTP 响应代码]]></title>
+        <id>https://pineapple126.github.io/post/http-status-code/</id>
+        <link href="https://pineapple126.github.io/post/http-status-code/">
+        </link>
+        <updated>2020-04-13T06:49:28.000Z</updated>
+        <content type="html"><![CDATA[<p>HTTP 响应状态代码指示特定 HTTP 请求是否已成功完成。响应分为五类：信息响应（100-199），成功响应（200-299），重定向（300-399），客户端错误（400-499）和服务器错误（500-599）。</p>
+<hr>
+<h2 id="信息响应">信息响应</h2>
+<p><strong><code>100 Continue</code></strong></p>
+<p>这个临时响应表明，迄今为止的所有内容都是可行的，客户端应该继续请求，如果已经完成，则忽略它。</p>
+<p><strong><code>101 Switching Protocol</code></strong></p>
+<p>该代码是响应客户端的 <code>Upgrade</code> 标头发送的，并且指示服务器也正在切换的协议。</p>
+<p><strong><code>102 Processing</code></strong></p>
+<p>此代码表示服务器已收到并正在处理该请求，但没有响应可用。</p>
+<p><strong><code>103 Early Hints</code></strong></p>
+<p>此状态代码主要用于与 <code>Link</code> 连接头一起使用，以允许用户代理在服务器仍在准备响应时开始预加载资源。</p>
+<hr>
+<h2 id="成功响应">成功响应</h2>
+<p><strong><code>200 OK</code></strong></p>
+<p>请求成功。默认情况下状态码为 200 的响应可以被缓存。</p>
+<p>不同请求方式对于请求成功的意义如下：</p>
+<ul>
+<li>GET：资源已被提取并在消息正文中传输。</li>
+<li>HEAD：实体标头位于消息正文中。</li>
+<li>POST：描述动作结果的资源在消息体中传输。</li>
+<li>TRACE：消息正文包含服务器收到的请求消息。</li>
+</ul>
+<p><strong><code>201 Created</code></strong></p>
+<p>201 是一个代表成功的应答状态码，表示请求已经被成功处理，并且创建了新的资源。新的资源在应答之前已经被创建。同时新增的资源会在应答消息体中返回，其地址或者是原始请求的路径，或者是 <code>Location</code> 首部的值。</p>
+<p>该状态码的常规使用场景是作为 <code>POST</code> 请求的返回值。</p>
+<p><strong><code>202 Accepted</code></strong></p>
+<p>202 表示服务器端已经接收到请求消息，但是尚未进行处理。对于这个消息的处理确实无保证的，即稍后无法通过 HTTP 协议给客户端发送一个异步请求来告知其请求的处理结果。</p>
+<p>该状态码被设计用来将请求交由另外一个进程或者服务器来进行处理，或者是对请求进行批处理的情形。</p>
+<p><strong><code>203 Non-Authoritative Information</code></strong></p>
+<p>203 表示请求已经被响应，但是获得的负载与源头服务器的状态码为 200 的响应相比，经过了拥有转换功能的 proxy （代理服务器）的修改。</p>
+<p><strong><code>204 No Content</code></strong></p>
+<p>204 是成功状态响应码，表示该请求已经成功了，但是客户端客户不需要离开当前页面。默认情况下 204 响应是可缓存的。</p>
+<p>使用惯例是，在 PUT 请求中进行资源更新，但是不需要改变当前展示给用户的页面，那么返回 <code>204 No Content</code>。如果创建了资源，则返回 <code>201 Created</code>。如果应将页面更改为新更新的页面，则应改用 <code>200 OK</code>。</p>
+<hr>
+<h2 id="重定向">重定向</h2>
+<p><strong><code>300 Multiple Choices</code></strong></p>
+<p>300 是一个用来表示重定向的响应状态码，表示该请求拥有多种可能的响应。用户代理或者用户自身应该从中选择一个。（由于没有如何进行选择的方法，该状态码极少使用）</p>
+<p>加入服务器可以提供一个优先选择，那么它应该生成一个 <code>Location</code> 首部。</p>
+<p><strong><code>301 Moved Permanently</code></strong></p>
+<p><code>301 永久重定向</code> 说明请求的资源已经被移动到了有 <code>Location</code> 头部指定的 URL 上，是固定的不会再改变。搜索引擎会根据响应修正。</p>
+<p><strong><code>302 Found</code></strong></p>
+<p><code>302 Found</code> 重定向状态码表明请求的资源被暂时的移动到了由 <code>Location</code> 头部指定的 URL 上。浏览器会重定向到这个 URL，但是搜索引擎不会对该资源的链接进行更新。</p>
+<p><strong><code>303 See Other</code></strong></p>
+<p>HTTP <strong>303 See Other</strong> 重定向状态码，通常作为 PUT 或 POST 操作的返回结果，它表示重定向链接指向的不是新上传的资源，而是另外一个页面，比如消息确认页面或者上传进度页面。</p>
+<p><strong><code>304 Not Modified</code></strong></p>
+<p>HTTP <strong>304 Not Modified</strong>说明无需再次传输请求的内容，也就是说可以使用缓存的内容。这通常是在一些安全的方法，例如 GET 或 HEAD 或在请求中附带了头部信息：<code>If-None-Match</code> 或 <code>If-Modified-Since</code>。</p>
+<hr>
+<h2 id="客户端响应">客户端响应</h2>
+<p><strong><code>400 Bad Request</code></strong></p>
+<p>HTTP <strong>400 Bad Request</strong> 响应状态码表示由于语法无效，服务器无法理解该请求。客户端不应该在未修改的情况下重复此请求。</p>
+<p><strong><code>401 Unauthorized</code></strong></p>
+<p>状态码 <strong>401 Unauthorized</strong> 代表客户端错误，指的是由于缺乏目标资源要求的身份验证凭证，发送的请求未得到满足。</p>
+<p>该状态码会与 <code>WWW-Authenticate</code> 首部一起发送，其中包含有如何进行验证的信息。</p>
+<p><strong><code>403 Forbidden</code></strong></p>
+<p>状态码 <strong>403 Forbidden</strong> 代表客户端错误，指的是服务器端有能力处理该请求，但是拒绝授权访问。<strong>（权限不够）</strong></p>
+<p><strong><code>404 Not Found</code></strong></p>
+<p>状态码 <strong>404 Not Found</strong> 代表客户端错误，指的是服务器端无法找到所请求的资源。404 状态码并不能说明请求的资源是临时的还是永久丢失。</p>
+<hr>
+<h2 id="服务器响应">服务器响应</h2>
+<p><strong><code>500 Internal Server Error</code></strong></p>
+<p><strong>500 Internal Server Error</strong> 是表示服务器端错误的响应状态码，意味着所请求的服务器遇到意外的情况并阻止其执行请求。</p>
+<p><strong><code>501 Not Implemented</code></strong></p>
+<p><strong>501 Not Implemented</strong> 服务器错误响应码表示请求的方法不被服务器支持，因此无法被处理。服务器必须支持的方法只有 GET 和 HEAD。</p>
+<p><strong><code>502 Bad Gateway</code></strong></p>
+<p><strong>502 Bad Gateway</strong> 是一种 HTTP 协议的服务器端错误状态代码，它表示作为网关或代理角色的服务器，从上游服务器中接收到的响应是无效的。</p>
+<p><strong><code>503 Service Unavailable</code></strong></p>
+<p><strong>503 Service Unavailable</strong> 是一种 HTTP 协议的服务器端错误状态码，它表示服务器尚未处于可以接受请求的状态。</p>
+<p>通常造成这种情况的原因是由于服务器停机维护或者已超载。</p>
+<p><strong><code>504 Gateway Timeout</code></strong></p>
+<p><strong>504 Gateway Timeout</strong> 是一种 HTTP 协议的服务器端错误状态代码，表示扮演网关或者代理的服务器无法在规定的时间内获得想要的响应。</p>
+<p><strong><code>505 HTTP Version Not Support</code></strong></p>
+<p><strong>505 HTTP Version Not Support</strong> 是一种 HTTP 协议的服务器端错误状态码，表示服务器不支持请求所使用的 HTTP 版本。</p>
+<p><strong><code>511 Network Authentication Required</code></strong></p>
+<p><strong>511 Network Authentication Required</strong> 是一种 HTTP 协议的错误状态码，表示客户端需要通过验证才能使用该网络。</p>
+<p>该状态码不是有源头服务器产生的，而是由控制网络访问的拦截代理服务器生成的。</p>
+<hr>
+<p>参考文档：<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status">MDN web docs——HTTP 响应代码</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[从用户输入 URL 到页面渲染完毕，这中间发生了什么？]]></title>
         <id>https://pineapple126.github.io/post/what-happened-between-input-url-and-web-presentation/</id>
@@ -1159,161 +1244,6 @@ function throttle(func, wait, type) {
 
     }
 }
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[用模块封装代码]]></title>
-        <id>https://pineapple126.github.io/post/module/</id>
-        <link href="https://pineapple126.github.io/post/module/">
-        </link>
-        <updated>2020-02-28T08:12:23.000Z</updated>
-        <content type="html"><![CDATA[<p>这是学习阅读《深入理解ES6》第十三章 用模块封装代码 后整理而成的学习笔记。</p>
-<p>JavaScript 用“共享一切”的方法加载代码，这是语言中最容易出错且容易令人感到困惑的地方。为了解决作用域问题，也为了使 JavaScript 应用程序显得有序，因此 ES6 引入了模块。</p>
-<h2 id="什么是模块">什么是模块</h2>
-<p><strong>模块是自动运行在严格模式下并且没有办法退出运行的 JavaScript 代码</strong>。与共享一切架构相反的是，在模块顶部创建的变量不会自动被添加到全局共享作用域，这个变量仅在模块的顶级作用域中存在，而且模块必须导出一些外部代码可以访问的元素，比如变量或函数。模块也可以从其他模块导入绑定。在模块的顶部，this 的值是 undefined。</p>
-<p>模块的魔力所在是仅<strong>导出和导入</strong>我们所需要的绑定，而不是将所有的东西都放到一个文件中。</p>
-<h2 id="导出的基本语法">导出的基本语法</h2>
-<p>我们可以用 <code>export</code> 关键字将一部分已发布的代码暴露给其他模块，例如：</p>
-<pre><code class="language-javascript">//  导出数据
-export var color = &quot;red&quot;;
-export let name = &quot;Nicolas&quot;;
-export const magicNumber = 7;
-
-//  导出函数
-export function sum(num1, num2) {
-    return num1 + num2;
-}
-
-//  导出类
-export class Rectangle {
-    constructor(length, width) {
-        this.length = length;
-        this.width = width;
-    }
-}
-
-//  这个函数模块是私有的
-function substract(num1, num2) {
-    return num1 - num2;
-}
-
-//  定义一个函数
-function multiply(num1, num2) {
-    return num1 * num2;
-}
-
-//  再将其导出
-export multiply;
-</code></pre>
-<p>导出的函数和类声明需要有一个名字，除非是用 <code>default</code> 关键字否则不能用这个语法导出匿名函数或类。任何未显式导出的变量、函数或类都是模块私有的，无法从模块外访问。</p>
-<h2 id="导入的基本语法">导入的基本语法</h2>
-<p>从模块中导出的功能可以使用 <code>import</code> 关键字在另一个模块中访问，<code>import</code> 语句的两个部分是：<strong>要导入的标识符</strong>和<strong>标识符应当从哪个模块导入</strong>。</p>
-<p>语句的基本形式如下：</p>
-<pre><code class="language-javascript">import { identifier1, identifier2 } from &quot;./example.js&quot;;
-</code></pre>
-<p><code>import</code> 后面的大括号表示从给定模块导入的绑定（binding），关键字 from 表示从哪个模块导入给定的绑定，该模块由表示模块路径的字符串指定（模块说明符）。</p>
-<p>当从模块中导入一个绑定时，它就好像使用 const 定义的一样。结果是我们无法定义另一个同名变量（包括导入另一个同名绑定），也无法在 import 语句前使用标识符或改变绑定的值。</p>
-<h3 id="导入单个绑定">导入单个绑定</h3>
-<p>假设在一个名为 &quot;example.js&quot; 的模块中，我们可以导入并以多种方式使用这个模块中的绑定。举例来说，可以只导入一个标识符：</p>
-<pre><code class="language-javascript">//  只导入一个
-import { sum } from &quot;./example.js&quot;;
-
-console.log(sum(1, 2));     //  3
-
-sum = 1;            //  抛出错误
-</code></pre>
-<p>尽管 example.js 导出的函数不止一个，但是我们导入的只有 sum() 函数。如果尝试给 sum 赋新值，结果会抛出错误，因为<strong>不能给导入的绑定重新赋值</strong>。</p>
-<h3 id="导入多个绑定">导入多个绑定</h3>
-<p>如果要导入多个绑定，则可以明确的将他们列出：</p>
-<pre><code class="language-javascript">//  导入多个
-import { sum, multiply, magicNumber } from &quot;./example.js&quot;;
-
-console.log(sum(1, magicNumber));           //  8
-console.log(multiply(1, 2));            //  2
-</code></pre>
-<h3 id="导入整个模块">导入整个模块</h3>
-<p>特殊情况下，可以导入整个模块作为一个单一的对象。然后所有的导出都可以作为对象的属性使用。例如：</p>
-<pre><code class="language-javascript">//  导入一切
-import * as example from &quot;./example.js&quot;;
-
-console.log(example.sum(1, example.magicNumber));           //  8
-console.log(example.multiply(1, 2));            //  2
-</code></pre>
-<p>需要注意的是，不管在 import 语句中把一个模块写了多少次，该模块只会执行一次。导入模块的代码执行后，实例化过的模块被保存在内存中，只要另一个 import 语句引用它就可以重复使用它。如果同一个应用程序的其他模块也从该模块中引入绑定，那么那些模块与此代码将使用相同的<strong>模块实例</strong>。</p>
-<p><strong>注意</strong>：export 和 import 的一个重要限制是，它们必须在其他语句和函数之外使用。模块语法存在的一个原因是要让 JavaScript 引擎静态地确定哪些可以导出，因此，只能在顶部使用 export。而 import 语句为变量、函数和类创建的是<strong>只读</strong>绑定，而不是像正常变量一样简单地引用原始绑定。</p>
-<h2 id="导出和导入时重命名">导出和导入时重命名</h2>
-<p>我们可以使用 as 关键字在导出过程和导入过程中改变导出元素和导入元素的名称。</p>
-<pre><code class="language-javascript">function sum(num1, num2) {
-    return num1 + num2;
-}
-
-export { sum as add };
-</code></pre>
-<p>在这里，函数 sum() 是本地名称，add() 是导出时使用的名称。当另一个模块要导入这个函数时，必须使用 add 这个名称：</p>
-<pre><code class="language-javascript">import { add as sum } from &quot;./example.js&quot;;
-
-console.log(typeof add);            //  &quot;undefined&quot;
-console.log(sum(1, 2));         //  3
-</code></pre>
-<p>这段代码导入 add() 函数时使用了一个导入名称来重命名 sum() 函数。</p>
-<h2 id="模块的默认值">模块的默认值</h2>
-<p>模块的默认值值得是通过 <code>default</code> 关键字指定的单个变量、函数或类，只能为每个模块设置一个默认的导出值。</p>
-<h3 id="导出默认值">导出默认值</h3>
-<p>下面是一个使用 default 关键字的简单示例：</p>
-<pre><code class="language-javascript">export default function(num1, num2) {
-    return num1 + num2;
-}
-</code></pre>
-<p>这个模块导出了一个函数作为它的默认值，default 关键字表示这是一个默认的导出，由于函数被模块所代表，因而它不需要一个名称。</p>
-<p>也可以在 export default 之后添加默认导出值的标识符，就像这样：</p>
-<pre><code class="language-javascript">function sum(num1, num2) {
-    return num1 + num2;
-}
-
-export default sum;
-</code></pre>
-<p>为默认导出值指定标识符的第三种方法是使用重命名语法，如下所示：</p>
-<pre><code class="language-javascript">function sum(num1, num2) {
-    return num1 + num2;
-}
-
-export { sum as default };
-</code></pre>
-<p>在重命名导出时标识符 default 具有特殊含义，用来只是模块的默认值。</p>
-<h3 id="导入默认值">导入默认值</h3>
-<p>可以使用以下语法从一个模块中导入一个默认值：</p>
-<pre><code class="language-javascript">//  导入默认值
-import sum from &quot;./examole.js&quot;;
-
-console.log(sum(1, 2));         //  3
-</code></pre>
-<p>对于导出默认值和一或多个非默认绑定的绑定，可以用一条语句导入所有导出的绑定，例如，假设有一下这个模块：</p>
-<pre><code class="language-javascript">export let color = &quot;red&quot;;
-
-export default function(num1, num2) {
-    return num1 + num2;
-}
-</code></pre>
-<p>可以用一下这条 import 语句导入 color 和默认函数：</p>
-<pre><code class="language-javascript">import sum, { color } from &quot;./example.js&quot;;
-
-console.log(sum(1, 2));         //  3
-console.log(color);         //  &quot;red&quot;
-</code></pre>
-<p>用逗号将默认的本地名称与大括号包裹的非默认值分隔开，请记住，在 export 语句中，默认值必须排在非默认值之前。</p>
-<p>与导出默认值相同，也可以在导入默认值时使用重命名语法：</p>
-<pre><code class="language-javascript">import { default as sum, color } from &quot;./example.js&quot;;
-
-console.log(sum(1, 2));         //  3
-console.log(color);         //  &quot;red&quot;
-</code></pre>
-<h2 id="重新导出一个绑定">重新导出一个绑定</h2>
-<p>如果需要重新导入模块中已经导入的内容，可以使用一条语句完成：</p>
-<pre><code class="language-javascript">export { sum } from &quot;./example.js&quot;;
-</code></pre>
-<p>同样的我们也可以使用不同的名称导出：</p>
-<pre><code class="language-javascript">export { sum as add } from &quot;./example.js&quot;;
 </code></pre>
 ]]></content>
     </entry>
