@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2020-04-13T16:23:17.796Z</updated>
+    <updated>2020-04-13T16:28:21.612Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -15,7 +15,7 @@
         <id>https://pineapple126.github.io/post/http-status-code/</id>
         <link href="https://pineapple126.github.io/post/http-status-code/">
         </link>
-        <updated>2020-04-13T06:49:28.000Z</updated>
+        <updated>2020-04-13T06:29:38.000Z</updated>
         <content type="html"><![CDATA[<p>HTTP 响应状态代码指示特定 HTTP 请求是否已成功完成。响应分为五类：信息响应（100-199），成功响应（200-299），重定向（300-399），客户端错误（400-499）和服务器错误（500-599）。</p>
 <hr>
 <h2 id="信息响应">信息响应</h2>
