@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2020-04-13T16:20:17.044Z</updated>
+    <updated>2020-04-13T16:23:17.796Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -293,6 +293,80 @@ div  p {color:green;}
 9.7 栅格化（栅格化，是指将图块转换为位图）<br>
 9.8 合成和显示</li>
 </ol>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Vue 学习笔记]]></title>
+        <id>https://pineapple126.github.io/post/vue-notes/</id>
+        <link href="https://pineapple126.github.io/post/vue-notes/">
+        </link>
+        <updated>2020-03-27T16:24:30.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="处理边界情况">处理边界情况</h1>
+<h2 id="访问元素-组件">访问元素 &amp; 组件</h2>
+<h3 id="访问根实例">访问根实例</h3>
+<p>在每一个 <code>new Vue</code> 实例的子组件中，可以通过 <code>$root</code> 属性可以访问根节点的属性或者方法。例如：</p>
+<pre><code class="language-javascript">// Vue 根实例
+new Vue({
+    data: {
+        foo: 1
+    },
+    computed: {
+        bar: function() { /*  */ }
+    },
+    methods: {
+        baz: function() { /*  */ }
+    }
+})
+</code></pre>
+<p>所有的子组件都可以将这个实例作为一个全局 store 来访问或使用。</p>
+<pre><code class="language-javascript">// 获取根实例的数据
+this.$root.foo;
+
+// 写入根实例的数据
+this.$root.foo = 2;
+
+// 访问根实例的计算属性
+this.$root.bar;
+
+// 调用根实例的方法
+this.$root.baz;
+</code></pre>
+<h3 id="访问父级组件实例">访问父级组件实例</h3>
+<p>和 <code>$root</code> 类似，可以通过 <code>$parent</code> 属性可以用来从一个子组件访问父组件的实例的属性或者方法，以替代将数据以 prop 的方式传入子组件的方式。</p>
+<h3 id="访问子组件实例或子元素">访问子组件实例或子元素</h3>
+<p>通过 <code>ref</code> 这个 attribute 为子组件赋予一个 ID 引用，例如：</p>
+<pre><code class="language-html">&lt;base-input ref=&quot;usernameInput&quot;&gt;&lt;/base-input&gt;
+</code></pre>
+<p>现在在已经定义了这个 <code>ref</code> 的组件里，可以使用：</p>
+<pre><code class="language-javascript">this.$refs.usernameInput
+</code></pre>
+<p>来访问这个 <code>&lt;base-input&gt;</code> 实例。</p>
+<h3 id="依赖注入">依赖注入</h3>
+<p>依赖注入提供了两个新的实力选项 <code>provide</code> 和 <code>inject</code> 以便更好地扩展到更深层次的嵌套组件上。</p>
+<p><code>provide</code> 选项允许我们指定我们想要父组件<strong>提供</strong>给后代组件的数据/方法。然后在任何后代组件里，我们都可以使用 <code>inject</code> 选项来接收指定的我们想要添加在这个示例上地属性。</p>
+<p>在此，引用官方文档的示例。假设存在一个 Google 地图组件：</p>
+<pre><code class="language-html">&lt;google-map&gt;
+    &lt;google-map-region v-bind:shape=&quot;cityBoundaries&quot;&gt;
+        &lt;google-map-markers v-bind:places=&quot;iceCreamShops&quot;&gt;&lt;/google-map-markers&gt;
+    &lt;/google-map-region&gt;
+&lt;/google-map&gt;
+</code></pre>
+<p>在这个组件里，所有 <code>&lt;google-map&gt;</code> 的后代都需要访问一个 <code>getMap</code> 方法，以便知道要跟哪个地图进行交互。在这个例子中，<code>&lt;google-map&gt;</code> 组件内部的 <code>getMap</code> 方法就是我们需要通过 <code>provide</code> 选项<strong>提供</strong>给候带组件的方法。</p>
+<pre><code class="language-javascript">provide: function() {
+    return {
+        getMap: this.getMap
+    }
+}
+</code></pre>
+<p>然后在任何后代组件里，我们都可以使用 <code>inject</code> 选项来接收指定的我们想要添加在这个实例上属性：</p>
+<pre><code class="language-javascript">inject: ['getMap']
+</code></pre>
+<p>相比 <code>$parent</code> 来说，这个用法可以让我们在任意后代组件中访问 <code>getMap</code>，而不需要暴露整个 <code>&lt;google-map&gt;</code> 实例。这允许我们更好的持续研发该组件，而不需要担心我们可能会改变/移除一些子组件依赖的东西。同时这些组件之间的接口是始终明确定义的，就和 <code>props</code> 一样。</p>
+<p>实际上，可以将依赖注入看作一部分“大范围有效的 prop”，除了：</p>
+<ul>
+<li>祖先组件不需要知道哪些后代组件使用它提供的属性</li>
+<li>后代组件不需要知道被注入的属性来自哪里</li>
+</ul>
 ]]></content>
     </entry>
     <entry>
@@ -1099,152 +1173,6 @@ console.log(set.has(key2));         //  true
 <li>Weak Set 集合不支持 forEach() 方法。</li>
 <li>Weak Set 集合不支持 size 属性。</li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[防抖和节流]]></title>
-        <id>https://pineapple126.github.io/post/debounce-and-throttle/</id>
-        <link href="https://pineapple126.github.io/post/debounce-and-throttle/">
-        </link>
-        <updated>2020-03-06T11:36:04.000Z</updated>
-        <content type="html"><![CDATA[<p><strong>防抖</strong>（debounce）：动作绑定事件，在动作发生一段时间后再触发事件。如果这段时间内动作再次发生，则重新等待一段时间后再触发事件。</p>
-<p>第一版：根据防抖的定义简单实现防抖功能</p>
-<pre><code class="language-javascript">function debounce(func, wait) {
-    var timeout;
-
-    return function () {
-        var context = this;         //  记录调用对象的 this 值
-        var args = arguments;           //  记录调用对象的 参数
-
-        clearTimeout(timeout);
-        timeout = setTimeout(() =&gt; {
-            func.apply(context, args);
-        }, wait);
-    }
-}
-</code></pre>
-<p>第二版：事件立即执行，然后再根据定义实现防抖</p>
-<pre><code class="language-javascript">function debounce(func, wait) {
-    var timeout;
-
-    return function () {
-        var context = this;
-        var args = arguments;
-
-        //  如果 timeout = null 则立即执行
-        if (!timeout) {
-            func.apply(context, args);
-            timeout = setTimeout(() =&gt; {
-                timeout = null;
-            }, wait);
-        } else {
-            timeout = setTimeout(() =&gt; {
-                func.apply(context, args);
-            }, wait);
-        }
-    }
-}
-</code></pre>
-<p>第三版：将两种结合起来，并添加了手动取消定时器的功能</p>
-<pre><code class="language-javascript">/**
- * @param { function } func
- * @param { number } wait 延迟执行毫秒数
- * @param { boolean } immediate  true 表立即执行，false 表非立即执行
- * @return { function }
- */
-function debounce(func, wait, immediate) {
-    var timeout;
-
-    var debounced = function () {
-        var context = this;
-        var args = arguments;
-
-        //  如果定时器存在，则清楚定时器，再重新计时
-        if (timeout) clearTimeout(timeout);
-        if (immediate) {
-            //  如果已经执行过，则不再执行
-            var callNow = !timeout;
-            timeout = setTimeout(() =&gt; {
-                timeout = null;
-            }, wait);
-            if (callNow) func.apply(context, args);
-        } else {
-            timeout = setTimeout(() =&gt; {
-                func.apply(context, args);
-            }, wait);
-        }
-    }
-    return debounced;
-}
-</code></pre>
-<p><strong>节流</strong>（throttle）：动作绑定事件，在动作发生一段时间后再触发事件。如果在这段时间内动作再次发生，则无视此次动作，等待事件完成后，才能重新触发。</p>
-<p>第一版：时间戳版——使用时间戳，当事件触发时，我们取出当前的时间戳，然后减去之前的时间戳，如果大于设置的时间周期，就执行函数，然后更新时间戳为当前的时间戳；如果小于，则不必执行。</p>
-<pre><code class="language-javascript">function throttle(func, wait) {
-    var previous = 0;
-
-    return function () {
-        var context = this;
-        var args = arguments;
-
-        var now = +new Date();
-        if (now - previous &gt; wait) {
-            func.apply(context, this);
-            previous = now;
-        }
-    }
-}
-</code></pre>
-<p>第二版：定时器版——当事件触发的时候，我们设置一个定时器，再触发事件的时候，如果定时器存在，则不执行，直到定时器执行时执行事件函数，并清空定时器。</p>
-<pre><code class="language-javascript">function throttle(func, wait) {
-    var timeout;
-
-    return function () {
-        var context = this;
-        var args = arguments;
-
-        if (!timeout) {
-            timeout = setTimeout(() =&gt; {
-                timeout = null;
-                func.apply(context, args);
-            }, wait);
-        }
-    }
-}
-</code></pre>
-<p>第三版：将时间戳版本与定时器版本合并起来</p>
-<pre><code class="language-javascript">/**
- * @param { function } func 函数
- * @param { number } wait 延迟执行毫秒数
- * @param { number } type 1 表示时间戳版，2 表示定时器版
- * @return { function }
- */
-function throttle(func, wait, type) {
-    var previous = 0;
-    var timeout;
-    
-    return function () {
-        var context = this;
-        var args = arguments;
-
-        if (type === 1) {
-            var now = +new Date();
-
-            if (now - previous &gt; wait) {
-                func.apply(context, args);
-                previous = now;
-            }
-        } else if (type === 2) {
-            if (!timeout) {
-                timeout = setTimeout(() =&gt; {
-                    timeout = null;
-                    func.apply(context, args);
-                }, wait);
-            }
-        }
-
-    }
-}
-</code></pre>
 ]]></content>
     </entry>
 </feed>
