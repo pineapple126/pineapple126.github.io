@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2020-04-14T10:57:33.746Z</updated>
+    <updated>2020-04-15T09:35:00.700Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -10,6 +10,175 @@
     <logo>https://pineapple126.github.io/images/avatar.png</logo>
     <icon>https://pineapple126.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 深海大菠萝盖饭</rights>
+    <entry>
+        <title type="html"><![CDATA[《透视 HTTP 协议》学习记录——破冰篇]]></title>
+        <id>https://pineapple126.github.io/post/http-study-route-1/</id>
+        <link href="https://pineapple126.github.io/post/http-study-route-1/">
+        </link>
+        <updated>2020-04-14T03:48:57.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="1-http-的前世今生">1. HTTP 的前世今生</h2>
+<h3 id="创世纪">创世纪</h3>
+<p>1989 年，任职于欧洲核子研究中心的<strong>蒂姆·伯纳斯 - 李（Tim Berners-Lee）<strong>在他的论文中提出了</strong>在互联网上构建超链接文档系统的构想</strong>。在论文中他确立了三项关键技术：</p>
+<ol>
+<li>URI（Uniform Resource Identifier），即统一资源标识符，作为互联网上资源的唯一身份；</li>
+<li>HTML（HyperText Markup Language），即超文本标记语言，描述超文本文档；</li>
+<li>HTTP（HyperText Transfer Protocol），即超文本传输协议，用来传输超文本。</li>
+</ol>
+<p>因此可以说，“HTTP”是在这一年诞生的。</p>
+<h3 id="http09">HTTP/0.9</h3>
+<p>20 世纪 90 年代初期，网络上绝大多数资源都是纯文本，很多通信协议也都使用纯文本，所以 HTTP 的设计也不可避免地受到了时代的限制。</p>
+<p>这一时期的 HTTP 被定义为 0.9 版，结构比较简单，为了便于服务器与客户端处理，也采用了纯文本格式。蒂姆·伯纳斯 - 李最初设想的系统里的文档都只是可读的，所以只允许使用 “GET”动作从服务器上获取 HTML 文档，并在响应之后立即关闭连接，功能有限。</p>
+<p>HTTP/0.9 虽然简单，但是它作为一个“原型”，充分验证了 Web 服务的可行性。</p>
+<h3 id="http10">HTTP/1.0</h3>
+<p>1993 年，NCSA（美国国家超级计算应用中心）开发出了第一个可以图文混排的浏览器 Mosaic，随后又在 1995 年开发出了服务器软件 Apache，简化了 HTTP 服务器的搭建工作。同一时期，JEPG 图像格式和 MP3 音乐格式等计算机多媒体技术被发明出来，成功吸引了广大网民的热情，更多的人开始使用互联网，研究 HTTP 并提出改进意见。</p>
+<p>于是在这些已有实践的基础上，经过一系列草案，HTTP/1.0 版本在 1996 年正式发布。它在多方面增强了 0.9 版，例如：</p>
+<ul>
+<li>增加了 HEAD、POST 等新方法；</li>
+<li>增加了响应状态码，标记可能错误的原因；</li>
+<li>引入了协议版本号的概念；</li>
+<li>引入了 HTTP Header 的概念，让 HTTP处理请求和响应更加灵活；</li>
+<li>传输的数据不再局限于文本。</li>
+</ul>
+<p>但 HTTP/1.0 并不是一个“标准”，只是记录已有实践和模式的一份参考文档，不具有实际的约束力。</p>
+<p>小贴士：HTTP/1.0 的 RFC 编号是 1945，而 HTTP/0.9 则没有 RFC 。</p>
+<h3 id="http11">HTTP/1.1</h3>
+<p>1995 年，网景的 Netscape Navigator 和微软的 Internet Explorer 开始了著名的“浏览器大战”。这一场“战役”推动了 Web 的发展，HTTP/1.0 在这个过程中经受住了考验。于是在“浏览器大战”结束后的 1999 年，HTTP/1.1 发布了 RFC 文档，编号为 2616，正式确立了延续十年的传奇。</p>
+<p>HTTP/1.1 虽然是对 HTTP/1.0 的修正，但一个重要区别是：它是一个“正式的标准”，而不是一份可有可无的“参考文档”。这意味着今后互联网上的所有浏览器、服务器、网关、代理等等，只要用到 HTTP 协议，就必须严格遵守这个标准，相当于是互联网世界的一次“立法&quot;。</p>
+<p>HTTP/1.1 主要变更有：</p>
+<ul>
+<li>增加了 PUT、DELETE 等新的方法；</li>
+<li>增加了缓存管理和控制；</li>
+<li>明确了连接管理，允许持久连接；</li>
+<li>允许响应数据分块（chunked），利于传输大文件；</li>
+<li>强制要求 Host 头，让互联网主机托管成为可能。</li>
+</ul>
+<p>由于 HTTP/1.1 太过庞大和复杂，所以在 2014 年又做了一次修订，原来的一个大文档被拆分为六分较小的文档，编号为 7230 - 7235，优化了一些细节，没有什么实质性的改动。</p>
+<h3 id="http2">HTTP/2</h3>
+<p>互联网标准化组织以 Google 推出的 SPDY 协议为基础制定新版本的 HTTP 协议，在 2015 年发布了 HTTP/2，RFC 编号 7540。</p>
+<p>HTTP/2 的制定充分考虑了现今互联网的现状：宽带、移动、不安全，在高度兼容 HTTP/1.1 的同时在性能改善方面做出了很大的努力，主要特点有：</p>
+<ul>
+<li>二进制协议，不再是纯文本；</li>
+<li>可发起多个请求，废弃了 1.1 里的管道；</li>
+<li>使用专用算法压缩头部，减少数据传输量；</li>
+<li>允许服务器主动向客户端推送数据；</li>
+<li>增强了安全性，“事实上”要求通信加密。</li>
+</ul>
+<p>目前，HTTP/2 的普及率还比较低，大多数网站使用的仍然是 HTTP/1.1。</p>
+<h3 id="http3">HTTP/3</h3>
+<p>在 HTTP/2 还处于草案之时，Google 又发明了一个新的协议，叫做 QUIC。</p>
+<p>2018 年，互联网标准化组织提议将 “HTTP over QUIC”更名为 “HTTP/3”并获得批准，HTTP/3 正式进入标准化制定阶段。</p>
+<h2 id="2-http-是什么http-又不是什么">2. HTTP 是什么？HTTP 又不是什么？</h2>
+<h3 id="http-是什么">HTTP 是什么？</h3>
+<p>HTTP（HyperText Transfer Protocol），即超文本传输协议。它可以分解为三部分：<strong>超文本</strong>、<strong>传输</strong>和<strong>协议</strong>。我们从后向前逐个解析，来理解这三个词。</p>
+<ol>
+<li>
+<p>“<strong>协议</strong>”：在现实生活中，“协议”意味着两个及以上参与者为了达成某个共同目的而对彼此的一种行为约定或规范。在这里，<strong>HTTP 是一个用在计算机世界里的协议。它使用计算机能够理解的语言确立了一种计算机之间交流通信的规范，以及相关的各种控制和错误处理方式。</strong></p>
+</li>
+<li>
+<p>“<strong>传输</strong>”：HTTP 是一个“<strong>传输协议</strong>”，所谓“传输”（Transfer），就是把一堆东西从 A 点搬到 B 点，或者是从 B 点搬到 A 点，即 “A &lt;===&gt; B”。这里包含了两项重要信息：一、HTTP 协议是一个“<strong>双向协议</strong>”。二、数据虽然是在 A 和 B 之间传输，但并没有限制只有 A 和 B 两个角色，允许中间有“中转”或“接力”。（如：A &lt;=&gt; X &lt;=&gt; Y &lt;=&gt; Z &lt;=&gt; B）因此，<strong>HTTP 是一个在计算机世界里专门用来在两点之间传输数据的约定和规范。</strong></p>
+</li>
+<li>
+<p>“<strong>超文本</strong>”：所谓“文本”，就表示 HTTP 传输的不是 TCP/UDP 这些底层协议里被切分杂乱无章的二进制包（datagram），而是完整的，有意义的数据，可以被浏览器、服务器这样的上层应用程序处理。而所谓“超文本”，就是“超越了普通文本的文本”，它是文字、图片、音频和视频等的混合体，最关键的是含有“超链接”，能够从一个“超文本”跳跃到另一个“超文本”，形成复杂的非线性、网状的结构关系。</p>
+</li>
+</ol>
+<p>综上所述，我们可以给出比“超文本传输协议”这七个字更准确更具有技术含量的解释：<strong>HTTP 是一个在计算机世界里专门用来在两点之间传输文字、图片、音频、视频等超文本数据的约定和规范。</strong></p>
+<h3 id="http-不是什么">HTTP 不是什么？</h3>
+<p>“HTTP 不是什么？”等价于询问“HTTP 不能干什么？”</p>
+<p>HTTP 不是互联网，但是 HTTP 是构建互联网的一块重要拼图，而且是比重最大的一块。</p>
+<p>HTTP 不是编程语言，而是计算机与计算机沟通交流的语言。</p>
+<p>HTTP 也不是一个孤立的协议，HTTP 协议通常跑在 TCP/IP 协议栈之上，依靠 IP 协议实现寻址和路由、TCP 协议实现可靠的数据传输、DNS 协议实现域名查找、SSL/TLS 协议实现安全通信。这些协议相互交织，构成了一个协议网，而 HTTP 处于中心位置。</p>
+<p>我们可以这样定义 HTTP：<strong>与 HTTP 协议相关的所有应用层技术的总和。</strong></p>
+<h2 id="3-与-http-相关的各种概念">3. 与 HTTP 相关的各种概念</h2>
+<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1586866865483.png" alt="" loading="lazy"></figure>
+<p><strong>总结：</strong></p>
+<ul>
+<li>互联网上绝大多数资源都是用 HTTP 协议传输；</li>
+<li>浏览器是 HTTP 协议里的请求方，即 User Agent;</li>
+<li>服务器是 HTTP 协议里的应答方，常用的有 Apache 和 Nginx；</li>
+<li>CDN（Content Delivery Network，内容分发网络） 位于浏览器和服务器之间，主要起到缓存加速的作用；</li>
+<li>爬虫（Crawler）是另一类的 User Agent，是自动访问网络资源的程序。</li>
+</ul>
+<h2 id="4-与-http-相关的各种协议">4. 与 HTTP 相关的各种协议</h2>
+<figure data-type="image" tabindex="2"><img src="https://pineapple126.github.io//post-images/1586866943488.png" alt="" loading="lazy"></figure>
+<h3 id="tcpip">TCP/IP</h3>
+<p><strong>IP 协议</strong>是“<span style="color: red;">I</span>nternet <span style="color: red;">P</span>rotocol”的缩写，主要目的是解决寻址和路由问题，以及如何在两点之间传输数据包。IP 协议使用“<strong>IP 地址</strong>”的概念来定位互联网中的每一台计算机。</p>
+<p>现在我们大多使用的 IP 协议是 v4 版（IPv4），总共有 2^32，大约有 42 亿个可以分配的地址。但随着互联网的飞速发展，IP 地址的分配很快就“捉襟见肘”。所以，又出现了 IPv6，有 2^128 个。</p>
+<p><strong>TCP 协议</strong>是“<span style="color: red;">T</span>ransmission <span style="color: red;">C</span>ontrol <span style="color: red;">P</span>rotocol”的缩写，意思是“传输控制协议”，它位于 IP 协议之上，基于 IP 协议提供<span style="color: red;">可靠的</span>（保证数据不丢失）、<span style="color: red;">字节流</span>（保证数据完整）形式的通信，是 HTTP 协议得以实现的基础。</p>
+<p>HTTP 是一个“传输协议”，他不关心寻址、路由、数据完整性等传输细节，而 TCP/IP 协议刚好可以满足这些工作的要求，所以互联网上的 HTTP 协议就运行在了 TCP/IP 上，HTTP 也就可以更准确地成为“<strong>HTTP over TCP/IP</strong>”。</p>
+<h3 id="uriurl">URI/URL</h3>
+<p><strong>URI</strong>（Uniform Resource Identifier），中文名字是 <strong>统一资源标识符</strong>，使用它就能唯一地标记互联网上地资源。</p>
+<p>URI 另一个常见的表现形式是 <strong>URL</strong>（Uniform Resource Location），<strong>统一资源定位符</strong>，也即我们俗称的“网址”，它是 URI 地一个子集，两者之间差异不大，不做严格划分。</p>
+<p>举一个简单的例子：</p>
+<pre><code>http://nginx.org/en/download.html
+</code></pre>
+<p>我们可以将 URI 划分为三个部分：</p>
+<ol>
+<li>协议名：即访问该资源应当使用的协议，在这里是“HTTP”；</li>
+<li>主机名：即互联网上主机的标记，可以是域名或者 IP 地址，在这里是“ngix.org”；</li>
+<li>路径：即资源在主机上的位置，使用“/”分隔多级目录，在这里是“/en/download.html”。</li>
+</ol>
+<h3 id="https">HTTPS</h3>
+<p>HTTPS 的全称是“<strong>HTTP over SSL/TLS</strong>”，也就是运行在 SSL/TLS 协议上的 HTTP。</p>
+<p>这里的 SSL/TLS 是一个负责加密通信的安全协议，建立在 TCP/IP 之上，所以也是一个可靠的传输协议，可以被当作 HTTP 的下层。</p>
+<p>SSL 的全称是“<strong>Secure Socket Layer</strong>”，由网景公司发明，当发展到 3.0 时被标准化，该名为 TLS，即 <strong>Transport Layer Security</strong>。SSL 使用了许多密码学最先进的研究成果，综合了对称加密、非对称加密、摘要算法、数字签名、数字证书等技术，能够在不安全的环境中为通信的双方创建出一个秘密的、安全的传输通道，为 HTTP 套上一副坚固的盔甲。</p>
+<h3 id="代理">代理</h3>
+<p>代理（Proxy）是 HTTP 协议中请求方和应答方中间的一个环节，作为“中转站”，即可以转发客户端的请求，也可以转发服务器的响应。</p>
+<p>代理分为很多类，常见的有：</p>
+<ol>
+<li>匿名代理：完全“隐匿”了被代理的机器，外界看到的只是代理服务器；</li>
+<li>透明代理：顾名思义，它在传输过程中是“透明开放”的，外界即知道代理，也知道客户端；</li>
+<li>正向代理：靠近客户端，代表客户端向服务器发送请求；</li>
+<li>反向代理：靠近服务器，代替服务器响应客户端的请求。</li>
+</ol>
+<p>CDN 实际上就是一种代理，它代替源站服务器响应客户端的请求，通常扮演着透明代理和反向代理的角色。</p>
+<p>由于代理在传输过程中插入了一个“中间层”，所以可以在这个环节做很多有意思的事情，例如：</p>
+<ul>
+<li>负载均衡：把访问请求均匀分散到多台机器，实现访问集群化；</li>
+<li>内容缓存：暂存上下行的数据，减轻后端的压力；</li>
+<li>安全防护：隐匿 IP，使用 WAF 等工具抵御网络攻击，保护被代理的机器；</li>
+<li>数据处理：提供压缩，加密等额外的功能。</li>
+</ul>
+<h3 id="总结">总结</h3>
+<ol>
+<li>TCP/IP 是网络世界最常使用的协议，HTTP 通常运行在 TCP/IP 提供的可靠传输基础上；</li>
+<li>DNS 域名是 IP 地址的等价替代，需要用域名解析系统实现到 IP 地址的映射；</li>
+<li>URI 是用来标记互联网上资源的一个名字，由“协议名 + 主机名 + 路径”构成，俗称 URL；</li>
+<li>HTTPS 相当于“HTTP + SSL/TLS + TCP/IP”，为 HTTP 套了一个安全的外壳；</li>
+<li>代理是 HTTP 传输过程中的“中转站”，可以实现缓存加速、负载均衡等功能。</li>
+</ol>
+<h2 id="5-四层模型与七层模型">5. 四层模型与七层模型</h2>
+<h3 id="tcpip-网络分层模型四层模型">TCP/IP 网络分层模型（四层模型）</h3>
+<p>层次图如下：</p>
+<figure data-type="image" tabindex="3"><img src="https://pineapple126.github.io//post-images/1586940265489.png" alt="TCP/IP 网络分层模型" loading="lazy"></figure>
+<p>第一层：<strong>链接层</strong>（Link Layer），负责在以太网、WiFi 这样的底层网络上发送原始数据包，工作在网卡这个层次，使用 MAC 地址来标记网络上的设备。</p>
+<p>第二层：<strong>网际层</strong>（Internet Layer），IP 协议就处于这一层。因为 IP 协议定义了 “IP 地址”的概念，所以可以在链接层的基础上，用 IP 地址代替 MAC 地址，把许许多多的局域网、广域网连接成一个虚拟的巨大网络。</p>
+<p>第三层：<strong>传输层</strong>（Transport Layer），这个层次协议的职责是保证数据在 IP 地址标记的两点之间“可靠”地传输，是 TCP 协议工作地层次，另外还有它地一个小伙伴 UDP。TCP 是一个有状态的协议，需要双方先建立连接后才能发送数据，而且保证数据不丢失。而 UDP 是无状态的协议，不用事先建立连接就可以发送数据，但不保证数据一定会发送到对方。</p>
+<p>第四层：<strong>应用层</strong>（Application Layer），这一层主要是各种面向具体应用的协议。如：Telnet、SSH、FTP、SMTP 以及 HTTP。</p>
+<h3 id="osi-网络分层模型七层模型">OSI 网络分层模型（七层模型）</h3>
+<p>OSI（Open System Interconnected Reference Model），全称是<strong>开放式系统网络互联通信参考模型</strong>，是由国际标准组织（ISO）设计出来的用来统一既存的各种网络协议的网络分层模型。</p>
+<p>层次图如下：</p>
+<figure data-type="image" tabindex="4"><img src="https://pineapple126.github.io//post-images/1586940969763.png" alt="OSI 网络分层模型" loading="lazy"></figure>
+<p>OSI 模型分为了七层，部分层次和 TCP/IP 很像，从下到上分别是：</p>
+<p>第一层：物理层，网络的物理形式，例如电缆、光纤、网卡、集线器等；</p>
+<p>第二层：数据链路层，它基本相当于 TCP/IP 的链接层；</p>
+<p>第三层：网络层，相当于 TCP/IP 的网际层；</p>
+<p>第四层：传输层，相当于 TCP/IP 的传输层；</p>
+<p>第五层：会话层，维护网络中的连接状态，即保持会话和同步；</p>
+<p>第六层：表示层，把数据转换为合适、可理解的语法和语义；</p>
+<p>第七层：应用层，面向具体的应用传输数据。</p>
+<p><strong>注意</strong>：OSI 为每一层标记了明确的编号，最底是一层，最上层是七层，而 TCP/IP 的层次只有名字而没有编号。</p>
+<h3 id="两个层次模型的映射关系">两个层次模型的映射关系</h3>
+<p>OSI 在设计之初就参考了 TCP/IP 等多个协议，可以比较容易在两个模型间实现对应关系：</p>
+<figure data-type="image" tabindex="5"><img src="https://pineapple126.github.io//post-images/1586941518170.png" alt="两种层次模型的映射关系" loading="lazy"></figure>
+<ol>
+<li>第一层：物理层，TCP/IP 里无对应；</li>
+<li>第二层：数据链路层，对应 TCP/IP 的链接层；</li>
+<li>第三层：网络层，对应 TCP/IP 的网际层；</li>
+<li>第四层：传输层，对应 TCP/IP 的传输层；</li>
+<li>第五、六、七层：统一对应到 TCP/IP 的应用层。</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[HTTP 响应代码]]></title>
         <id>https://pineapple126.github.io/post/http-status-code/</id>
@@ -1099,152 +1268,6 @@ console.log(set.has(key2));         //  true
 <li>Weak Set 集合不支持 forEach() 方法。</li>
 <li>Weak Set 集合不支持 size 属性。</li>
 </ul>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[防抖和节流]]></title>
-        <id>https://pineapple126.github.io/post/debounce-and-throttle/</id>
-        <link href="https://pineapple126.github.io/post/debounce-and-throttle/">
-        </link>
-        <updated>2020-03-06T11:36:04.000Z</updated>
-        <content type="html"><![CDATA[<p><strong>防抖</strong>（debounce）：动作绑定事件，在动作发生一段时间后再触发事件。如果这段时间内动作再次发生，则重新等待一段时间后再触发事件。</p>
-<p>第一版：根据防抖的定义简单实现防抖功能</p>
-<pre><code class="language-javascript">function debounce(func, wait) {
-    var timeout;
-
-    return function () {
-        var context = this;         //  记录调用对象的 this 值
-        var args = arguments;           //  记录调用对象的 参数
-
-        clearTimeout(timeout);
-        timeout = setTimeout(() =&gt; {
-            func.apply(context, args);
-        }, wait);
-    }
-}
-</code></pre>
-<p>第二版：事件立即执行，然后再根据定义实现防抖</p>
-<pre><code class="language-javascript">function debounce(func, wait) {
-    var timeout;
-
-    return function () {
-        var context = this;
-        var args = arguments;
-
-        //  如果 timeout = null 则立即执行
-        if (!timeout) {
-            func.apply(context, args);
-            timeout = setTimeout(() =&gt; {
-                timeout = null;
-            }, wait);
-        } else {
-            timeout = setTimeout(() =&gt; {
-                func.apply(context, args);
-            }, wait);
-        }
-    }
-}
-</code></pre>
-<p>第三版：将两种结合起来，并添加了手动取消定时器的功能</p>
-<pre><code class="language-javascript">/**
- * @param { function } func
- * @param { number } wait 延迟执行毫秒数
- * @param { boolean } immediate  true 表立即执行，false 表非立即执行
- * @return { function }
- */
-function debounce(func, wait, immediate) {
-    var timeout;
-
-    var debounced = function () {
-        var context = this;
-        var args = arguments;
-
-        //  如果定时器存在，则清楚定时器，再重新计时
-        if (timeout) clearTimeout(timeout);
-        if (immediate) {
-            //  如果已经执行过，则不再执行
-            var callNow = !timeout;
-            timeout = setTimeout(() =&gt; {
-                timeout = null;
-            }, wait);
-            if (callNow) func.apply(context, args);
-        } else {
-            timeout = setTimeout(() =&gt; {
-                func.apply(context, args);
-            }, wait);
-        }
-    }
-    return debounced;
-}
-</code></pre>
-<p><strong>节流</strong>（throttle）：动作绑定事件，在动作发生一段时间后再触发事件。如果在这段时间内动作再次发生，则无视此次动作，等待事件完成后，才能重新触发。</p>
-<p>第一版：时间戳版——使用时间戳，当事件触发时，我们取出当前的时间戳，然后减去之前的时间戳，如果大于设置的时间周期，就执行函数，然后更新时间戳为当前的时间戳；如果小于，则不必执行。</p>
-<pre><code class="language-javascript">function throttle(func, wait) {
-    var previous = 0;
-
-    return function () {
-        var context = this;
-        var args = arguments;
-
-        var now = +new Date();
-        if (now - previous &gt; wait) {
-            func.apply(context, this);
-            previous = now;
-        }
-    }
-}
-</code></pre>
-<p>第二版：定时器版——当事件触发的时候，我们设置一个定时器，再触发事件的时候，如果定时器存在，则不执行，直到定时器执行时执行事件函数，并清空定时器。</p>
-<pre><code class="language-javascript">function throttle(func, wait) {
-    var timeout;
-
-    return function () {
-        var context = this;
-        var args = arguments;
-
-        if (!timeout) {
-            timeout = setTimeout(() =&gt; {
-                timeout = null;
-                func.apply(context, args);
-            }, wait);
-        }
-    }
-}
-</code></pre>
-<p>第三版：将时间戳版本与定时器版本合并起来</p>
-<pre><code class="language-javascript">/**
- * @param { function } func 函数
- * @param { number } wait 延迟执行毫秒数
- * @param { number } type 1 表示时间戳版，2 表示定时器版
- * @return { function }
- */
-function throttle(func, wait, type) {
-    var previous = 0;
-    var timeout;
-    
-    return function () {
-        var context = this;
-        var args = arguments;
-
-        if (type === 1) {
-            var now = +new Date();
-
-            if (now - previous &gt; wait) {
-                func.apply(context, args);
-                previous = now;
-            }
-        } else if (type === 2) {
-            if (!timeout) {
-                timeout = setTimeout(() =&gt; {
-                    timeout = null;
-                    func.apply(context, args);
-                }, wait);
-            }
-        }
-
-    }
-}
-</code></pre>
 ]]></content>
     </entry>
 </feed>
