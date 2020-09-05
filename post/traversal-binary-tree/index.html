@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>深海大菠萝盖饭</title>
 <meta name="description" content="温故而知新" />
-<link rel="shortcut icon" href="https://pineapple126.github.io//favicon.ico?v=1587743050370">
+<link rel="shortcut icon" href="https://pineapple126.github.io//favicon.ico?v=1599314739257">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -23,7 +23,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://pineapple126.github.io/">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://pineapple126.github.io//images/avatar.png?v=1587743050370" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://pineapple126.github.io//images/avatar.png?v=1599314739257" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
       </div>
@@ -39,19 +39,19 @@
 <li><a href="#%E5%85%88%E5%BA%8F%E9%81%8D%E5%8E%86preordertraversal">先序遍历（preorderTraversal）</a>
 <ul>
 <li><a href="#%E9%80%92%E5%BD%92%E6%96%B9%E5%BC%8F">递归方式</a></li>
-<li><a href="#%E8%BF%AD%E4%BB%A3%E6%96%B9%E5%BC%8F">迭代方式</a></li>
+<li><a href="#%E9%9D%9E%E9%80%92%E5%BD%92%E6%96%B9%E5%BC%8F">非递归方式</a></li>
 </ul>
 </li>
 <li><a href="#%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86inordertraversal">中序遍历（inorderTraversal）</a></li>
 <li><a href="#%E9%80%92%E5%BD%92%E6%96%B9%E5%BC%8F-2">递归方式</a>
 <ul>
-<li><a href="#%E8%BF%AD%E4%BB%A3%E6%96%B9%E5%BC%8F-2">迭代方式</a></li>
+<li><a href="#%E9%9D%9E%E9%80%92%E5%BD%92%E6%96%B9%E5%BC%8F-2">非递归方式</a></li>
 </ul>
 </li>
 <li><a href="#%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86postordertraversal">后序遍历（postorderTraversal)</a>
 <ul>
 <li><a href="#%E9%80%92%E5%BD%92%E6%96%B9%E5%BC%8F-3">递归方式</a></li>
-<li><a href="#%E8%BF%AD%E4%BB%A3%E6%96%B9%E5%BC%8F-3">迭代方式</a></li>
+<li><a href="#%E9%9D%9E%E9%80%92%E5%BD%92%E6%96%B9%E5%BC%8F-3">非递归方式</a></li>
 </ul>
 </li>
 </ul>
@@ -133,7 +133,7 @@ function preorderTraversal(root) {
     ];
 }
 </code></pre>
-<h3 id="迭代方式">迭代方式</h3>
+<h3 id="非递归方式">非递归方式</h3>
 <p>利用栈存储遍历的节点</p>
 <pre><code class="language-javascript">/**
  * Definition for a binary tree node.
@@ -186,7 +186,7 @@ function inorderTraversal(root) {
     ];
 }
 </code></pre>
-<h3 id="迭代方式-2">迭代方式</h3>
+<h3 id="非递归方式-2">非递归方式</h3>
 <p>利用栈存储遍历的节点</p>
 <pre><code class="language-javascript">/**
  * Definition for a binary tree node.
@@ -239,7 +239,7 @@ function postorderTraversal(root) {
     ];
 }
 </code></pre>
-<h3 id="迭代方式-3">迭代方式</h3>
+<h3 id="非递归方式-3">非递归方式</h3>
 <p><strong>方式一：正序解</strong></p>
 <p>实现（1）：如果某一结点的子节点已被遍历过，则将其子节点指向 null。（整个过程就像是给一棵树不断地修剪叶子一样）</p>
 <p>基本思路：</p>

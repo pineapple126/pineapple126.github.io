@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2020-04-24T15:44:16.286Z</updated>
+    <updated>2020-09-05T14:05:46.578Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -685,7 +685,7 @@ function preorderTraversal(root) {
     ];
 }
 </code></pre>
-<h3 id="迭代方式">迭代方式</h3>
+<h3 id="非递归方式">非递归方式</h3>
 <p>利用栈存储遍历的节点</p>
 <pre><code class="language-javascript">/**
  * Definition for a binary tree node.
@@ -738,7 +738,7 @@ function inorderTraversal(root) {
     ];
 }
 </code></pre>
-<h3 id="迭代方式-2">迭代方式</h3>
+<h3 id="非递归方式-2">非递归方式</h3>
 <p>利用栈存储遍历的节点</p>
 <pre><code class="language-javascript">/**
  * Definition for a binary tree node.
@@ -791,7 +791,7 @@ function postorderTraversal(root) {
     ];
 }
 </code></pre>
-<h3 id="迭代方式-3">迭代方式</h3>
+<h3 id="非递归方式-3">非递归方式</h3>
 <p><strong>方式一：正序解</strong></p>
 <p>实现（1）：如果某一结点的子节点已被遍历过，则将其子节点指向 null。（整个过程就像是给一棵树不断地修剪叶子一样）</p>
 <p>基本思路：</p>
