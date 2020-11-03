@@ -33,7 +33,19 @@
             文章目录
           </p>
           <div class="toc-container hidden lg:block">
-            
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0">题目描述</a></li>
+<li><a href="#%E8%A7%A3%E6%B3%95">解法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
           </div>
         </div>
       
@@ -78,98 +90,59 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">LeetCode - 23 合并K个排序链表（分治）</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">LeetCode 每日一题 2020.11.3 —— 941. 有效的山脉数组 Easy</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-03-23 / 3 min read
+          2020-11-03 / 2 min read
         </div>
         
-          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://pineapple126.github.io//post-images/leetcode-23-mergeKLists.webp" alt="">
-        
         <div class="post-content yue">
-          <p><strong>问题描述：</strong></p>
-<p>合并 k 个排序链表，返回合并后的排序链表。</p>
-<p><strong>示例：</strong></p>
-<pre><code>输入:
-[
-  1-&gt;4-&gt;5,
-  1-&gt;3-&gt;4,
-  2-&gt;6
-]
-输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6
+          <h3 id="题目描述">题目描述</h3>
+<p>给定一个整数数组 <code>A</code>，如果它是有效的山脉数组就返回 <code>true</code>，否则返回 <code>false</code>。</p>
+<p>山脉数组的定义如下：</p>
+<ul>
+<li><code>A.length &gt;= 3</code></li>
+<li>在 <code>0 &lt; i &lt; A.length - 1</code> 条件下，存在 <code>i</code> 使得：
+<ul>
+<li><code>A[0] &lt; A[1] &lt; ... &lt; A[i-1] &lt; A[i]</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><code>A[i] &gt; A[i+1] &gt; ... &gt; A[A.length - 1]</code></li>
+</ul>
+<p>示例：</p>
+<pre><code>输入：[2, 1]
+输出：false
 </code></pre>
-<p><strong>基本思路：</strong></p>
-<p>对于合并两个排序链表的问题，我们可以轻松解决。只要创建一个新的哑巴节点，再选择两个链表头节点较小的一个与哑巴节点链接起来，循环该操作，直至合并完成。</p>
-<p>那么对于合并K个排序链表，我们可以运用分治的思想，不断地将数组不断拆分。（我们用数组 lists 存储着这些链表）</p>
-<p>这里借用官方题解的一张图片：</p>
-<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1584964378982.png" alt="分治演示" loading="lazy"></figure>
-<p>那么拆分过程中有以下情形：</p>
-<ul>
-<li>
-<p><code>lists.length === 0</code>        数组 lists 中已无链表，则返回一个空节点；</p>
-</li>
-<li>
-<p><code>lists.length === 1</code>        数组 lists 中仅剩一个链表，因此直接返回该链表；</p>
-</li>
-<li>
-<p><code>lists.length === 2</code>        数组 lists 中有两个链表，我们执行合并操作；</p>
-</li>
-<li>
-<p><code>other</code>         数组 lists 中的链表数过多，需要继续拆分。</p>
-</li>
-<li>
-<p>时间复杂度：O(nlogK)</p>
-<ul>
-<li>k 为链表总数</li>
-<li>n 为合并两个链表所用的时间</li>
-</ul>
-</li>
-<li>
-<p>空间复杂度：O(n)</p>
-</li>
-</ul>
-<p>代码如下：</p>
-<pre><code class="language-javascript">/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
-/**
- * @param {ListNode[]} lists
- * @return {ListNode}
- */
-var mergeKLists = function(lists) {
-    // 如果列表中的 链表 为空 则直接返回
-    if (lists.length === 0) return null;
-    // 如果列表中的 链表 只剩一个直接返回
-    if (lists.length === 1) return lists[0];
-    // 如果列表中的 链表 有两个 则合并两个链表
-    if (lists.length === 2) return mergeTwoLists(lists[0], lists[1]);
-    // 否则继续拆分
-    let mid = lists.length &gt;&gt; 1;
-    let left = lists.slice(0, mid),
-        right = lists.slice(mid);
-    return mergeTwoLists(mergeKLists(left), mergeKLists(right));
-};
+<h3 id="解法">解法</h3>
+<p><strong>线性扫描</strong>：</p>
+<p>我们从数组的最左侧开始向右扫描，直到找到第一个不满足 A[i] &lt; A[i+1] 的下标 i，那么 i 就是这个数组的最高点的下标。如果 i = 0 或者返回不存在这样的 i（即整个数组都是单调递增的），那么就返回 false。否则从 i 开始继续向右扫描，判断接下来的下标 j 是否都满足 A[j]&gt;A[j+1]，若都满足就返回 true，否则返回 false。</p>
+<pre><code class="language-javascript">var validMountainArray = function(A) {
+    const len = A.length;
 
-function mergeTwoLists(list1, list2) {
-    let ans = new ListNode(-1),
-        preAns = ans;
-    while(list1 &amp;&amp; list2) {
-        if (list1.val &lt; list2.val) {
-            preAns.next = list1;
-            list1 = list1.next;
-        } else {
-            preAns.next = list2;
-            list2 = list2.next;
-        }
-        preAns = preAns.next;
+    // 递增扫描
+    while (i+1 &lt; len &amp;&amp; A[i] &lt; A[i+1]) {
+        i++;
     }
-    preAns.next = list1 ? list1 : list2;
-    return ans.next;
-}
+
+    // 最高点不能是数组的第一个位置或最后一个位置
+    if (i === 0 || i === len-1) {
+        return false;
+    }
+
+    // 递减扫描
+    while (i+1 &lt; len &amp;&amp; A[i] &gt; A[i+1]) {
+        i++;
+    }
+
+    return i === len-1;
+};
 </code></pre>
+<p><strong>复杂度分析</strong></p>
+<ul>
+<li>时间复杂度：O(N)，其中 N 是数组 A 的长度。</li>
+<li>空间复杂度：O(1)。</li>
+</ul>
 
         </div>
 
@@ -182,21 +155,12 @@ function mergeTwoLists(list1, list2) {
 
         <div class="flex justify-between py-8">
           
-            <div class="prev-post">
-              <a href="https://pineapple126.github.io/post/what-happened-between-input-url-and-web-presentation/">
-                <h3 class="post-title">
-                  <i class="ri-arrow-left-line"></i>
-                  从用户输入 URL 到页面渲染完毕，这中间发生了什么？
-                </h3>
-              </a>
-            </div>
-          
 
           
             <div class="next-post">
-              <a href="https://pineapple126.github.io/post/event-delegation/">
+              <a href="https://pineapple126.github.io/post/http-study-route-1/">
                 <h3 class="post-title">
-                  事件委托
+                  《透视 HTTP 协议》学习记录——破冰篇
                   <i class="ri-arrow-right-line"></i>
                 </h3>
               </a>
