@@ -1,0 +1,871 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://pineapple126.github.io//favicon.ico?v=1604597061873">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://pineapple126.github.io//images/avatar.png?v=1604597061873" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%97%B6%E9%97%B4%E7%BA%BF">时间线</a></li>
+<li><a href="#%E5%A4%96%E9%83%A8%E6%A8%A1%E5%9D%97%E7%9A%84%E7%AE%A1%E7%90%86">外部模块的管理</a>
+<ul>
+<li><a href="#nodejs-%E5%92%8C-npm-%E7%9A%84%E5%8F%91%E5%B8%83">Node.js 和 NPM 的发布</a></li>
+<li><a href="#npm-%E6%97%B6%E4%BB%A3%E4%BB%A5%E5%89%8D%E7%9A%84%E5%A4%96%E9%83%A8%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F">NPM 时代以前的外部模块使用方式</a></li>
+<li><a href="#npm-%E6%97%B6%E4%BB%A3%E4%BB%A5%E5%90%8E%E5%A4%96%E9%83%A8%E6%A8%A1%E5%9D%97%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F">NPM 时代以后外部模块的使用方式</a></li>
+</ul>
+</li>
+<li><a href="#%E5%86%85%E9%83%A8%E6%A8%A1%E5%9D%97%E7%9A%84%E7%BB%84%E7%BB%87">内部模块的组织</a>
+<ul>
+<li><a href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%E5%8E%9F%E7%94%9F-js-%E7%BB%84%E7%BB%87%E9%98%B6%E6%AE%B5">模块化第一阶段：原生 JS 组织阶段</a></li>
+<li><a href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E7%9A%84%E7%AC%AC%E4%BA%8C%E9%98%B6%E6%AE%B5%E5%9C%A8%E7%BA%BF%E5%A4%84%E7%90%86%E9%98%B6%E6%AE%B5">模块化的第二阶段：在线处理阶段</a>
+<ul>
+<li><a href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E8%A7%84%E8%8C%83%E7%9A%84%E9%87%8E%E8%9B%AE%E7%94%9F%E9%95%BF">模块化规范的野蛮生长</a></li>
+<li><a href="#amd-cmd">AMD &amp;&amp; CMD</a></li>
+<li><a href="#amd">AMD</a></li>
+<li><a href="#cmd">CMD</a></li>
+<li><a href="#es6-%E7%9A%84%E6%A8%A1%E5%9D%97%E5%8C%96%E9%A3%8E%E6%A0%BC">ES6 的模块化风格</a>
+<ul>
+<li><a href="#commonjs-es6">CommonJS &amp;&amp; ES6</a></li>
+<li><a href="#babel%E7%9A%84%E5%87%BA%E7%8E%B0%E5%92%8Ces6%E6%A8%A1%E5%9D%97%E5%8C%96%E7%9A%84%E6%8E%A8%E5%B9%BF">babel的出现和ES6模块化的推广</a></li>
+<li><a href="#babel-%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86">Babel 的工作原理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E7%9A%84%E7%AC%AC%E4%B8%89%E9%98%B6%E6%AE%B5%E9%A2%84%E5%A4%84%E7%90%86%E9%98%B6%E6%AE%B5">模块化的第三阶段：预处理阶段</a>
+<ul>
+<li><a href="#%E6%89%93%E5%8C%85%E5%B7%A5%E5%85%B7%E9%9D%A2%E4%B8%B4%E7%9A%84%E9%97%AE%E9%A2%98-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">打包工具面临的问题 &amp;&amp; 解决方案</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A8%A1%E5%9D%97%E5%8C%96%E7%9A%84%E7%AC%AC%E5%9B%9B%E9%98%B6%E6%AE%B5%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9E%84%E5%BB%BA%E9%98%B6%E6%AE%B5">模块化的第四阶段：自动化构建阶段</a>
+<ul>
+<li><a href="#gulp-webpack">gulp &amp;&amp; webpack</a>
+<ul>
+<li><a href="#gulp-%E5%92%8C-webpack-%E7%9A%84%E5%8C%BA%E5%88%AB">gulp 和 webpack 的区别</a></li>
+<li><a href="#gulp-%E5%92%8C-webpack-%E7%9A%84%E5%85%B1%E5%90%8C%E7%82%B9">gulp 和 webpack 的共同点</a></li>
+<li><a href="#gulp-%E7%9A%84%E6%B2%A1%E8%90%BD%E5%92%8C-webpack-%E7%9A%84%E5%85%B4%E8%B5%B7">Gulp 的没落和 webpack 的兴起</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8D%81%E5%B9%B4%E5%BE%81%E7%A8%8B%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E7%BB%88%E4%BA%8E%E4%BB%8E%E5%91%B1%E5%91%B1%E5%9D%A0%E5%9C%B0%E5%88%B0%E9%95%BF%E5%A4%A7%E6%88%90%E4%BA%BA">十年征程，前端模块化终于从呱呱坠地到长大成人,</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">前端模块化的十年征程</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-11-04 / 29 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://pineapple126.github.io//post-images/modularization.jpg" alt="">
+        
+        <div class="post-content yue">
+          <blockquote>
+<p>文章来源于知乎，作者 外婆的</p>
+</blockquote>
+<p><strong>这是一篇关于前端模块化的文章，但这里并不讲新技术，而是谈一谈——历史</strong></p>
+<blockquote>
+<p>夫以铜为镜，可以正衣冠；以史为镜，可以知兴替 ——《旧唐书·魏徵传》</p>
+</blockquote>
+<h2 id="前言">前言</h2>
+<p>也许在谈论具体的内容之前，我们需要谈论一下关键词的定义。 什么是&quot;模块&quot;？在不同的语境下模块有不同的含义。</p>
+<p>但在本文中，我们从广义的角度出发，将它解释为两个方面：</p>
+<ul>
+<li><strong>外部的模块</strong>: 指代引入前端工程的某个外部的包(package),可能由多个JS文件组成，但会通过入口暴露给我们项目调用。</li>
+<li><strong>内部的模块</strong>: 指代我们自己的工程项目中编码的最小单元： 即单个的JS文件。</li>
+</ul>
+<p>模块化已经发展了有十余年了，不同的工具和轮子层出不穷，但总结起来，它们解决的问题主要有三个：</p>
+<ul>
+<li>外部模块的管理</li>
+<li>内部模块的组织</li>
+<li>模块源码到目标代码的编译和转换</li>
+</ul>
+<h2 id="时间线">时间线</h2>
+<p>下面是最各大工具或框架的诞生时间，不知不觉，模块化的发展已有十年之久了。</p>
+<pre><code> 生态                       诞生时间
+ Node.js                  2009 年   
+ NPM                      2010 年   
+ requireJS(AMD)     2010 年
+ seaJS(CMD)           2011 年
+ broswerify             2011 年
+ webpack                2012 年
+ grunt                     2012 年 
+ gulp                       2013 年
+ react                      2013 年 
+ vue                        2014 年
+ angular                 2016 年
+ redux                    2015 年 
+ vite                       2020 年
+ snowpack             2020 年          
+</code></pre>
+<h2 id="外部模块的管理">外部模块的管理</h2>
+<p>在模块化的过程中，首先要解决的就是<strong>外部模块的管理问题</strong>。</p>
+<h3 id="nodejs-和-npm-的发布">Node.js 和 NPM 的发布</h3>
+<p>时间倒回到2009年，一个叫**莱恩(Ryan Dahl)**的精神小伙创立了一个能够运行 JavaScript 的服务器环境——Node.js，并在一年之后，发布了 Node.js 自带的模块管理工具 npm，npm 的全称是node package manager，也就是 Node 包管理器。</p>
+<p>Node 的出现给 JavaScript 的带来了许多改变：</p>
+<p>一方面, Node 使 JavaScript 不局限于前端，同时还成为了一门后端语言。更重要的是: 经过 10 年的发展，Node.js 已经完全融入到了前端开发流程中。我们用它创建静态资源服务器，实现热重载和跨域代理等功能，同时还用它源代码中的特殊写法做编译转换处理(JSX/Sass/TypeScript)，将代码翻译成浏览器可以理解的格式(ES5/CSS)。到今天，即使我们不用Node.js独立开发程序后台，它作为开发工具的重要性也不会改变。</p>
+<p>另一方面, Node.js 自带的 JS 模块管理工具 npm，从根本上改变了前端使用外部模块的方式，如果要打个比方的话，就好比从原始社会进入了现代社会。</p>
+<h3 id="npm-时代以前的外部模块使用方式">NPM 时代以前的外部模块使用方式</h3>
+<p>在一开始没有 npm 的时候，如果我们需要在项目里使用某个外部模块，我们可能会去官网直接把文件下载下来放到项目中，同时在入口 html 中通过 script 标签引用它。</p>
+<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1604595619073.jpg" alt="downloading_jquery" loading="lazy"></figure>
+<p>每引用一个外部模块，我们都要重复这个过程：</p>
+<ol>
+<li>需要用到 jQuery，去 jQuery 官网下载 jQuery 库，导入到项目中</li>
+<li>需要用到 lodash,去 lodash 官网下载 lodash 库</li>
+<li>需要用到某个 BootStrap，去 BootStrap官网官网下载 BootStrap 库，导入到项目中</li>
+<li>...</li>
+</ol>
+<p>除了这些全局的 UI 库或工具库，我们可能还会使用到很多实现细节功能的辅助模块，如果都按这种方式使用未免过于粗暴，而且给我们带来许多麻烦：</p>
+<ul>
+<li>使用上缺乏便利性</li>
+<li>难以跟踪各个外部模块的来源</li>
+<li>没有统一的版本管理机制</li>
+</ul>
+<p>而 npm 的出现改变了这种情况。</p>
+<h3 id="npm-时代以后外部模块的使用方式">NPM 时代以后外部模块的使用方式</h3>
+<p>我们上面说过，NPM 在2010年伴随着 Node.js 的新版本一起发布，是一个 Node 自带的模块管理工具。</p>
+<p>从概念上看它由以下两个部分组成：</p>
+<ul>
+<li>NPM 是一个远程的 JavaScript 代码仓库，所有的开发者都可以向这里提交可共享的模块，并给其他开发者下载和使用</li>
+<li>NPM还包含一个命令行工具，开发者通过运行 npm publish 命令把自己写的模块发布到 NPM 仓库上去，通过运行 npm install [模块名]，可以将别人的模块下载到自己项目根目录中一个叫 node_modules 的子目录下</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://pineapple126.github.io//post-images/1604421836062.jpg" alt="npm_install" loading="lazy"></figure>
+<p>每次 npm install 的时候，都会在 package.json 这个文件中更新模块和对应的版本信息。</p>
+<pre><code class="language-json">// package.json
+{ 
+    ...
+    &quot;dependencies&quot;: {
+        &quot;bootstrap&quot;: &quot;^4.5.2&quot;,
+        &quot;jquery&quot;: &quot;^3.5.1&quot;
+    }
+}
+</code></pre>
+<p>于是乎，包括 jQuery 等知名模块开发者的前端工程师们，都通过 npm publish 的方式把自己的模块发布到 NPM 上去了。前端开发者们真正有了一个属于自己的社区和平台，如万千漂泊游船归于港湾，而 NPM 也名声渐噪。</p>
+<p>早在 2019 年 6 月，NPM 平台上的模块数量就超过了 100 万，而到写下这篇文章的时候，NPM 模块数量已超过了 140 万。</p>
+<figure data-type="image" tabindex="3"><img src="https://pineapple126.github.io//post-images/1604422887037.jpg" alt="npm_website" loading="lazy"></figure>
+<p>NPM 的出现实际上是一个必然，前端工程的复杂化要求我们必须要有这么一个集中的 JS 库管理平台。但为什么它会是 NPM 呢？这和后来 Node.js 的火热有很大关系，因为 NPM 是 Node.js 内置的包管理器，所以跟随着 Node 得到了开发者的追捧。</p>
+<p>综上所述，NPM 解决了外部模块的管理问题。</p>
+<h2 id="内部模块的组织">内部模块的组织</h2>
+<p>在模块化的过程中，还需要解决的是内部模块的组织问题。</p>
+<h3 id="模块化第一阶段原生-js-组织阶段">模块化第一阶段：原生 JS 组织阶段</h3>
+<p>在最原始的时代，我们是通过下面这种方式组织我们的模块代码的，将不同的 JS 文件在 html 中一一引入。每个文件代表一个模块</p>
+<pre><code class="language-html">&lt;!-- index.html --&gt;
+&lt;script src=&quot;./a.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./b.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./c.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;./d.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p>并通过模块模式去组织代码：如下所示，我们通过一个“立即调用的函数表达式”(IIFE)去组织模块</p>
+<ul>
+<li>将每个模块包裹在一个函数作用域里面执行，这样就可以最大程度地避免污染全局执行环境</li>
+<li>通过执行匿名函数得到模块输出，可以暴露给下面的其他模块使用</li>
+</ul>
+<pre><code class="language-html">&lt;script&gt;
+    var module1 = (function () {
+    var x = 1;
+    return { a: x };
+  })();
+&lt;/script&gt;
+&lt;script&gt;
+    var module2 = (function () {
+    var a = module1.a;   
+    return { b: a };
+ })();
+&lt;/script&gt;
+</code></pre>
+<p>但这种使用方式仍然比较粗暴</p>
+<ul>
+<li>随着项目扩大，html文件中会包含大量script标签。</li>
+<li>script标签的先后顺序并不能很好地契合模块间的依赖关系。在复杂应用中，模块的依赖关系通常树状或网状的，如a.js依赖于b.js和c.js，b.js依赖于b1.js和b2.js。相对复杂的依赖关系难以用script标签的先后顺序组织。</li>
+<li>让代码的逻辑关系难以理解，也不便于维护，容易出现某个脚本加载时依赖的变量尚未加载而导致的错误。</li>
+<li>因为对script标签顺序的要求而使用同步加载，但这却容易导致加载时页面卡死的问题。</li>
+<li>仍然会因为全局变量污染全局环境，导致命名冲突。</li>
+</ul>
+<p>我们需要针对这些问题提出解决方案，<strong>而 AMD 和 CMD 就是为解决这些问题而提出的规范</strong>。</p>
+<h3 id="模块化的第二阶段在线处理阶段">模块化的第二阶段：在线处理阶段</h3>
+<h4 id="模块化规范的野蛮生长">模块化规范的野蛮生长</h4>
+<p>10 多年以前，前端模块化刚刚开始，正处在野蛮生长的阶段。这个过程中诞生了诸多模块化规范: AMD/CMD/CommonJS/ES6 Module。没错，前端并没有一开始就形成统一的模块化规范，而是多个规范同时多向发展。直到某一类规范占据社区主流之时，模块化规范野蛮生长的过程才宣告结束。</p>
+<p>首先开始在前端流行的模块化规范是 AMD/CMD, 以及实践这两种规范的 require.js 和 Sea.js, AMD 和 CMD 可看作是&quot;<strong>在线处理</strong>&quot;模块的方案，也就是等到用户浏览 web 页面下载了对应的require.js和sea.js文件之后，才开始进行模块依赖分析，确定加载顺序和执行顺序。模块组织过程在线上进行。</p>
+<h4 id="amd-cmd">AMD &amp;&amp; CMD</h4>
+<blockquote>
+<p>AMD 和 CMD 只是一种设计规范，而不是一种实现。</p>
+</blockquote>
+<h4 id="amd">AMD</h4>
+<p>我们先来说下 AMD，它的全称是 <code>Asynchronous Module Definition</code>，即“异步模块定义”。它是一种组织前端模块的方式。</p>
+<p><strong>AMD的理念可以用如下两个API概括： define和require</strong></p>
+<p><strong>define</strong> 方法用于定义一个模块，它接受两个参数：</p>
+<ul>
+<li>第一个参数是一个数组，表示这个模块所依赖的其他模块</li>
+<li>第二个参数是一个方法，这个方法通过入参的方式将所依赖模块的输出依次取出，并在方法内使用，同时将返回值传递给依赖它的其他模块使用。</li>
+</ul>
+<pre><code class="language-javascript">// module0.js
+define(['Module1', 'Module2'], function (module1, module2) {
+    var result1 = module1.exec();
+    var result2 = module2.exec();
+    return {
+      result1: result1,
+      result2: result2
+    }
+});    
+</code></pre>
+<p><strong>require</strong> 用于真正执行模块，通常 AMD 框架会以 require 方法作为入口，进行依赖关系分析并依次有序地进行加载。</p>
+<pre><code class="language-javascript">// 入口文件
+require(['math'], function (math) {
+　 math.sqrt(15)
+});
+</code></pre>
+<p><strong>define &amp;&amp; require 的区别</strong></p>
+<p>可以看到 define 和 require 在依赖模块声明和接收方面是一样的，它们的区别在于 define 能自定义模块而 require 不能，require 的作用是执行模块加载。</p>
+<p><strong>通过 AMD 规范组织后的 JS 文件看起来像下面这样</strong></p>
+<p>depModule.js</p>
+<pre><code class="language-javascript">define(function () {
+  return printSth: function () {
+    alert(&quot;some thing&quot;)
+  }
+});
+</code></pre>
+<p>app.js</p>
+<pre><code class="language-javascript">define(['depModule'], function (mod) {
+  mod.printSth();
+});
+</code></pre>
+<p>index.html</p>
+<pre><code class="language-html">&lt;!-- amd.js意为某个实现了AMD规范的库 --&gt;
+&lt;script src=&quot;...amd.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  require(['app'], function (app) {
+    // ...入口文件
+  })
+&lt;/script&gt;
+</code></pre>
+<p>我们可以看到，AMD 规范去除了纯粹用 script 标签顺序组织模块带来的问题：</p>
+<ol>
+<li>通过依赖数组的方式声明依赖关系，具体依赖加载交给具体的 AMD 框架处理</li>
+<li>避免声明全局变量带来的环境污染和变量冲突问题</li>
+<li>正如 AMD 其名所言(Asynchronous), 模块是异步加载的，防止 JS 加载阻塞页面渲染</li>
+</ol>
+<p><strong>遵循AMD规范实现的模块加载器</strong></p>
+<p>我们前面说过，AMD 只是一个倡议的规范，那么它有哪些实现呢？</p>
+<p>根据史料记载，AMD 的实现主要有两个: requireJS 和 curl.js, 其中 requireJS 在2010年推出，是 AMD 的主流框架。</p>
+<figure data-type="image" tabindex="4"><img src="https://pineapple126.github.io//post-images/1604588072430.jpg" alt="requirejs" loading="lazy"></figure>
+<pre><code>官网: https://requirejs.org/
+</code></pre>
+<h4 id="cmd">CMD</h4>
+<p>CMD 是除 AMD 以外的另外一种模块组织规范。CMD 即 <code>Common Module Definition</code>，意为“通用模块定义”。</p>
+<p>和 AMD 不同的是，CMD 没有提供前置的依赖数组，而是接收一个 factory 函数，这个 factory 函数包括 3 个参数：</p>
+<ul>
+<li><strong>require</strong>: 一个方法标识符，调用它可以动态的获取一个依赖模块的输出</li>
+<li><strong>exports</strong>: 一个对象，用于对其他模块提供输出接口，例如：exports.name = &quot;xxx&quot;</li>
+<li><strong>module</strong>: 一个对象，存储了当前模块相关的一些属性和方法，其中 module.exports 属性等同于上面的 exports</li>
+</ul>
+<p>如下所示</p>
+<pre><code class="language-javascript">// CMD
+define(function (requie, exports, module) {
+    //依赖就近书写
+    var module1 = require('Module1');
+    var result1 = module1.exec();
+    module.exports = {
+      result1: result1,
+    }
+});
+
+// AMD
+define(['Module1'], function (module1) {
+    var result1 = module1.exec();
+    return {
+      result1: result1,
+    }
+}); 
+</code></pre>
+<p><strong>CMD &amp;&amp; AMD的区别</strong></p>
+<p>从上面的代码比较中我们可以得出 AMD 规范和 CMD 规范的区别：</p>
+<p>一方面，在依赖的处理上</p>
+<ul>
+<li>AMD 推崇依赖前置，即通过依赖数组的方式提前声明当前模块的依赖</li>
+<li>CMD 推崇依赖就近，在编程需要用到的时候通过调用 require 方法动态引入</li>
+</ul>
+<p>另一方面，在本模块的对外输出上</p>
+<ul>
+<li>AMD 推崇通过返回值的方式对外输出</li>
+<li>CMD 推崇通过给 module.exports 赋值的方式对外输出</li>
+</ul>
+<p><strong>遵循CMD规范实现的模块加载器</strong></p>
+<p>sea.js 是遵循 CMD 规范实现的模块加载器，又或者更准确的说法是: CMD 正是在 sea.js 推广的过程中逐步确立的规范，并不是 CMD 诞生了 sea.js。相反，是 sea.js 诞生了 CMD</p>
+<figure data-type="image" tabindex="5"><img src="https://pineapple126.github.io//post-images/1604588468864.jpg" alt="seajs" loading="lazy"></figure>
+<blockquote>
+<p>CMD 和 AMD 并不是互斥的，require.js 和 sea.js 也并不是完全不同，实际上，通过阅读 API 文档我们会发现，CMD 后期规范容纳了 AMD 的一些写法。</p>
+</blockquote>
+<p><strong>AMD &amp;&amp; CMD背后的实现原理</strong></p>
+<p>下面以 sea.js 为例</p>
+<ol>
+<li>解析 define 方法内的 require 调用</li>
+</ol>
+<p>我们之前说过, sea.js 属于 CMD, 所以它的依赖是就近获取的，</p>
+<p>所以 sea.js 会多做一项工作：也就是对 define 接收方法体内 require 调用的解析。</p>
+<p>先定义 parseDependencies 方法: 通过正则匹配获取字符串中的 require 中的参数并存储到数组中返回</p>
+<pre><code class="language-javascript">var REQUIRE_RE = /&quot;(?:\\&quot;|[^&quot;])*&quot;|'(?:\\'|[^'])*'|\/\*[\S\s]*?\*\/|\/(?:\\\/|[^\/\r\n])+\/(?=[^\/])|\/\/.*|\.\s*require|(?:^|[^$])\brequire\s*\(\s*([&quot;'])(.+?)\1\s*\)/g
+var SLASH_RE = /\\\\/g
+
+function parseDependencies(code) {
+  var ret = []
+  code.replace(SLASH_RE, &quot;&quot;)
+      .replace(REQUIRE_RE, function(m, m1, m2) {
+        if (m2) {
+          ret.push(m2)
+        }
+      })
+
+  return ret
+}
+</code></pre>
+<p>然后通过 toString 将 define 接收的方法转化为字符串，然后调用 parseDependencies 解析。这样我们就获取到了一个 define 方法里面所有的依赖模块的数组</p>
+<pre><code class="language-javascript">// Parse dependencies according to the module factory code
+if (!isArray(deps) &amp;&amp; isFunction(factory)) {
+    deps =  parseDependencies(factory.toString())
+}     
+</code></pre>
+<ol start="2">
+<li>然后 Sea.js 执行的时候，会从入口开始遍历依赖模块，并依次将它们加载到浏览器中，加载方法如下所示。</li>
+</ol>
+<pre><code class="language-javascript">function request(url, callback, charset, crossorigin) {
+  var node = doc.createElement(&quot;script&quot;)
+  addOnload(node, callback, url) // 添加回调，回调函数在 3 中
+  node.async = true //异步
+  node.src = url
+  head.appendChild(node)
+}         
+</code></pre>
+<p>而且在每个依赖加载完后都会通过回调的方式调用3中的onload方法</p>
+<ol start="3">
+<li>在 onload 方法中，sea.js 会设置一个计数变量 remain，用来计算依赖是否加载完毕。每加载完一个模块就执行 remain - 1 操作，并通过 remain === 0 判断依赖是否全部加载完毕。</li>
+</ol>
+<p>如果全部加载完毕就执行4中的 mod.callback 方法</p>
+<pre><code class="language-javascript">Module.prototype.onload = function() {
+  var mod = this
+  mod.status = STATUS.LOADED 
+  for (var i = 0, len = (mod._entry || []).length; i &lt; len; i++) {
+    var entry = mod._entry[i]
+    if (--entry.remain === 0) {
+      entry.callback()
+    }
+  }
+  delete mod._entry
+}           
+</code></pre>
+<blockquote>
+<p>大概因为 require.js 出来比较早的原因，所以没有用 Promise.all 一类的 API</p>
+</blockquote>
+<ol start="4">
+<li>当判断 entry.remain === 0 时，也即依赖模块全部加载完毕时，会调用一开始 callback 方法，去依次执行加载完毕的依赖模块，并将输出传递给 use 方法回调</li>
+</ol>
+<pre><code class="language-javascript">// sea.js的use方法类似于AMD规范中的require方法,用于执行入口函数
+Module.use = function (ids, callback, uri) {
+  var mod = Module.get(uri, isArray(ids) ? ids : [ids])
+  mod.callback = function() {
+    var exports = []
+    var uris = mod.resolve();
+    // 依次执行加载完毕的依赖模块，并将输出传递给use方法回调
+    for (var i = 0, len = uris.length; i &lt; len; i++) {
+      exports[i] = cachedMods[uris[i]].exec()
+   }
+   // 执行use方法回调
+   if (callback) {
+      callback.apply(global, exports)
+   }
+  }
+}
+</code></pre>
+<pre><code>参考资料： https://segmentfault.com/a/1190000016001572    
+</code></pre>
+<h4 id="es6-的模块化风格">ES6 的模块化风格</h4>
+<p>关于 AMD/CMD 的介绍到此为止，后面的事情我们都知道了，伴随着 babel 等编译工具和 webpack 等自动化工具的出现，AMD/CMD 逐渐湮没在历史的浪潮当中，然后大家都习惯于用 CommonJS 和 ES6 的模块化方式编写代码了。</p>
+<p>这一切是怎么发生的呢？ 请看</p>
+<h5 id="commonjs-es6">CommonJS &amp;&amp; ES6</h5>
+<p>CommonJS 是 Node.js 使用的模块化方式，而 import/export 则是 ES6 提出的模块化规范。它们的语法规则如下。</p>
+<pre><code class="language-javascript"> // ES6
+import { foo } from './foo'; // 输入
+export const bar = 1;        // 输出
+
+// CommonJS
+const foo = require('./foo'); // 输入
+module.exports = { 。         // 输出
+    bar:1
+}
+</code></pre>
+<p>实际上我们能感觉到，这种模块化方式用起来比CMD/AMD方便。</p>
+<p>但在最开始的时候，我们却不能在前端页面中使用它们，因为浏览器并不能理解这种语法。</p>
+<p><strong>但后来，编译工具babel的出现让这变成了可能</strong></p>
+<h5 id="babel的出现和es6模块化的推广">babel的出现和ES6模块化的推广</h5>
+<p>在2014年十月，babel1.7 发布。babel 是一个 JavaScript 编译器，它让我们能够使用符合开发需求的编程风格去编写代码，然后通过babel的编译转化成对浏览器兼容良好的 JavaScript。</p>
+<p>Bablel 的出现改变了我们的前端开发观点。它让我们意识到：对前端项目来说，开发的代码和生产的前端代码可以是不一样的，也应该是不一样的。</p>
+<ul>
+<li>在开发的时候，我们追求的是编程的便捷性和可阅读性。</li>
+<li>而在生产中，我们追求的是代码对各种浏览器的兼容性。</li>
+</ul>
+<p>babel 编译器让我们能做到这一点。在 babel 出现之前的 AMD/CMD 时代，开发和生产的代码并没有明显的区分性，开发是怎样的生产出来后也就是怎样的。</p>
+<p>而 babel 则将开发和生产这两个流程分开了，同时让我们可以用 ES6 中的 import/export 进行模块化开发。</p>
+<p>至此，AMD/CMD 的时代宣告结束，ES6 编程的时代到来.</p>
+<figure data-type="image" tabindex="6"><img src="https://pineapple126.github.io//post-images/1604594624961.jpg" alt="babel" loading="lazy"></figure>
+<h5 id="babel-的工作原理">Babel 的工作原理</h5>
+<p>Babel 的工作流程可概括为三个阶段:</p>
+<ul>
+<li><strong>Parse</strong>(解析): 通过词法分析和语法分析，将源代码解析成抽象语法树(AST)</li>
+<li><strong>Transform</strong>(转换)：对解析出来的抽象语法树做中间转换处理</li>
+<li><strong>Generate</strong>(生成)：用经过转换后的抽象语法树生成新的代码</li>
+</ul>
+<figure data-type="image" tabindex="7"><img src="https://pineapple126.github.io//post-images/1604594788324.jpg" alt="babel_principle" loading="lazy"></figure>
+<figure data-type="image" tabindex="8"><img src="https://pineapple126.github.io//post-images/1604594814444.jpg" alt="babel_principle2" loading="lazy"></figure>
+<h3 id="模块化的第三阶段预处理阶段">模块化的第三阶段：预处理阶段</h3>
+<p>现在时间来到了 2013 年左右，AMD/CMD 的浪潮已经逐渐退去，模块化的新阶段——预编译阶段开始了。</p>
+<p>一开始的CMD/AMD方案，可看作是“<strong>在线编译</strong>”模块的方案，也就是等到用户浏览 web 页面下载了 js 文件之后，才开始进行模块依赖分析，确定加载顺序和执行顺序。但这样却不可避免的带来了一些问题：</p>
+<ul>
+<li>在线组织模块的方式会延长前端页面的加载时间，影响用户体验。</li>
+<li>加载过程中发出了海量的http请求，降低了页面性能。</li>
+</ul>
+<p><strong>于是开发者们想了对应的方法去解决这些问题：</strong></p>
+<ul>
+<li>开发一个工具，让它把组织模块的工作提前做好，在代码部署上线前就完成，从而节约页面加载时间</li>
+<li>使用工具进行代码合并，把多个script的代码合并到少数几个script里，减少http请求的数量。</li>
+</ul>
+<figure data-type="image" tabindex="9"><img src="https://pineapple126.github.io//post-images/1604595124513.jpg" alt="pretreatment" loading="lazy"></figure>
+<p>在这样的背景下，一系列模块预处理的工具如雨后春笋般出现了。</p>
+<p>典型的代表是 2011 年出现的 <strong>broswerify</strong> 和 2012 年发明的 <strong>webpack</strong>。</p>
+<figure data-type="image" tabindex="10"><img src="https://pineapple126.github.io//post-images/1604595379830.jpg" alt="broswerify_webpack" loading="lazy"></figure>
+<p>它们一开始的定位是类似的，都是通过预先打包的方式，把前端项目里面的多个文件打包成单个文件或少数几个文件，这样的话就可以压缩首次页面访问时的http请求数量，从而提高性能。</p>
+<figure data-type="image" tabindex="11"><img src="https://pineapple126.github.io//post-images/1604595239383.jpg" alt="bundle" loading="lazy"></figure>
+<p>当然后面的事情我们都知道了，webpack 因为发展得更好而占据了主流的前端社区，而 broswerify 则渐渐消失在红尘之中。</p>
+<p><strong>broswerify</strong></p>
+<p>以 broswerify 为例，我们可以通过npm安装它</p>
+<pre><code>npm install -g broswerify
+</code></pre>
+<p>broswerify 允许我们通过 CommonJS 的规范编写代码，例如下面的入口文件 main.js</p>
+<pre><code class="language-javascript">// main.js
+var a = require('./a.js');
+var b = require('./b.js');
+...     
+</code></pre>
+<p>然后我们可以用 broswerify 携带的命令行工具处理 main.js，它会自动分析依赖关系并进行打包,打包后会生成集合文件 bundle.js。</p>
+<pre><code>broswerify main.js -o bundle.js     
+</code></pre>
+<p><strong>webpack</strong></p>
+<p>webpack 是自 broswerify 出现一年以后，后来居上并占据主流的打包工具。webpack 内部使用 babel 进行解析，所以 ES6 和 CommonJS 等模块化方式是可以在 webpack 中自由使用的。</p>
+<p>通过安装 webpack 这一 npm 模块便可使用 webpack 工具</p>
+<pre><code class="language-javascript">npm install --save-dev webpack
+</code></pre>
+<p>它要求我们编写一份名为 webpack.config.js 的配置文件，并以 entry 字段和 output 字段分别表示打包的入口和输出路径</p>
+<pre><code class="language-javascript">// webpack.config.js
+const path = require('path');
+
+module.exports = {
+  entry: './src/index.js',
+  output: {   
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  }
+};   
+</code></pre>
+<p>打包完毕后，我们的index.html只需要加载bundle.js就可以了。</p>
+<pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    ...
+  &lt;/head&gt;
+  &lt;body&gt;
+    ...
+    &lt;script src=&quot;dist/bundle.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;   
+</code></pre>
+<h4 id="打包工具面临的问题-解决方案">打包工具面临的问题 &amp;&amp; 解决方案</h4>
+<p>代码打包当然不是一本万利的，它们也面临着一些副作用带来的问题，其中最主要的就是打包后代码体积过大的问题</p>
+<p>代码打包的初衷是减少类似 CMD 框架造成的加载脚本(http 请求)数量过多的问题，但也带来了打包后单个 script 脚本体积过大的问题：如此一来，首屏加载会消耗很长时间并拖慢速度，可谓是物极必反。</p>
+<p>webpack 于是引入了代码拆分的功能(Code Splitting)来解决这个问题, 从全部打包后退一步：可以打包成多个包</p>
+<blockquote>
+<p>虽然允许拆多个包了，但包的总数仍然比较少，比 CMD 等方案加载的包少很多</p>
+</blockquote>
+<p><strong>Code Splitting有可分为两个方面的作用：</strong></p>
+<ul>
+<li><strong>一是实现第三方库和业务代码的分离</strong>：业务代码更新频率快，而第三方库代码更新频率是比较慢的。分离之后可利用浏览器缓存机制加载第三方库，从而加快页面访问速度</li>
+<li><strong>二是实现按需加载</strong>: 例如我们经常通过前端路由分割不同页面，除了首页外的很多页面(路由)可能访问频率较低，我们可将其从首次加载的资源中去掉，而等到相应的触发时刻再去加载它们。这样就减少了首屏资源的体积，提高了页面加载速度。</li>
+</ul>
+<p><strong>A. 实现第三方库和业务代码的分离</strong></p>
+<p>这种代码拆分可通过 webpack 独特的插件机制完成。plugins 字段是是一个数组，可接收不同的plugins 实例，从而给 webpack 打包程序附加不同的功能，CommonsChunkPlugin 就是一个实现代码拆分的插件。</p>
+<pre><code class="language-javascript">// webpack.config.js
+module.exports = {
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'commons',        // the commons chunk name
+      filename: 'commons.js', // the filename of the commons chunk)
+      minChunks: 3,           // Modules must be shared between 3 entries
+    });
+  ]
+};          
+</code></pre>
+<p>通过上面的配置，webpack 在执行打包的时候会把被引用超过 3 次的依赖文件视为&quot;公共文件&quot;，并单独打包到 commons.js 中，而不是打包到主入口文件里。</p>
+<p>对于 React，Redux,lodash 这些第三方库，因为引用次数远远超过 3 次，当然也是会被打包到common.js 中去的。</p>
+<figure data-type="image" tabindex="12"><img src="https://pineapple126.github.io//post-images/1604595944743.jpg" alt="bundle2" loading="lazy"></figure>
+<p><strong>B. 实现按需加载</strong></p>
+<p>正如其字面意思，按需加载就是等到需要的时候才加载一部分模块。并不选择将其代码打包到首次加载的入口bundle 中，而是等待触发的时机，届时才通过动态脚本插入的方式进行加载: 即创建 script 元素，添加脚本链接并通过 appendChild 加入到 html 元素中</p>
+<p>例如我们需要实现一个功能，在点击某个按钮的时候，使用某个模块的功能。这时我们可以使用 ES6 的import 语句动态导入，webpack 会支持 import 的功能并实现按需加载</p>
+<pre><code class="language-javascript">button.addEventListener('click',function(){
+  import('./a.js').then(data =&gt; {
+    // use data
+  })
+});
+</code></pre>
+<h3 id="模块化的第四阶段自动化构建阶段">模块化的第四阶段：自动化构建阶段</h3>
+<p>正当打包工具方兴未艾的时候，另外一个发展浪潮也几乎在同步发生着。</p>
+<p>它就是 —— 全方位的自动化构建工具的发展。</p>
+<p>什么叫自动化构建工具呢？ 简单的说就是： 我们需要这样一个工具，专门为开发过程服务，尽可能满足我们开发的需求，提高开发的效率。</p>
+<p>前面说过，在模块化的过程中，我们渐渐有了“开发流程”和“生产流程”的区分，而自动化构建工具就是在开发流程中给开发者最大的自由度和便捷性，同时在生产流程中能保证浏览器兼容性和良好性能的工具。而所有的功能已经由插件直接提供，所以被称作“自动化” 构建工具。</p>
+<figure data-type="image" tabindex="13"><img src="https://pineapple126.github.io//post-images/1604596105632.jpg" alt="automation" loading="lazy"></figure>
+<p>在这时，我们已经不再满足于“打包”这个功能了，我们渴望做更多的事情：</p>
+<ul>
+<li>开发时使用丰富且方便的 JS 新特性，如用 ES6，typescript 编程，由自动化构建工具转化成浏览器兼容的 ES5 格式的 JS 代码</li>
+<li>用Sass，less 编写阅读性和扩展性良好的样式代码，由自动化构建工具转化成浏览器兼容的 CSS 代码</li>
+<li>提供开发时 SourceMap 功能，也即提供生产代码(如 ES5)到源代码(typescript)的映射，方便开发调试</li>
+<li>提供生产时代码压缩功能，压缩js和css，删除注释，替换变量名(长变短)，减少代码加载体积</li>
+<li>提供开发热重载功能(Hot Module Reload), 也即在编辑器保存代码的时候自动刷新浏览调试页面。</li>
+<li>当然也还包括基本的模块打包功能</li>
+<li>其他.....</li>
+</ul>
+<p><strong>自动化构建工具的代表性工具有三个，分别是</strong></p>
+<ul>
+<li>2012年出现的 <strong>webpack</strong></li>
+<li>2012年出现的 <strong>grunt</strong></li>
+<li>2013年出现的 <strong>gulp</strong></li>
+</ul>
+<blockquote>
+<p>下图中，左中右分别是gulp, grunt 和 webpack</p>
+</blockquote>
+<figure data-type="image" tabindex="14"><img src="https://pineapple126.github.io//post-images/1604596267079.jpg" alt="gulp_grunt_webpack" loading="lazy"></figure>
+<p>这一次，webpack 并没有止步于成为一个单纯的打包工具，而是参与到自动化构建的浪潮里，并且成为了最后的赢家。而 grunt 和 gulp 则像过去的 Sea.js,Require.js 等工具一样。逐渐地从热潮中隐退，静静地待在前端社区里的一方僻静的角落里</p>
+<h4 id="gulp-webpack">gulp &amp;&amp; webpack</h4>
+<p>因为篇幅关系，我们下面只来介绍下 gulp 和 webpack 这两个自动化构建工具。</p>
+<h5 id="gulp-和-webpack-的区别">gulp 和 webpack 的区别</h5>
+<p>对于使用者来说，gulp 和 webpack 最大的区别也许在它们的使用风格上</p>
+<ul>
+<li>gulp 是编程式的自动化构建工具</li>
+<li>webpack 是配置式的自动化构建工具<br>
+下面我们以 less 代码的编译为例，展示 Gulp 和 webpack 的区别</li>
+</ul>
+<p><strong>Gulp</strong></p>
+<p>Gulp 基本的风格是编程式的, 它是一种基于流即 Node.js 封装起来的 stream 模块的自动化构建工具，一般先通过 gulp.src 将匹配的文件转化成stream(流)的形式，然后通过一连串的 pipe 方法进行链式的加工处理处理，对后通过 dest 方法输出到指定路径。</p>
+<pre><code class="language-javascript">// gulpfile.js
+const { src, dest } = require('gulp');
+const less = require('gulp-less');
+const minifyCSS = require('gulp-csso');
+
+function css() {
+  return src('client/templates/*.less')
+    .pipe(less())
+    .pipe(minifyCSS())
+    .pipe(dest('build/css'))
+}             
+</code></pre>
+<p><strong>Webpack</strong></p>
+<p><strong>webpack</strong> 的基本风格则是配置式的，它通过 loader 机制实现文件的编译转化。通过配置一组 loader 数组，每个 loader 会被链式调用，处理当前文件代码后输出给下一个 loader, 全部处理完毕后进行输出</p>
+<pre><code class="language-javascript">// webpack.config.js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.less$/, // 正则匹配less文件
+        use: [
+          { loader: 'style-loader' }, // creates style nodes from JS strings
+          { loader: 'css-loader' },   // translates CSS into CommonJS
+          { loader: 'less-loader' },  // compiles Less to CSS
+        ],
+      },
+    ],
+  },
+};       
+</code></pre>
+<h5 id="gulp-和-webpack-的共同点">gulp 和 webpack 的共同点</h5>
+<p>gulp 和 webpack 并没有自己完成所有的功能，而是搭建起一个平台，吸引世界各地的开发者们贡献插件，并构建起来一个繁荣的生态。</p>
+<p>从提供的功能上看，gulp 和 webpack 在很多方面是类似的,这从它们的相关生态上也可以看得出来</p>
+<p><strong>Gulp</strong></p>
+<ul>
+<li>gulp-uglify : 压缩js文件</li>
+<li>gulp-less : 编译less</li>
+<li>gulp-sass：编译sass</li>
+<li>gulp-livereload : 实时自动编译刷新</li>
+<li>gulp-load-plugins：打包插件</li>
+</ul>
+<p><strong>Webpack</strong></p>
+<ul>
+<li>uglifyjs-webpack-plugin: 压缩js文件</li>
+<li>less-loader: 编译less</li>
+<li>sass-loader： 编译sass</li>
+<li>devServer.hot配置为true: 实时自动编译刷新</li>
+<li>....</li>
+</ul>
+<h5 id="gulp-的没落和-webpack-的兴起">Gulp 的没落和 webpack 的兴起</h5>
+<p>经过了七八年的发展，webpack 逐渐取代了 gulp 成为前端开发者的主流自动化构建工具。</p>
+<p><strong>究其原因</strong></p>
+<ul>
+<li>一方面，是因为 gulp 是编程式的，webpack 是配置式的，webpack 用起来更加简单方便，上手难度相对低一些，所以得到众多开发者的喜欢</li>
+<li>另一方面，从 2014 年 React,Vue 等 SPA 应用的热潮兴起后，webpack 和它们的结合性更好，所以也助长了 webpack 生态的繁荣</li>
+</ul>
+<p><strong>模块化的故事，到这里就先告一段落了。</strong></p>
+<h4 id="十年征程前端模块化终于从呱呱坠地到长大成人">十年征程，前端模块化终于从呱呱坠地到长大成人,</h4>
+<figure data-type="image" tabindex="15"><img src="https://pineapple126.github.io//post-images/1604596780777.jpg" alt="modularization" loading="lazy"></figure>
+<p><strong>自动构建工具的新趋势：bundleless</strong></p>
+<p><strong>webpack 之所以在诞生之初采用集中打包方式进行开发，有几个方面的原因</strong>:</p>
+<ul>
+<li>一是浏览器的兼容性还不够良好，还没提供对 ES6 的足够支持(import|export)，需要把每个 JS 文件打包成单一 bundle 中的闭包的方式实现模块化</li>
+<li>二是为了合并请求，减少 HTTP/1.1 下过多并发请求带来的性能问题</li>
+</ul>
+<p><strong>而发展到今天，过去的这些问题已经得到了很大的缓解，因为</strong></p>
+<ul>
+<li>主流现代浏览器已经能充分支持 ES6 了,import 和 export 随心使用</li>
+<li>HTTP2.0 普及后并发请求的性能问题没有那么突出了</li>
+</ul>
+<p>bundleless 就是把开发中拖慢速度的打包工作给去掉，从而获得更快的开发速度。代表性工具是 vite 和 snowpack.</p>
+<figure data-type="image" tabindex="16"><img src="https://pineapple126.github.io//post-images/1604596992861.jpg" alt="snowpack_vite" loading="lazy"></figure>
+<ul>
+<li><strong>vite</strong>: 尤雨溪开发的 bundleless 工具，能很好的配合 Vue 框架的开发，github 上 star 为 11k</li>
+<li><strong>snowpack</strong>: 另一个 bundleless 工具，目前框架生态更广泛一些，支持 React/Vue/Svelte，github 上 star 为11.9k</li>
+</ul>
+<p>具体的内容介绍可看之前写的一篇文章，这里暂不多介绍了</p>
+<blockquote>
+<p>本文完。</p>
+</blockquote>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/Icp6GH4Sp/">
+            <span class="flex-auto">文章分享</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/DEJyveMLT/">
+            <span class="flex-auto">JavaScript</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://pineapple126.github.io/post/leetcode-valid-mountain-array/">
+                <h3 class="post-title">
+                  LeetCode 每日一题 2020.11.3 —— 941. 有效的山脉数组 Easy
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '6629aced96004c0f2422',
+    clientSecret: '52e96f46e58f554ec81bcb7c020ee4c6669abded',
+    repo: 'pineapple126.github.io',
+    owner: 'pineapple126',
+    admin: ['pineapple126'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
