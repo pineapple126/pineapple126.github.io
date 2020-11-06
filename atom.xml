@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2020-11-05T17:29:52.254Z</updated>
+    <updated>2020-11-06T16:52:04.433Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -614,7 +614,7 @@ module.exports = {
 <pre><code>输入：[2, 1]
 输出：false
 </code></pre>
-<h2 id="解法">解法</h2>
+<h2 id="题解">题解</h2>
 <p><strong>线性扫描</strong>：</p>
 <p>我们从数组的最左侧开始向右扫描，直到找到第一个不满足 A[i] &lt; A[i+1] 的下标 i，那么 i 就是这个数组的最高点的下标。如果 i = 0 或者返回不存在这样的 i（即整个数组都是单调递增的），那么就返回 false。否则从 i 开始继续向右扫描，判断接下来的下标 j 是否都满足 A[j]&gt;A[j+1]，若都满足就返回 true，否则返回 false。</p>
 <pre><code class="language-javascript">var validMountainArray = function(A) {
@@ -643,6 +643,10 @@ module.exports = {
 <li>时间复杂度：O(N)，其中 N 是数组 A 的长度。</li>
 <li>空间复杂度：O(1)。</li>
 </ul>
+<blockquote>
+<p>来源：力扣（LeetCode）<br>
+链接：<a href="https://leetcode-cn.com/problems/valid-mountain-array/">https://leetcode-cn.com/problems/valid-mountain-array/</a></p>
+</blockquote>
 ]]></content>
     </entry>
     <entry>
