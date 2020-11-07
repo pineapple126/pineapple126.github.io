@@ -36,10 +36,13 @@
             <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#1-%E9%9D%99%E6%80%81%E5%87%BD%E6%95%B0-objectis">1. 静态函数 Object.is(..)</a></li>
-<li><a href="#2-%E9%9D%99%E6%80%81%E5%87%BD%E6%95%B0-objectgetownpropertysymbols">2. 静态函数 Object.getOwnPropertySymbols(..)</a></li>
-<li><a href="#3-%E9%9D%99%E6%80%81%E5%87%BD%E6%95%B0-objectsetprototypeof">3. 静态函数 Object.setPrototypeOf(..)</a></li>
-<li><a href="#4-%E9%9D%99%E6%80%81%E5%87%BD%E6%95%B0-objectassign">4. 静态函数 Object.assign(..)</a></li>
+<li><a href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0">题目描述</a></li>
+<li><a href="#%E9%A2%98%E8%A7%A3">题解</a>
+<ul>
+<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%80%E6%9A%B4%E5%8A%9B">方法一：暴力</a></li>
+<li><a href="#%E8%A7%A3%E6%B3%95%E4%BA%8C%E9%80%92%E6%8E%A8%E9%A2%84%E5%A4%84%E7%90%86">解法二：递推预处理</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -88,158 +91,94 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">JS学习笔记--ES6新增API Object部分</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">LeetCode 每日一题 2020.11.3 —— 1356. 根据数字二进制下 1 的数目排序 Easy</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-01-19 / 4 min read
+          2020-11-06 / 3 min read
         </div>
-        
-          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://pineapple126.github.io//post-images/js-notes-es6api-object.jpg" alt="">
         
         <div class="post-content yue">
-          <p>这篇文章是我学习了《你不知道的JavaScript》下卷 ES6 新增API Object部分，然后摘抄与整理所学到的四种 Object 函数。</p>
-<h2 id="1-静态函数-objectis">1. 静态函数 Object.is(..)</h2>
-<p>静态函数<code>Object.is(..)</code>执行比<code>===</code>比较更严格的值比较。</p>
-<p><code>Object.is(..)</code>调用底层 SameValue 算法。SameValue 算法基本上和<code>===</code>严格相等比较算法一样，但有两个重要的区别。</p>
-<p>考虑：</p>
-<pre><code class="language-javascript">var x = NaN, y = 0, z = -0;
-
-x === x;                    // false
-y === z;                    // true
-
-Object.is( x, x );          // true
-Object.is( y, z );          // false
+          <h2 id="题目描述">题目描述</h2>
+<p>给你一个整数数组 <code>arr</code> 。请你将数组中的元素按照其二进制表示中数字 <strong>1</strong> 的数目升序排序。</p>
+<p>如果存在多个数字二进制中 <strong>1</strong> 的数目相同，则必须将它们按照数值大小升序排列。</p>
+<p>请你返回排序后的数组。</p>
+<p>示例：</p>
+<pre><code>输入：arr = [0,1,2,3,4,5,6,7,8]
+输出：[0,1,2,4,8,3,5,6,7]
+解释：[0] 是唯一一个有 0 个 1 的数。
+[1,2,4,8] 都有 1 个 1 。
+[3,5,6] 有 2 个 1 。
+[7] 有 3 个 1 。
+按照 1 的个数排序得到的结果数组为 [0,1,2,4,8,3,5,6,7]
 </code></pre>
-<p>因此，应该继续使用<code>===</code>进行严格相等比较，不应该把<code>Object.is(..)</code>当作严格相等运算符的替代。但是，如果需要严格识别 NaN 和 -0 值，那么应该选择<code>Object.is(..)</code>。</p>
-<h2 id="2-静态函数-objectgetownpropertysymbols">2. 静态函数 Object.getOwnPropertySymbols(..)</h2>
-<p>ES6中新增了基本值类型 Symbol，而 Symbol 很可能会成为对象最常用的特殊（元）属性。所以引入了工具<code>Object.getOwnPropertySymbols(..)</code>，他直接从对象上取得所有的符号属性：</p>
-<pre><code class="language-javascript">var o = {
-    foo: &quot;42&quot;,
-    [ Symbol( &quot;bar&quot; ) ]: &quot;hello world&quot;,
-    baz: true
-};
-
-Object.getOwnPropertySymbols( o );          // [ Symbol(bar) ]
-</code></pre>
-<h2 id="3-静态函数-objectsetprototypeof">3. 静态函数 Object.setPrototypeOf(..)</h2>
-<p>工具<code>Object.setPrototypeOf(..)</code>设置对象的[[Prototype]]用于<strong>行为委托</strong>。考虑：</p>
-<pre><code class="language-javascript">var o1 = {
-    foo() { console.log( &quot;foo&quot; ); }
-};
-var o2 = {
-    // .. o2的定义 ..
-};
-
- Object.setPrototypeOf( o2, o1 );
- 
- // 委托给o1.foo()
- o2.foo();                          // foo
-</code></pre>
-<p>也可以：</p>
-<pre><code class="language-javascript">var o1 ={
-    foo() { console.log( &quot;foo&quot; ); }
-};
-
-var o2 =  Object.setPrototypeOf( {
-    // .. o2的定义 ..
-}, o1 );
-
- // 委托给o1.foo()
- o2.foo();                          // foo
-</code></pre>
-<p>前面两段代码中，o2 和 o1 的关系都出现在 o2 定义的结尾处。更通俗的说， o2 和 o1 的关系在 o2 的定义上指定，就像类一样，也和字面值对象中的__proto__一样。</p>
-<h2 id="4-静态函数-objectassign">4. 静态函数 Object.assign(..)</h2>
-<p>很多 JavaScript 库/框架提供了用于把一个对象的属性复制/混合到另一个对象中的工具。这些工具之间有各种细微的区别，比如是否忽略值为 undefined 的属性。</p>
-<p>ES6 新增了 Object.assign(..)，这是这些算法的简化版本。第一个参数是 target，其他传入的参数都是源，他们将按照列出的顺序依次被处理。对于每一个源来说，它的可枚举和自己拥有的（即不是“继承来的”）键值，包括 Symbol 都会通过简单 = 赋值被复制。Object.assign(..)返回目标对象。</p>
-<p>考虑这个对象设定：</p>
-<pre><code class="language-javascript">var target = {},
-    o1 = { a: 1 }, o2 = { b: 2 },
-    o3 = { c: 3 }, o4 = { d: 4 };
-    
-// 设定只读属性
-Object.defineProperty( o3, &quot;e&quot;, {
-    value: 5,
-    enumerable: true,
-    writable: false,
-    configurable: false
-} );
-
-// 设定不可枚举属性
-Object.defineProperty( o3, &quot;f&quot;, {
-    value: 6,
-    enumerable: false
-} );
-
-o3[ Symbol( &quot;g&quot; ) ] = 7;
-
-// 设定不可枚举符号
-Object.defineProperty( o3, Symbol( &quot;h&quot; ), {
-    value: 8,
-    enumerable: false
-} );
-
-Object.setPrototypeOf( o3, o4 );
-</code></pre>
-<p>只有属性 a、b、c、e 以及 Symbol(&quot;g&quot;) 会被复制到 target 中：</p>
-<pre><code class="language-javascript">Object.assign( target, o1, o2, o3 );
-
-target.a;                           // 1
-target.b;                           // 2
-target.c;                           // 3
-
-Object.getOwnPropertyDescriptor( target, &quot;e&quot; );
-// { value: 5, writable: true, enumerable: true, configurable: true }
-
-Object.getOwnPropertySymbols( target );
-// [Symbol(&quot;g&quot;)]
-</code></pre>
-<p>复制过程会忽略属性 d、f 和 Symbol(&quot;h&quot;)；不可枚举的属性和非自有的属性都会被排除在复制过程之外。另外，e 作为一个普通属性被复制，而不是作为只读属性复制。</p>
-<p>在前一节中，展示了使用 setPrototypeOf(..) 设定对象 o2 和 o1 之间的 [[Prototype]] 关系。还有另外一种应用了 Object.assign(..) 的形式：</p>
-<pre><code class="language-javascript">var o1 = {
-    foo() { console.log( &quot;foo&quot; ); }
-};
-
-var o2 = Object.assign(
-    Object.create( o1 ),
-    {
-        // .. o2的定义 ..
+<h2 id="题解">题解</h2>
+<h3 id="方法一暴力">方法一：暴力</h3>
+<p>对每个十进制的数转二进制的时候统计一下 1 的个数即可。</p>
+<pre><code class="language-javascript">var sortByBits = function(arr) {
+    const countBits = n =&gt; {
+        let count = 0;
+        while (n &gt; 0) {
+            count += n &amp; 1;
+            n &gt;&gt; 1;
+        }
+        return count;
     }
-);
-
- // 委托给o1.foo()
- o2.foo();                          // foo
+    return arr.sort((a, b) =&gt; {
+        return countBits(a) - countBits(b) || a - b;
+    });
+};
 </code></pre>
-<p><strong>完</strong></p>
+<p><strong>复杂度分析</strong></p>
+<ul>
+<li>时间复杂度：O(nlogn)，其中 n 为整数数组 arr 的长度。</li>
+<li>空间复杂度：O(n)，其中 n 为整数数组 arr 的长度。</li>
+</ul>
+<h3 id="解法二递推预处理">解法二：递推预处理</h3>
+<p>我们定义 bit[i] 为数字 i 二进制表示下数字 1 的个数，则可以列出递推式：</p>
+<pre><code>bit[i] = bit[i&gt;&gt;1] + (i&amp;1)
+</code></pre>
+<p>所以我们线性预处理 bitbit 数组然后去排序即可。</p>
+<pre><code class="language-javascript">var sortByBits = function(arr) {
+    const maxVal = arr.sort((a, b) =&gt; b - a)[0];
+    const bit = Array(maxVal+1).fill(0);
+    for (let i=1; i&lt;=maxVal; i++) {
+        bit[i] = bit[i&gt;&gt;1] + (i&amp;1);
+    }
+    return arr.sort((a, b) =&gt; {
+        return bit[a] - bit[b] || a - b;
+    });
+};
+</code></pre>
+<p><strong>复杂度分析</strong></p>
+<ul>
+<li>时间复杂度：O(nlogn)，其中 n 为整数数组 arr 的长度。</li>
+<li>空间复杂度：O(n)，其中 n 为整数数组 arr 的长度。</li>
+</ul>
+<blockquote>
+<p>来源：力扣（LeetCode）<br>
+链接：<a href="https://leetcode-cn.com/problems/sort-integers-by-the-number-of-1-bits">https://leetcode-cn.com/problems/sort-integers-by-the-number-of-1-bits</a></p>
+</blockquote>
 
         </div>
 
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/DEJyveMLT/">
-            <span class="flex-auto">JavaScript</span>
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/cJiYWyjUI/">
+            <span class="flex-auto">Leetcode 每日一题</span>
           </a>
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/MWXepM6P0E/">
-            <span class="flex-auto">你不知道的JS学习笔记</span>
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/HOiOzoula/">
+            <span class="flex-auto">LeetCode</span>
           </a>
         
 
 
         <div class="flex justify-between py-8">
           
-            <div class="prev-post">
-              <a href="https://pineapple126.github.io/post/block-level-scope-binding/">
-                <h3 class="post-title">
-                  <i class="ri-arrow-left-line"></i>
-                  块级作用域的绑定
-                </h3>
-              </a>
-            </div>
-          
 
           
             <div class="next-post">
-              <a href="https://pineapple126.github.io/post/js-notes-es6api-array/">
+              <a href="https://pineapple126.github.io/post/modularization/">
                 <h3 class="post-title">
-                  JS学习笔记--ES6新增API Array部分
+                  前端模块化的十年征程
                   <i class="ri-arrow-right-line"></i>
                 </h3>
               </a>
