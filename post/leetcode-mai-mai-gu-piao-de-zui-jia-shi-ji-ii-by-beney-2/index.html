@@ -36,12 +36,11 @@
             <ul class="markdownIt-TOC">
 <li>
 <ul>
-<li><a href="#mutation">Mutation</a>
+<li><a href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0">题目描述</a></li>
+<li><a href="#%E9%A2%98%E8%A7%A3">题解</a>
 <ul>
-<li><a href="#%E6%8F%90%E4%BA%A4%E8%BD%BD%E8%8D%B7payload">提交载荷（Payload）</a></li>
-<li><a href="#%E5%AF%B9%E8%B1%A1%E9%A3%8E%E6%A0%BC%E7%9A%84%E6%8F%90%E4%BA%A4%E6%96%B9%E5%BC%8F">对象风格的提交方式</a></li>
-<li><a href="#%E4%BD%BF%E7%94%A8%E5%B8%B8%E9%87%8F%E6%9B%BF%E4%BB%A3-muation-%E4%BA%8B%E4%BB%B6%E7%B1%BB%E5%9E%8B">使用常量替代 Muation 事件类型</a></li>
-<li><a href="#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%AD%E6%8F%90%E4%BA%A4-mutation">在组件中提交 Mutation</a></li>
+<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%80%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92">方法一：动态规划</a></li>
+<li><a href="#%E6%96%B9%E6%B3%95%E4%BA%8C%E8%B4%AA%E5%BF%83">方法二：贪心</a></li>
 </ul>
 </li>
 </ul>
@@ -92,141 +91,106 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">Vuex 学习笔记（四）—— Mutation</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">LeetCode 每日一题 2020.11.8 ——</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-02-07 / 3 min read
+          2020-11-08 / 5 min read
         </div>
-        
-          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://pineapple126.github.io//post-images/vuex-notes-4.jpg" alt="">
         
         <div class="post-content yue">
-          <h2 id="mutation">Mutation</h2>
-<p>更改 Vuex 的 store 状态的唯一方法是提交 mutation。Vuex 中的 mutation 非常类似于事件：每个 mutation 都有一个字符串的 <strong>事件类型(type)</strong> 和一个 <strong>回调函数(handler)</strong>。这个回调函数就是我们进行状态更改的地方，并且它会接受 state 作为一个参数：</p>
-<pre><code class="language-javascript">const store = new Vuex.Store({
-    state: {
-        count: 1
-    },
-    mutations: {
-        increment (state) {
-            //  变更状态
-            state.count++;
-        }
+          <h2 id="题目描述">题目描述</h2>
+<p>给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。</p>
+<p>设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。</p>
+<p>注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p>
+<p><strong>示例</strong></p>
+<pre><code>输入: [7,1,5,3,6,4]
+输出: 7
+解释: 在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。
+     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6-3 = 3 。
+</code></pre>
+<h2 id="题解">题解</h2>
+<h3 id="方法一动态规划">方法一：动态规划</h3>
+<p>考虑到「不能同时参与多笔交易」，因此每天交易结束后只可能存在手里有一支股票或者没有股票的状态。</p>
+<p>定义状态 <code>dp[i][0]</code> 表示第 i 天交易完后手里没有股票的最大利润，<code>dp[i][1]</code> 表示第 i 天交易完后手里持有一直股票的最大利润（i 从 0 开始）。</p>
+<p>考虑 <code>dp[i][0]</code> 的转移方程，如果这一天交易完后手里没有股票，那么可能的转移状态为前一天已经没有股票，即 <code>dp[i-1][0]</code>，或者前一天结束的时候手里持有一支股票，即 <code>dp[i-1][1]</code>，这时候我们要将其卖出，并获得 <code>prices[i]</code> 的收益。因此为了收益最大化，我们列出如下的转移方程：</p>
+<pre><code>dp[i][0] = max{dp[i-1][0], dp[i-1][1] + prices[i]}
+</code></pre>
+<p>再来考虑 <code>dp[i][1]</code>，按照同样的方式考虑转移状态，那么可能的转移状态为前一天已经持有一支股票，即 <code>dp[i−1][1]</code>，或者前一天结束时还没有股票，即 <code>dp[i−1][0]</code>，这时候我们要将其买入，并减少 <code>prices[i]</code> 的收益。可以列出如下的转移方程：</p>
+<pre><code>dp[i][1]=max{dp[i−1][1],dp[i−1][0]−prices[i]}
+</code></pre>
+<p>对于初始状态，根据状态定义我们可以知道第 0 天交易结束的时候 <code>dp[0][0]=0</code>，<code>dp[0][1]=−prices[0]</code>。</p>
+<p>因此，我们只要从前往后依次计算状态即可。由于全部交易结束后，持有股票的收益一定低于不持有股票的收益，因此这时候 <code>dp[n−1][0]</code> 的收益必然是大于 <code>dp[n−1][1]</code> 的，最后的答案即为 <code>dp[n−1][0]</code>。</p>
+<pre><code class="language-javascript">var maxProfit = function(prices) {
+    const len = prices.length;
+    const dp = Array(len).fill(0).map(x =&gt; Array(2).fill(0));
+    dp[0][0] = 0;
+    dp[0][1] = -prices[0];
+    for (let i=1; i&lt;len; i++) {
+        dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
+        dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0] - prices[i]);
     }
-})
+    return dp[len-1][0];
+};
 </code></pre>
-<p>我们不能直接调用一个 mutation handler。这个选项更像是事件注册：“当触发一个类型为 <code>increment</code> 的 mutation 时，调用该回调函数。”要唤醒一个 mutation handler，我们需要以相应的 type 调用 <strong>store.commit</strong> 方法：</p>
-<pre><code class="language-javascript">store.commit('increment');
-</code></pre>
-<h3 id="提交载荷payload">提交载荷（Payload）</h3>
-<p>我们可以向 <code>store.commit</code> 传递额外的参数，即 mutation 的 <strong>载荷（Payload）</strong>:</p>
-<pre><code class="language-javascript">//   ...
-mutations: {
-    increment (state, n) {
-        state.count += n;
+<p><strong>空间优化</strong></p>
+<p>注意到上面的状态转移方程中，每一天的状态只与前一天的状态有关，而与更早的状态都无关，因此我们不必存储这些无关的状态，只需要将 <code>dp[i−1][0]</code> 和 <code>dp[i−1][1]</code> 存放在两个变量中，通过它们计算出 <code>dp[i][0]</code> 和 <code>dp[i][1]</code> 并存回对应的变量，以便于第 i+1 天的状态转移即可。</p>
+<pre><code class="language-javascript">var maxProfit = function(prices) {
+    const len = prices.length;
+    let dp0 = 0,
+        dp1 = -prices[0];
+    for (let i=1; i&lt;len; i++) {
+        dp0 = Math.max(dp0, dp1 + prices[i]);
+        dp1 = Math.max(dp1, dp0 - prices[i]);
     }
-}
+    return dp0;
+};
 </code></pre>
-<pre><code class="language-javascript">store.commit('increment', 10);
-</code></pre>
-<p>在大多数情况下，载荷应该是一个对象，这样可以包含多个字段并且记录的 mutation 会更加易读：</p>
-<pre><code class="language-javascript">//   ...
-mutations: {
-    increment  (state, payload) {
-        state.count += payload.amount;
+<p><strong>复杂度分析</strong></p>
+<ul>
+<li>时间复杂度：O(n)，其中 n 为数组的长度。一共有 2n 个状态，每次状态转移的时间复杂度为 O(1)，因此时间复杂度为 O(2n)=O(n)。</li>
+<li>空间复杂度：O(n)。我们需要开辟 O(n) 空间存储动态规划中的所有状态。如果使用空间优化，空间复杂度可以优化至 O(1)。</li>
+</ul>
+<h3 id="方法二贪心">方法二：贪心</h3>
+<p>虽然「不能同时参与多笔交易」，但是在每一笔交易中我们完全可以<strong>见好就收，积少成多</strong>，因此就有了一个大致的思路：我们可以<strong>在一天中既卖出又买入</strong>。只要第 i 天比第 i-1 天的价格高，就在第 i-1 天买入，并在第 i 天卖出。这样每一次的累计利润必然是最大的。</p>
+<p>简而言之：<strong>上升区域，全部都算入利润当中</strong>。</p>
+<pre><code class="language-javascript">var maxProfit = function(prices) {
+    let profit = 0;
+    for (let i=1; i&lt;prices.length; i++) {
+        profit += Math.max(0, prices[i] - prices[i-1]);
     }
-}
+    return profit;
+};
 </code></pre>
-<pre><code class="language-javascript">store.commit('increment', {
-    amout: 10
-})
-</code></pre>
-<h3 id="对象风格的提交方式">对象风格的提交方式</h3>
-<p>提交 mutation 的另一种方式是直接使用包含 <code>type</code> 属性的对象：</p>
-<pre><code class="language-javascript">store.commit({
-    type: 'increment',
-    amount: 10
-})
-</code></pre>
-<p>当使用对象风格的提交方式，整个对象都会作为载荷传递给 mutation 函数，因此 handler 保持不变：</p>
-<pre><code class="language-javascript">mutations: {
-    increment (state, payload) {
-        state.count += payload.amount;
-    }
-}
-</code></pre>
-<h3 id="使用常量替代-muation-事件类型">使用常量替代 Muation 事件类型</h3>
-<p>使用常量替代 mutation 事件类型在各种 Flux 实现中是很常见的模式，同时把这些常量放在单独的文件中可以让代码合作者对整个 app 包含的 mutation 一目了然：</p>
-<pre><code class="language-javascript">//   mutation-types.js
-export const SOME_MUTATION = 'SOME_MUTATION'
-</code></pre>
-<pre><code class="language-javascript">//  store.js
-import Vuex from 'vuex'
-import SOME_MUTATION from 'mutation-types'
-
-const store = new Vuex.Store({
-    state: { ... },
-    mutations: {
-        //   我们可以使用 计算属性命名功能 来使用一个常量作为函数名
-        [SOME_MUTATION] (state) {
-            //  mutate state
-        }
-    }
-})
-</code></pre>
-<h3 id="在组件中提交-mutation">在组件中提交 Mutation</h3>
-<p>我们可以在组件中使用 <code>this.$store.commit('xxx')</code> 提交 mutation，或者使用 <code>mapMutations</code> 辅助函数将组件中的 methods  映射为 <code>store.commit</code> 调用。</p>
-<pre><code class="language-javascript">import { mapMutations } from 'vuex'
-
-export default {
-    // ...
-    methods: {
-        ...mapMutations([
-            //   将 `this.increment()` 映射为 `this.$store.commit('increment')`
-            'increment',
-
-            //   `mapMutations` 也支持载荷
-            //  将 `this.incrementBy(amount)` 映射为 `this.$store.commit('incrementBy', amount)`
-            'incrementBy'
-        ]),
-        ...mapMutations({
-            //   将 `this.add()` 映射为 `this.$stote.commit('increment')`
-            add: 'increment'
-        })
-    }
-}
-</code></pre>
-<p><strong>注意</strong>：在 Vuex 中，mutation 都是<strong>同步事务</strong>，而 Action 用来处理异步操作。</p>
+<p><strong>复杂度分析</strong></p>
+<ul>
+<li>时间复杂度：O(n)，其中 n 为数组的长度。我们只需要遍历一次数组即可。</li>
+<li>空间复杂度：O(1)。只需要常数空间存放若干变量。</li>
+</ul>
+<blockquote>
+<p>来源：力扣（LeetCode）<br>
+链接：https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii</p>
+</blockquote>
 
         </div>
 
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/DEJyveMLT/">
-            <span class="flex-auto">JavaScript</span>
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/cJiYWyjUI/">
+            <span class="flex-auto">Leetcode 每日一题</span>
           </a>
         
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/urdU7hwoxU/">
-            <span class="flex-auto">vue.js</span>
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/HOiOzoula/">
+            <span class="flex-auto">LeetCode</span>
           </a>
         
 
 
         <div class="flex justify-between py-8">
           
-            <div class="prev-post">
-              <a href="https://pineapple126.github.io/post/vuex-notes-5/">
-                <h3 class="post-title">
-                  <i class="ri-arrow-left-line"></i>
-                  Vuex 学习笔记（五）—— Action
-                </h3>
-              </a>
-            </div>
-          
 
           
             <div class="next-post">
-              <a href="https://pineapple126.github.io/post/vuex-notes-3/">
+              <a href="https://pineapple126.github.io/post/leetcode-sort-integers-by-the-number-of-1-bits/">
                 <h3 class="post-title">
-                  Vuex 学习笔记（三）—— Getter
+                  LeetCode 每日一题 2020.11.6 —— 1356. 根据数字二进制下 1 的数目排序 Easy
                   <i class="ri-arrow-right-line"></i>
                 </h3>
               </a>
