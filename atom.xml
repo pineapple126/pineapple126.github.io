@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2020-11-08T14:39:26.193Z</updated>
+    <updated>2020-11-08T15:12:19.202Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -10,6 +10,125 @@
     <logo>https://pineapple126.github.io/images/avatar.png</logo>
     <icon>https://pineapple126.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 深海大菠萝盖饭</rights>
+    <entry>
+        <title type="html"><![CDATA[「前端进阶」JS中的栈内存堆内存]]></title>
+        <id>https://pineapple126.github.io/post/stack-memery-and-heap-memery-in-js/</id>
+        <link href="https://pineapple126.github.io/post/stack-memery-and-heap-memery-in-js/">
+        </link>
+        <updated>2020-11-08T10:32:31.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>文章来源于掘金，作者 云中桥</p>
+</blockquote>
+<h2 id="引言">引言</h2>
+<p>JS的内存空间分为栈(stack)、堆(heap)、池(一般也会归类为栈中)。</p>
+<p>其中栈存放变量，堆存放复杂对象，池存放常量，所以也叫常量池。</p>
+<h2 id="栈数据结构">栈数据结构</h2>
+<p>栈是一种特殊的列表，栈内的元素只能通过列表的一端访问，这一端称为栈顶。<br>
+栈被称为是一种后入先出（LIFO，last-in-first-out）的数据结构。<br>
+由于栈具有后入先出的特点，所以任何不在栈顶的元素都无法访问。<br>
+为了得到栈底的元素，必须先拿掉上面的元素。<br>
+在这里，为方便理解，通过类比乒乓球盒子来分析栈的存取方式。</p>
+<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1604846528569.jpg" alt="stack_structure" loading="lazy"></figure>
+<p>这种乒乓球的存放方式与栈中存取数据的方式如出一辙。<br>
+处于盒子中最顶层的乒乓球 5，它一定是最后被放进去，但可以最先被使用。<br>
+而我们想要使用底层的乒乓球 1，就必须将上面的 4 个乒乓球取出来，让乒乓球1处于盒子顶层。<br>
+这就是栈空间先进后出，后进先出的特点。</p>
+<h2 id="堆数据结构">堆数据结构</h2>
+<p>堆是一种经过排序的树形数据结构，每个结点都有一个值。通常我们所说的堆的数据结构，是指二叉堆。堆的特点是根结点的值最小（或最大），且根结点的两个子树也是一个堆。由于堆的这个特性，常用来实现优先队列，堆的存取是随意，这就如同我们在图书馆的书架上取书，虽然书的摆放是有顺序的，但是我们想取任意一本时不必像栈一样，先取出前面所有的书，我们只需要关心书的名字。</p>
+<h2 id="变量类型与内存的关系">变量类型与内存的关系</h2>
+<h3 id="基本数据类型">基本数据类型</h3>
+<p>基本数据类型共有 7 种：</p>
+<ol>
+<li>null</li>
+<li>undefined</li>
+<li>string</li>
+<li>number</li>
+<li>boolean</li>
+<li>symbol</li>
+<li>bigint</li>
+</ol>
+<p>基本数据类型保存在栈内存中，因为基本数据类型占用空间小、大小固定，通过按值来访问，属于被频繁使用的数据。</p>
+<p>为了更好的搞懂基本数据类型变量与栈内存，我们结合以下例子与图解进行理解：</p>
+<pre><code class="language-javascript">let num1 = 1;
+let num2 = 1;
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://pineapple126.github.io//post-images/1604846803112.jpg" alt="stack_example" loading="lazy"></figure>
+<p>PS: 需要注意的是闭包中的基本数据类型变量不保存在栈内存中，而是保存在堆内存中。这个问题，我们后文再说。</p>
+<h3 id="引用数据类型">引用数据类型</h3>
+<p>Array,Function,Object...可以认为除了上文提到的基本数据类型以外，所有类型都是引用数据类型。</p>
+<p>引用数据类型存储在堆内存中，因为引用数据类型占据空间大、大小不固定。如果存储在栈中，将会影响程序运行的性能；引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体。</p>
+<p>为了更好的搞懂变量对象与堆内存，我们结合以下例子与图解进行理解。</p>
+<pre><code class="language-javascript">// 基本数据类型-栈内存
+let a1 = 0;
+// 基本数据类型-栈内存
+let a2 = 'this is string';
+// 基本数据类型-栈内存
+let a3 = null;
+
+// 对象的指针存放在栈内存中，指针指向的对象存放在堆内存中
+let b = { m: 20 };
+// 数组的指针存放在栈内存中，指针指向的数组存放在堆内存中
+let c = [1, 2, 3];
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://pineapple126.github.io//post-images/1604846889629.jpg" alt="heap_example" loading="lazy"></figure>
+<p>因此当我们要访问堆内存中的引用数据类型时，实际上我们首先是从变量中获取了该对象的地址指针， 然后再从堆内存中取得我们需要的数据。</p>
+<h2 id="从内存角度来看变量复制">从内存角度来看变量复制</h2>
+<h3 id="基本数据类型的复制">基本数据类型的复制</h3>
+<pre><code class="language-javascript">let a = 20;
+let b = a;
+b = 30;
+console.log(a); // 此时 a 的值是多少，是 30？还是 20？
+</code></pre>
+<p>答案是：20</p>
+<p>在这个例子中，a、b 都是基本类型，它们的值是存储在栈内存中的，a、b 分别有各自独立的栈空间， 所以修改了 b 的值以后，a 的值并不会发生变化。</p>
+<p>从下图可以清晰的看到变量是如何复制并修改的。</p>
+<figure data-type="image" tabindex="4"><img src="https://pineapple126.github.io//post-images/1604847075199.jpg" alt="basic_data_type_copy" loading="lazy"></figure>
+<h3 id="引用数据类型的复制">引用数据类型的复制</h3>
+<pre><code class="language-javascript">let m = { a: 10, b: 20 };
+let n = m;
+n.a = 15;
+console.log(m.a) //此时m.a的值是多少，是10？还是15？
+</code></pre>
+<p>答案是：15</p>
+<p>在这个例子中，m、n都是引用类型，栈内存中存放地址指向堆内存中的对象，引用类型的复制会为新的变自动分配一个新的值保存在变量中，但只是引用类型的一个地址指针而已，实际指向的是同一个对象，所以修改 n.a 的值后，相应的 m.a 也就发生了改变。</p>
+<p>从下图可以清晰的看到变量是如何复制并修改的。</p>
+<figure data-type="image" tabindex="5"><img src="https://pineapple126.github.io//post-images/1604847155965.jpg" alt="reference_data_type_copy" loading="lazy"></figure>
+<h2 id="栈内存和堆内存的优缺点">栈内存和堆内存的优缺点</h2>
+<p>在JS中，基本数据类型变量大小固定，并且操作简单容易，所以把它们放入栈中存储。引用类型变量大小不固定，所以把它们分配给堆中，让他们申请空间的时候自己确定大小，这样把它们分开存储能够使得程序运行起来占用的内存最小。</p>
+<p>栈内存由于它的特点，所以它的系统效率较高。堆内存需要分配空间和地址，还要把地址存到栈中，所以效率低于栈。</p>
+<h2 id="栈内存和堆内存的垃圾回收">栈内存和堆内存的垃圾回收</h2>
+<p>栈内存中变量一般在它的当前执行环境结束就会被销毁被垃圾回收制回收， 而堆内存中的变量则不会，因为不确定其他的地方是不是还有一些对它的引用。 堆内存中的变量只有在所有对它的引用都结束的时候才会被回收。</p>
+<h2 id="闭包与堆内存">闭包与堆内存</h2>
+<p>闭包中的变量并不保存中栈内存中，而是保存在堆内存中。 这也就解释了函数调用之后之后为什么闭包还能引用到函数内的变量。</p>
+<p>我们先来看什么是闭包：</p>
+<pre><code class="language-javascript">function A() {
+  let a = 1;
+  function B() {
+      console.log(a);
+  }
+  return B;
+}
+let res = A();
+</code></pre>
+<p>函数 A 返回了一个函数 B，并且函数 B 中使用了函数 A 的变量，函数 B 就被称为闭包。</p>
+<p>函数 A 弹出调用栈后，函数 A 中的变量这时候是存储在堆上的，所以函数B依旧能引用到函数A中的变量。现在的 JS 引擎可以通过逃逸分析辨别出哪些变量需要存储在堆上，哪些需要存储在栈上。</p>
+<pre><code>读者注释：作者此处对于闭包的定义不是很准确，闭包不应该简单地理解成
+调用外部函数变量并且被外部函数返回的内部函数，闭包是一个变量对象，
+储存着被 被外部函数返回的内部函数 引用着的 外部函数的变量。
+
+以作者给出的例子来讲，内部函数 B 引用着外部函数 A 的变量 a，并且内部
+函数 B 被外部函数 A 返回。那么我们称变量集合 { a } 是函数 A 的闭包。
+</code></pre>
+<blockquote>
+<p>本文完</p>
+</blockquote>
+<blockquote>
+<p>作者：云中桥<br>
+链接：https://juejin.im/post/6844903873992196110<br>
+来源：掘金</p>
+</blockquote>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[LeetCode 每日一题 2020.11.8 —— 122. 买卖股票的最佳时机 II]]></title>
         <id>https://pineapple126.github.io/post/leetcode-mai-mai-gu-piao-de-zui-jia-shi-ji-ii-by-beney-2/</id>
@@ -1444,249 +1563,6 @@ function mergeTwoLists(list1, list2) {
 </ul>
 <h2 id="总结">总结</h2>
 <p>综上所述，当我们需要给一组元素添加相同事件时，我们可以通过事件委托的方式将事件直接添加给父级元素。</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[二叉树的三序遍历]]></title>
-        <id>https://pineapple126.github.io/post/traversal-binary-tree/</id>
-        <link href="https://pineapple126.github.io/post/traversal-binary-tree/">
-        </link>
-        <updated>2020-03-20T02:48:14.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="先序遍历preordertraversal">先序遍历（preorderTraversal）</h2>
-<p>节点遍历顺序：根 -&gt; 左 -&gt; 右</p>
-<h3 id="递归方式">递归方式</h3>
-<pre><code class="language-javascript">/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number[]}
- */
-function preorderTraversal(root) {
-    if (!root) return [];
-    return [
-        root.val,
-        ...preorderTraversal(root.left),
-        ...preorderTraversal(root.right)
-    ];
-}
-</code></pre>
-<h3 id="非递归方式">非递归方式</h3>
-<p>利用栈存储遍历的节点</p>
-<pre><code class="language-javascript">/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number[]}
- */
-function preorderTraversal(root) {
-    if (!root) return [];
-    let res = [],
-        stack = [],
-        curr = root;
-    while(curr || stack.length &gt; 0) {
-        while(curr) {
-            stack.push(curr);
-            res.push(curr.val);
-            curr = curr.left;
-        }
-        curr = stack.pop();
-        curr = curr.right;
-    }
-    return res;
-}
-</code></pre>
-<h2 id="中序遍历inordertraversal">中序遍历（inorderTraversal）</h2>
-<p>节点遍历顺序：左 -&gt; 根 -&gt; 右</p>
-<h2 id="递归方式-2">递归方式</h2>
-<pre><code class="language-javascript">/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number[]}
- */
-function inorderTraversal(root) {
-    if (!root) return [];
-    return [
-        ...inorderTraversal(root.left),
-        root.val,
-        ...inorderTraversal(root.right)
-    ];
-}
-</code></pre>
-<h3 id="非递归方式-2">非递归方式</h3>
-<p>利用栈存储遍历的节点</p>
-<pre><code class="language-javascript">/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number[]}
- */
-function inorderTraversal(root) {
-    if (!root) return [];
-    let res = [],
-        stack = [],
-        curr = root;
-    while(curr || stack.length &gt; 0) {
-        while(curr) {
-            stack.push(curr);
-            curr = curr.left;
-        }
-        curr = stack.pop();
-        res.push(curr.val);
-        curr = curr.right;
-    }
-    return res;
-}
-</code></pre>
-<h2 id="后序遍历postordertraversal">后序遍历（postorderTraversal)</h2>
-<p>节点遍历顺序：左 -&gt; 右 -&gt; 根</p>
-<h3 id="递归方式-3">递归方式</h3>
-<pre><code class="language-javascript">/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number[]}
- */
-function postorderTraversal(root) {
-    if (!root) return [];
-    return [
-        ...postorderTraversal(root.left),
-        ...postorderTraversal(root.right),
-        root.val
-    ];
-}
-</code></pre>
-<h3 id="非递归方式-3">非递归方式</h3>
-<p><strong>方式一：正序解</strong></p>
-<p>实现（1）：如果某一结点的子节点已被遍历过，则将其子节点指向 null。（整个过程就像是给一棵树不断地修剪叶子一样）</p>
-<p>基本思路：</p>
-<ol>
-<li>先遍历左节点，当遍历到叶子节点时，记录其值；</li>
-<li>返回至该叶子节点的上一层，并让该叶子节点指向 null；</li>
-<li>再遍历右节点，当遍历到叶子节点时，记录值；</li>
-<li>再次返回上一层节点，顺便让该叶子节点指向 null。</li>
-</ol>
-<pre><code class="language-javascript">/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number[]}
- */
-function postorderTraversal(root) {
-    if (!root) return [];
-    let res = [],
-        stack = [],
-        curr = root;
-    while(curr || stack.length &gt; 0) {
-        if (curr.left) {
-            stack.push(curr);
-            curr = curr.left;
-        } else if (curr.right) {
-            stack.push(curr);
-            curr = curr.right;
-        } else {
-            res.push(curr.val);
-            curr = stack.pop();
-            if (curr &amp;&amp; curr.left) curr.left = null;
-            else if (curr &amp;&amp; curr.right) curr.right = null;
-        }
-    }
-    return res;
-}
-</code></pre>
-<p>实现（2）：添加标志位 flag，当某一节点的左右子节点的值都已被记录时 flag 为 true，否则为 false。</p>
-<pre><code class="language-javascript">/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number[]}
- */
-function postorderTraversal(root) {
-    if (!root) return [];
-    let res = [],
-        stack = [],
-        curr = root;
-    while (curr || stack.length &gt; 0) {
-        while(curr) {
-            stack.push([curr, false]);
-            curr = curr.left;
-        }
-        let [node, flag] = stack.pop();
-        if (!flag) {
-            stack.push([node, true]);
-            curr = node.right;
-        } else {
-            res.push(node.val);
-        }
-    }
-    return res;
-}
-</code></pre>
-<p><strong>方式二：倒序解</strong></p>
-<p>思路：该方式类似于先序遍历，只是遍历顺序为 根 -&gt; 右 -&gt; 左。而记录值是从数组的头部插入。</p>
-<pre><code class="language-javascript">/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {number[]}
- */
-function postorderTraversal(root) {
-    if (!root) return [];
-    let res = [],
-        stack = [],
-        curr = root;
-    while(curr || stack.length) {
-        while(curr) {
-            stack.push(curr);
-            res.unshift(curr.val);
-            curr = curr.right;
-        }
-        curr = stack.pop();
-        curr = curr.left;
-    }
-    return res;
-}
-</code></pre>
 ]]></content>
     </entry>
 </feed>
