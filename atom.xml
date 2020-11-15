@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2020-11-15T09:16:05.290Z</updated>
+    <updated>2020-11-15T09:27:03.403Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -10,6 +10,67 @@
     <logo>https://pineapple126.github.io/images/avatar.png</logo>
     <icon>https://pineapple126.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 深海大菠萝盖饭</rights>
+    <entry>
+        <title type="html"><![CDATA[LeetCode 每日一题 2020.11.12 —— 922. 按奇偶排序数组 II Easy]]></title>
+        <id>https://pineapple126.github.io/post/leetcode-sort-array-by-parity-ii/</id>
+        <link href="https://pineapple126.github.io/post/leetcode-sort-array-by-parity-ii/">
+        </link>
+        <updated>2020-11-12T09:17:01.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="题目描述">题目描述</h2>
+<p>给定一个非负整数数组 A， A 中一半整数是奇数，一半整数是偶数。</p>
+<p>对数组进行排序，以便当 A[i] 为奇数时，i 也是奇数；当 A[i] 为偶数时， i 也是偶数。</p>
+<p>你可以返回任何满足上述条件的数组作为答案。</p>
+<p><strong>示例</strong></p>
+<pre><code>输入：[4,2,5,7]
+输出：[4,5,2,7]
+解释：[4,7,2,5]，[2,5,4,7]，[2,7,4,5] 也会被接受。
+</code></pre>
+<h2 id="题解">题解</h2>
+<h3 id="方法一两次遍历">方法一：两次遍历</h3>
+<p>遍历一遍数组把所有的偶数放进 <code>even</code> 数组内，再遍历一遍数组把所有的奇数放进 <code>odd</code> 数组内。</p>
+<pre><code class="language-javascript">var sortArrayByParityII = function(A) {
+  const odd = A.filter(val =&gt; (val &amp; 1) === 1);
+  const even = A.filter(val =&gt; (val &amp; 1) === 0);
+  const ans = [];
+  for (let i=0; i&lt;A.length/2; i++) {
+    ans.push(even.shift(), odd.shift());
+  }
+  return ans;
+};
+</code></pre>
+<p><strong>复杂度分析</strong></p>
+<ul>
+<li>时间复杂度：O(N)，其中 N 是数组 <code>A</code> 的长度。</li>
+<li>空间复杂度：O(N)。</li>
+</ul>
+<h3 id="方法二双指针">方法二：双指针</h3>
+<p>如果原数组可以修改，则可以使用就地算法求解。</p>
+<p>为数组的偶数下标部分和奇数下标部分分别维护指针 i, j。随后，在每一步中，如果 A[i] 为奇数，则不断地向前移动 j（每次移动两个单位），直到遇见下一个偶数。此时，可以直接将 A[i] 与 A[j] 交换。我们不断进行这样的过程，最终能够将所有的整数放在正确的位置上。</p>
+<pre><code class="language-javascript">var sortArrayByParityII = function(A) {
+    const len = A.length;
+    let j = 1;
+    for (let i=0; i&lt;len; i+=2) {
+        if (A[i] &amp; 1) {
+            while (A[j] &amp; 1) {
+                j += 2;
+            }
+            [A[i], A[j]] = [A[j], A[i]];
+        }
+    }
+    return A;
+};
+</code></pre>
+<p><strong>复杂度分析</strong></p>
+<ul>
+<li>时间复杂度：O(N)，其中 N 是数组 <code>A</code> 的长度。</li>
+<li>空间复杂度：O(1)。不考虑输出数组的空间占用。</li>
+</ul>
+<blockquote>
+<p>来源：力扣（LeetCode）<br>
+链接：https://leetcode-cn.com/problems/sort-array-by-parity-ii</p>
+</blockquote>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[LeetCode 每日一题 2020.11.9 —— 973. 最接近原点的 K 个点]]></title>
         <id>https://pineapple126.github.io/post/leetcode-k-closest-points-to-origin/</id>
@@ -1474,98 +1535,6 @@ div  p {color:green;}
 9.7 栅格化（栅格化，是指将图块转换为位图）<br>
 9.8 合成和显示</li>
 </ol>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[LeetCode - 23 合并K个排序链表（分治）]]></title>
-        <id>https://pineapple126.github.io/post/leetcode-23-mergeKLists/</id>
-        <link href="https://pineapple126.github.io/post/leetcode-23-mergeKLists/">
-        </link>
-        <updated>2020-03-23T11:16:04.000Z</updated>
-        <content type="html"><![CDATA[<p><strong>问题描述：</strong></p>
-<p>合并 k 个排序链表，返回合并后的排序链表。</p>
-<p><strong>示例：</strong></p>
-<pre><code>输入:
-[
-  1-&gt;4-&gt;5,
-  1-&gt;3-&gt;4,
-  2-&gt;6
-]
-输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6
-</code></pre>
-<p><strong>基本思路：</strong></p>
-<p>对于合并两个排序链表的问题，我们可以轻松解决。只要创建一个新的哑巴节点，再选择两个链表头节点较小的一个与哑巴节点链接起来，循环该操作，直至合并完成。</p>
-<p>那么对于合并K个排序链表，我们可以运用分治的思想，不断地将数组不断拆分。（我们用数组 lists 存储着这些链表）</p>
-<p>这里借用官方题解的一张图片：</p>
-<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1584964378982.png" alt="分治演示" loading="lazy"></figure>
-<p>那么拆分过程中有以下情形：</p>
-<ul>
-<li>
-<p><code>lists.length === 0</code>        数组 lists 中已无链表，则返回一个空节点；</p>
-</li>
-<li>
-<p><code>lists.length === 1</code>        数组 lists 中仅剩一个链表，因此直接返回该链表；</p>
-</li>
-<li>
-<p><code>lists.length === 2</code>        数组 lists 中有两个链表，我们执行合并操作；</p>
-</li>
-<li>
-<p><code>other</code>         数组 lists 中的链表数过多，需要继续拆分。</p>
-</li>
-<li>
-<p>时间复杂度：O(nlogK)</p>
-<ul>
-<li>k 为链表总数</li>
-<li>n 为合并两个链表所用的时间</li>
-</ul>
-</li>
-<li>
-<p>空间复杂度：O(n)</p>
-</li>
-</ul>
-<p>代码如下：</p>
-<pre><code class="language-javascript">/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
-/**
- * @param {ListNode[]} lists
- * @return {ListNode}
- */
-var mergeKLists = function(lists) {
-    // 如果列表中的 链表 为空 则直接返回
-    if (lists.length === 0) return null;
-    // 如果列表中的 链表 只剩一个直接返回
-    if (lists.length === 1) return lists[0];
-    // 如果列表中的 链表 有两个 则合并两个链表
-    if (lists.length === 2) return mergeTwoLists(lists[0], lists[1]);
-    // 否则继续拆分
-    let mid = lists.length &gt;&gt; 1;
-    let left = lists.slice(0, mid),
-        right = lists.slice(mid);
-    return mergeTwoLists(mergeKLists(left), mergeKLists(right));
-};
-
-function mergeTwoLists(list1, list2) {
-    let ans = new ListNode(-1),
-        preAns = ans;
-    while(list1 &amp;&amp; list2) {
-        if (list1.val &lt; list2.val) {
-            preAns.next = list1;
-            list1 = list1.next;
-        } else {
-            preAns.next = list2;
-            list2 = list2.next;
-        }
-        preAns = preAns.next;
-    }
-    preAns.next = list1 ? list1 : list2;
-    return ans.next;
-}
-</code></pre>
 ]]></content>
     </entry>
 </feed>
