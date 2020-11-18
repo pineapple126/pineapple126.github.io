@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2020-11-18T14:29:44.635Z</updated>
+    <updated>2020-11-18T17:27:18.266Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -10,6 +10,105 @@
     <logo>https://pineapple126.github.io/images/avatar.png</logo>
     <icon>https://pineapple126.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 深海大菠萝盖饭</rights>
+    <entry>
+        <title type="html"><![CDATA[JavaScript Source Map 是什么？]]></title>
+        <id>https://pineapple126.github.io/post/javascript-source-map/</id>
+        <link href="https://pineapple126.github.io/post/javascript-source-map/">
+        </link>
+        <updated>2020-11-18T13:12:00.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="一-什么是-source-map">一、什么是 Source Map ?</h2>
+<p>顾名思义，Source Map 是保存源代码映射关系的文件，相信用过 webpack 的开发者对它应该不会陌生。在项目开发完进行打包后，在打包的文件里通常除了 js、css、图片字体等资源文件外，大家一定还见过 xxx.js.map 的文件。这种带 map 的后缀的文件就是 Source Map 文件 —— 它就是一个位置文件，保存了源代码和转换之后代码的位置关系。下图展示了部分打包之后生成的 Source Map 文件：</p>
+<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1605715644396.png" alt="source_map" loading="lazy"></figure>
+<h2 id="二-为什么要使用-source-map">二、为什么要使用 Source Map ？</h2>
+<p>明白了什么是 Source Map 之后，可是我们为什么要使用 Source Map 呢？由于现代前端项目的发展，前端代码变得越来越庞大和复杂。大部分源码都需要经过转换，才能投入到生产环境中使用。常见的转换过程包括但不限于：</p>
+<ul>
+<li>压缩混淆（UglifyJS）</li>
+<li>编译（TypeScript，CoffeeScript）</li>
+<li>转译（Babel）</li>
+<li>合并多个文件，减少带宽请求</li>
+</ul>
+<p>经过上述转换的代码，往往都会变得面目全非，就像下面这样：</p>
+<figure data-type="image" tabindex="2"><img src="https://pineapple126.github.io//post-images/1605717052787.png" alt="source_map_after" loading="lazy"></figure>
+<p>这样虽然对带宽很友好，但是调试起来就不是那么轻松了。我们在代码出错的时候，肯定最希望能定位其在源码中的位置。比如下面这两个错误提示：</p>
+<figure data-type="image" tabindex="3"><img src="https://pineapple126.github.io//post-images/1605717160418.png" alt="source_map_error" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://pineapple126.github.io//post-images/1605717173913.png" alt="source_map_error_with_sourcemap" loading="lazy"></figure>
+<p>对于大多数开发者来说，希望看到的应该是第二种提示方式，而这就是Source Map能够输出的能力。有了它，出错的时候，除错工具将直接显示原始代码，而不是转换后的代码。这无疑给开发者带来了很大方便。</p>
+<h2 id="三-source-map-文件的格式及含义">三、Source Map 文件的格式及含义</h2>
+<pre><code class="language-json">{
+    &quot;version&quot;: 3,
+    &quot;file&quot;: &quot;out.js&quot;,
+    &quot;sourceRoot&quot;: &quot;&quot;,
+    &quot;sources&quot;: [
+        &quot;log,js&quot;,
+        &quot;main.js&quot;
+    ],
+    &quot;names&quot;: [
+        &quot;sayHello&quot;,
+        &quot;name&quot;,
+        &quot;length&quot;,
+        &quot;substr&quot;,
+        &quot;console&quot;,
+        &quot;log&quot;
+    ],
+    &quot;mappings&quot;: &quot;AAAA,SAASA,SAAUC&quot;
+}
+</code></pre>
+<p>整个文件就是一个 JSON 对象，可以被解释器读取。他主要有以下几个属性：</p>
+<ul>
+<li>version：Source Map 的版本，目前为 3。</li>
+<li>file：转换后的文件名。</li>
+<li>sourceRoot：转换前的文件所在的目录。如果与转换前的文件在同一目录，该项为空。</li>
+<li>sources：转换前的文件。该项是一个数组，表示可能存在多个文件合并。</li>
+<li>names：转换前的所有变量名和属性名。</li>
+<li>mappings：记录位置信息的字符串。</li>
+</ul>
+<p><strong>mappings 属性</strong></p>
+<p>下面才是真正有趣的部分：两个文件的各个位置是如何一一对应的。</p>
+<p>关键就是 map 文件的 mappings 属性。这是一个很长的字符串，它分成三层。</p>
+<ul>
+<li>第一层是<strong>行对应</strong>，以分号（；）表示，每个分号对应转换后源码的一行。所以，第一个分号前的内容，就对应源码的第一行，以此类推。</li>
+<li>第二层是<strong>位置对应</strong>，以逗号（，）表示，每个逗号对应转换后源码的一个位置。所以，第一个逗号前的内容，就对应该行源码的第一个位置，以此类推。</li>
+<li>第三层是<strong>位置转换</strong>，以 <strong>VLQ 编码</strong>表示，代表该位置对应的转换前的源码位置。</li>
+</ul>
+<p>举例来说，假定mappings属性的内容如下：</p>
+<pre><code>mappings:&quot;AAAAA,BBBBB;CCCCC&quot;
+</code></pre>
+<p>就表示，转换后的源码分成两行，第一行有两个位置，第二行有一个位置。</p>
+<p><strong>位置对应的原理</strong></p>
+<p>每个位置使用五位，表示五个字段。</p>
+<p>从左边算起，</p>
+<ul>
+<li>第一位，表示这个位置在（转换后的代码的）的第几列。<strong>输出文件列位置</strong></li>
+<li>第二位，表示这个位置属于sources属性中的哪一个文件。<strong>输入文件名索引</strong></li>
+<li>第三位，表示这个位置属于转换前代码的第几行。<strong>输入文件行号</strong></li>
+<li>第四位，表示这个位置属于转换前代码的第几列。<strong>输入文件列号</strong></li>
+<li>第五位，表示这个位置属于names属性中的哪一个变量。<strong>字符索引</strong></li>
+</ul>
+<p>有几点需要说明。首先，所有的值都是以 0 作为基数的。其次，第五位不是必需的，如果该位置没有对应 names 属性中的变量，可以省略第五位。再次，每一位都采用 VLQ 编码表示；由于 VLQ 编码是变长的，所以每一位可以由多个字符构成。</p>
+<p>如果某个位置是 AAAAA，由于 A 在 VLQ 编码中表示 0，因此这个位置的五个位实际上都是 0。它的意思是，该位置在转换后代码的第 0 列，对应 sources 属性中第 0 个文件，属于转换前代码的第 0 行第 0 列，对应 names 属性中的第 0 个变量。</p>
+<h2 id="vlq-编码">VLQ 编码</h2>
+<p><strong>定义</strong></p>
+<blockquote>
+<p>A variable-length quantity (VLQ) is a universal code that uses an arbitrary number of binary octets (eight-bit bytes) to represent an arbitrarily large integer.<br>
+翻译一下：VLQ是用任意个2进制字节组去表示一个任意数字的编码形式。</p>
+</blockquote>
+<p>VLQ 的编码形式很多，这篇文章中要说明的是下面这种：</p>
+<figure data-type="image" tabindex="5"><img src="https://pineapple126.github.io//post-images/1605719630938.png" alt="VLQ_code" loading="lazy"></figure>
+<ul>
+<li>一个组包含 6 个二进制位。</li>
+<li>在每组的第一位 C 用来标识其后面是否会跟着另一个 VLQ 字节组，值为 0 表示其是最后一个 VLQ 字节组，值为 1 表示后面还跟着另一个 VLQ 字节组。</li>
+<li>在第一组中，最后 1 位用来表示符号，值为 0 则表示正数，为 1 表示负数。其他组的最后一位都是表示数字。</li>
+<li>其他位都是表示数字。</li>
+</ul>
+<p>这种编码方式也成为 Base64 VLQ 编码，因为每一个组对应一个 Base64 编码。</p>
+<figure data-type="image" tabindex="6"><img src="https://pineapple126.github.io//post-images/1605719957709.png" alt="VLQ_base64" loading="lazy"></figure>
+<p>参考文章</p>
+<ul>
+<li>[1] <a href="https://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html">JavaScript Source Map 详解</a></li>
+<li>[2] <a href="https://juejin.im/post/6844903869928079373">深入理解 SourceMap</a></li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[LeetCode 每日一题 2020.11.12 —— 922. 按奇偶排序数组 II Easy]]></title>
         <id>https://pineapple126.github.io/post/leetcode-sort-array-by-parity-ii/</id>
@@ -1334,206 +1433,6 @@ module.exports = {
 <ol>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status">MDN web docs——HTTP 响应代码</a></li>
 <li>《图解 HTTP》上野宣 —— 第 4 章 返回结果的 http 状态码</li>
-</ol>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[从用户输入 URL 到页面渲染完毕，这中间发生了什么？]]></title>
-        <id>https://pineapple126.github.io/post/what-happened-between-input-url-and-web-presentation/</id>
-        <link href="https://pineapple126.github.io/post/what-happened-between-input-url-and-web-presentation/">
-        </link>
-        <updated>2020-04-07T07:23:36.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="从输入-url-到页面展示中间发生了什么">从输入 URL 到页面展示，中间发生了什么？</h2>
-<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1586580599184.png" alt="从输入 URL 到页面展示完整流程示意图" loading="lazy"></figure>
-<p>用户输入阶段 -&gt; 导航阶段 -&gt; 准备渲染 -&gt; 提交文档 -&gt; 渲染阶段</p>
-<p><strong>用户发出 URL 请求到页面开始解析的这个过程，就叫做导航。</strong></p>
-<h2 id="1-用户输入">1. 用户输入</h2>
-<p>当用户在地址栏里输入一个查询关键字时，地址栏会判断输入的关键字是<strong>搜索内容</strong>，还是<strong>请求的 URL</strong>。</p>
-<ul>
-<li>如果是搜索内容，地址栏会使用浏览器默认的搜索引擎，来合成新的带搜索关键字的 URL。</li>
-<li>如果判断输入内容符合 URL 规则，那么地址栏会根据规则，把这段内容加上协议，合为完整的 URL。</li>
-</ul>
-<p>默认情况下，当用户输入关键字并键入回车之后，当前页面将会被替换为新的页面，不过浏览器提供了一个 <code>beforeunload</code> 事件，在这个流程继续之前，<code>beforeunload</code> 事件允许页面在退出之前执行一些数据清理操作，还可以询问用户是否要离开该页面，因此用户可以用通过 <code>beforeunload</code> 事件来取消导航，让浏览器不再进行任何后续工作。</p>
-<h2 id="2-url-请求过程">2. URL 请求过程</h2>
-<p>页面资源请求过程，浏览器进程通过 进程间通讯（IPC）把 URL 请求发送给 网络进程，网络进程接收到 URL 请求后，会发起真正的 URL 请求流程。</p>
-<p>首先，网络进程会在本地缓存中检查是否缓存了请求资源。如果有缓存资源，则直接返回资源给浏览器进程；如果在缓存中没有查找到资源，那么直接进入网络请求流程。请求第一步是进行 DNS 解析（将域名转换为 IP 地址），以获取请求服务器的 IP 地址。如果请求的协议是 HTTPS，那么还要建立 TLS 连接。</p>
-<p>接下来就是利用 IP 地址和服务器建立 TCP 连接。连接建立后，浏览器端会构建请求行、请求头等信息，并把和该域名相关的 Cookie 等数据附加到请求头中，然后向服务器发送构建的请求信息。</p>
-<p>服务器接收到请求信息后，会根据请求信息生成响应数据（包括响应行、响应头、响应体等信息），并发给网络进程。等网络进程接收了响应行和响应头之后，就开始解析响应头的内容了。</p>
-<p><strong>（1）重定向</strong></p>
-<p>在接收到服务器返回的响应头后，网络进程开始解析响应头中的数据，如果发现返回的状态码是 301 或者 302，那么说明服务器需要浏览器重定向到其他 URL。这时网络进程会从响应头的 Location 字段里面读取重定向的地址，然后再发起新的 HTTP 或者 HTTPS 请求，一切又重新开始。</p>
-<p>注意：在导航过程中，如果服务器响应行的状态码包含了 301、302 一类的跳转信息，浏览器会跳转到新的地址继续导航；如果响应行是 200，那么表示浏览器可以继续处理该请求。</p>
-<p><strong>（2）响应数据类型处理</strong></p>
-<p><strong><code>Context-Type</code> 是 HTTP 头中的一个非常重要的字段，它告诉浏览器服务器返回的响应体数据是什么类型。</strong>，然后浏览器会根据 <code>Context-Type</code> 字段的值来决定如何显示响应体的内容。</p>
-<p>不同 <code>Context-Type</code> 的后续处理流程也截然不同。如果 <code>Context-Type</code> 字段的值被浏览器判断为<strong>下载类型</strong>，<strong>那么该请求会被提交给浏览器的下载管理器，同时该 URL 请求的导航栏流程就此结束</strong>。但如果是 <strong>HTML</strong>，<strong>那么浏览器则会继续进行导航流程。</strong></p>
-<h2 id="3-准备渲染进程">3. 准备渲染进程</h2>
-<p>默认情况下，Chrome 会为每个页面分配一个渲染进程。但是，**如果从一个页面打开了另一个新页面，而新页面和当前页面属于同一站点的话，那么新页面会复用父页面的渲染进程。**官方把这个默认策略叫做 process-per-site-instance。</p>
-<p>总结一下：</p>
-<ul>
-<li>通常情况下，打开的新页面都会使用单独的渲染进程；</li>
-<li>如果从 A 页面打开 B 页面，且 A 与 B 都属于<strong>同一站点</strong>的话，B 页面会复用 A 页面的渲染进程。</li>
-</ul>
-<h2 id="4-提交文档">4. 提交文档</h2>
-<p>所谓提交文档，就是指浏览器将网络进程接收到的 HTML 数据提交给渲染进程，具体流程如下：</p>
-<ul>
-<li>首先当浏览器进程接收到网络进程的响应头数据之后，便向渲染进程发起“提交文档”的消息；</li>
-<li>渲染进程接收到“提交文档”的消息后，会和网络进程建立传输数据的“管道”；</li>
-<li>等文档数据传输完成后，渲染进程会返回“确认提交”的消息给浏览器进程；</li>
-<li>浏览器进程在收到“确认提交”的消息后，会更新浏览器界面状态，包括安全状态、地址 URL、前进后退的历史状态，并更新 Web 页面。</li>
-</ul>
-<p>至此，一个完整的导航流程结束，紧接着是渲染阶段</p>
-<h2 id="5-渲染阶段">5. 渲染阶段</h2>
-<p>一旦文档被提交，渲染进程便开始页面解析和子资源加载了。一旦页面生成完毕，渲染进程会发送一个消息给浏览器进程，浏览器接收到消息后，会停止标签图标上的加载动画。</p>
-<p>渲染模块在执行过程中会被划分为许多子阶段。我们把这样一个处理流程叫做<strong>渲染流水线</strong>，其大致流程如下图所示：</p>
-<figure data-type="image" tabindex="2"><img src="https://pineapple126.github.io//post-images/1586244905056.png" alt="渲染流水线示意图" loading="lazy"></figure>
-<p>按照渲染的时间顺序，流水线可分为如下几个阶段：构建 DOM 树、样式计算、布局阶段、分层、绘制、分块、光栅化和合成。在每个阶段中，我们需要注意以下三点内容:</p>
-<ul>
-<li>每个子阶段都有其<strong>输入内容</strong>；</li>
-<li>每个子阶段都有其<strong>处理过程</strong>；</li>
-<li>每个子阶段都会生成<strong>输出内容</strong>。</li>
-</ul>
-<h3 id="构建-dom-树">构建 DOM 树</h3>
-<p><strong>由于浏览器无法直接理解和使用 HTML，所以需要将 HTML 转换为浏览器能够理解的结构——DOM 树。</strong></p>
-<p>DOM 树的构建过程可以参考下图：</p>
-<figure data-type="image" tabindex="3"><img src="https://pineapple126.github.io//post-images/1586245031193.png" alt="DOM 树构建过程示意图" loading="lazy"></figure>
-<p>从图中可以看出，构建 DOM 树的<strong>输入内容</strong>是一个简单的 HTML 文件，然后经由 HTML 解析器解析，最终输入树状结构的 DOM。</p>
-<h3 id="样式计算recalculate-style">样式计算（Recalculate Style）</h3>
-<p>样式计算的目的是为了计算出 DOM 节点中每个元素的具体样式，这个阶段大致可分为三个步骤：</p>
-<p><strong>1. 把 CSS 转换为浏览器可以理解的结构。</strong></p>
-<p>CSS 样式来源主要有三种：</p>
-<ul>
-<li>通过 link 引入的外部 CSS 文件</li>
-<li><code>&lt;style&gt;</code> 标记内的样式</li>
-<li>元素 style 属性内嵌的 CSS</li>
-</ul>
-<p>和 HTML 文件一样，浏览器也是无法直接理解这些纯文本的 CSS 样式，所以<strong>当渲染引擎接收到 CSS 文本时，会执行一个转换操作，将 CSS 文本转换为浏览器可以理解的结构——styleSheets。</strong>（渲染引擎会将获取的 CSS 文本全部转换为 styleSheets 结构中的数据，并且该结构同时具备了查询和修改功能）</p>
-<p><strong>2. 转换样式表中的属性值，使其标准化</strong></p>
-<p>我们已经将 CSS 文本转换为浏览器可以理解的结构了，<strong>接下来我们要对其进行属性值的标准化操作</strong>。</p>
-<p>那什么是标准化呢？假如我们有以下一段 CSS 文本：</p>
-<pre><code class="language-css">body { font-size: 2em }
-p {color:blue;}
-span  {display: none}
-div {font-weight: bold}
-div  p {color:green;}
-div {color:red; }
-</code></pre>
-<p>可以看到文本内有很多属性值，如 2em、blue、bold 等，<strong>这些类型数值不容易被渲染引擎理解，所以需要将所有值转换为渲染引擎所能够理解的、标准化的计算值</strong>，这个过程就是属性值的标准化。</p>
-<p>标准化后的属性值如下图所示：</p>
-<figure data-type="image" tabindex="4"><img src="https://pineapple126.github.io//post-images/1586246231460.png" alt="标准化属性值" loading="lazy"></figure>
-<p><strong>3. 计算出 DOM 树中每个节点的具体样式</strong></p>
-<p>现在样式的属性值已经被标准化了，接下来就要计算 DOM 树中每个节点的样式属性了。而计算过程涉及到 <strong>CSS 的继承规则</strong>和<strong>层叠规则</strong>两部分。</p>
-<p>首先是 CSS 的继承规则。<strong>CSS 继承就是每个 DOM 节点都包含父节点的样式。</strong></p>
-<p>我们结合下面的实例，看看一张样式表如何应用到 DOM 节点上：</p>
-<pre><code class="language-css">body { font-size: 20px }
-p {color:blue;}
-span  {display: none}
-div {font-weight: bold;color:red}
-div  p {color:green;}
-</code></pre>
-<p>这张样式表最终应用到 DOM 节点的效果如下图所示：</p>
-<figure data-type="image" tabindex="5"><img src="https://pineapple126.github.io//post-images/1586246783746.png" alt="计算后 DOM 的样式" loading="lazy"></figure>
-<p>从图中可以看出，所有的子节点都继承了父节点的样式。</p>
-<p>样式计算的第二个规则是样式层叠。<strong>层叠是 CSS 的一个基本特征，它是一个定义了如何合并来自多个源的属性值的算法。它在 CSS 处于核心地位，CSS 的全称是“层叠样式表”正是强调了这一点。</strong></p>
-<h3 id="布局阶段">布局阶段</h3>
-<p>我们现在已经拥有了 DOM 树和 DOM 树中元素的样式，接下来<strong>我们需要计算出 DOM 树中可见元素的几何位置，我们把这个计算过程称为布局。</strong></p>
-<p>Chrome 在布局阶段需要完成两个步骤：创建布局树和布局计算。</p>
-<p><strong>1. 创建布局树</strong></p>
-<p><strong>在 DOM 树显示之前，我们还需要额外地构建一棵只包含可见元素布局树。</strong></p>
-<p>我们可以结合下图来看看布局树的构造过程：</p>
-<figure data-type="image" tabindex="6"><img src="https://pineapple126.github.io//post-images/1586329485462.png" alt="布局树构建流程示意图" loading="lazy"></figure>
-<p>从上图可以看出，DOM 树中所有不可见的节点都没有包含在布局树中。</p>
-<p>为了构建布局树，浏览器大致完成了下面这些工作：</p>
-<ul>
-<li>遍历 DOM 树中的节点，并把这些节点加到布局树中；</li>
-<li>不可见的节点暂时会被忽略掉。</li>
-</ul>
-<p><strong>2. 布局计算</strong></p>
-<p>现在我们拥有一棵完整的布局树，我们要做的是计算布局树中节点的坐标位置。</p>
-<p>在执行布局操作时，会把布局计算的结果重新写回到布局树中，所以布局树既是输入内容，也是输出内容。</p>
-<h3 id="分层">分层</h3>
-<p>因为页面中有很多复杂的 3D 变换、页面滚动，或者使用 z-indexing 做 z 轴排序等，为了更加方便地实现这些效果，<strong>渲染引擎还需要为特定的节点生成专用的图层，并生成一棵对应的图层树</strong>（Layer Tree）。</p>
-<p>通过 Chrome 的“开发者工具”中的“Layers”标签，就可以可视化页面的分层情况。</p>
-<p>渲染引擎给页面分了许多图层，这些图层按照一定顺序叠加在一起，就形成了最终的页面。也即**浏览器的页面实际上被分为了许多图层，这些图层叠加后合成了最终的页面。**我们可以通过下图看看图层和布局树节点之间的关系：</p>
-<figure data-type="image" tabindex="7"><img src="https://pineapple126.github.io//post-images/1586331052930.png" alt="布局树和图层树关系示意图" loading="lazy"></figure>
-<p>通常情况下，**并不是布局树的每个节点都包含一个图层，如果一个节点没有对应的图层，那么这个节点就从属于父节点的图层。**不管如何，最终每个节点都会直接或间接地从属于一个图层。</p>
-<p>通常满足下面两点中任意一点的元素就可以被渲染引擎提升为单独的一个图层：</p>
-<ul>
-<li><strong>拥有层叠上下文属性的元素会被提升为单独的一层。</strong>（我们假定用户正面向视窗或者网页，而 HTML 元素沿着相对于用户的一条虚拟的 z 轴排开，层叠上下文就是对这些 HTML 元素的一个三维构想）</li>
-<li><strong>需要裁剪（clip）的地方也会被创建为图层。</strong>（当元素内容超出元素限定范围时，就会发生裁剪。出现裁剪时，渲染引擎会为元素内容单独创建一个图层）</li>
-</ul>
-<h3 id="图层绘制">图层绘制</h3>
-<p>在完成图层树的构建之后，渲染引擎会对图层树中的每个图层进行绘制。</p>
-<p>渲染引擎实现图层的绘制时，会把一个图层的绘制拆分成很多小的<strong>绘制指令</strong>，然后再把这些指令按照顺序组成一个待绘制列表，如下图所示：</p>
-<figure data-type="image" tabindex="8"><img src="https://pineapple126.github.io//post-images/1586506394268.png" alt="绘制列表" loading="lazy"></figure>
-<p>绘制一个元素通常需要好几条绘制指令，因此在图层绘制阶段，输出的内容就是这些待绘制列表。</p>
-<h3 id="栅格化raster操作">栅格化（raster）操作</h3>
-<p>当图层的绘制列表准备好之后，主线程会把该绘制列表**提交（commit）**给合成线程。</p>
-<p>通过<strong>视口（viewport）</strong>（用户可以看到页面的部分）用户只能看到页面的很小一部分，如果要绘制出所有图层内容的话，就会产生很大的开销。</p>
-<p>基于这个原因，<strong>合成线程将图层划分为图块（tile）</strong>（图块的大小通常为 256×256 或 512×512），**然后合成线程会按照视口附近的图块来优先生成位图，实际上生成位图的操作是由栅格化来执行的。所谓栅格化，是指将图块转换为位图。**而图块是栅格化的最小单位。渲染进程维护了一个栅格化的线程池，所有图块的栅格化都是在线程池内执行的，运行方式如下图所示：</p>
-<figure data-type="image" tabindex="9"><img src="https://pineapple126.github.io//post-images/1586507976232.png" alt="合成线程提交图块给栅格化线程池" loading="lazy"></figure>
-<p>通常，栅格化过程都会使用 GPU 来加速生成，使用 GPU 生成位图的过程叫做快速栅格化，或者 GPU 栅格化，生成的位图保存在 GPU 内存中。</p>
-<h3 id="合成与显示">合成与显示</h3>
-<p>一旦所有的图块都被栅格化，合成线程就会生成一个绘制图块的命令——“DrawQuad”，然后将该命令提交给浏览器进程。</p>
-<p>浏览器进程中有一个叫 viz 的组件，用于接收来自合成线程发过来的 DrawQuad 命令，然后根据 DrawQuad 命令，将其页面内容绘制到内存中，最后将内存显示在屏幕上。</p>
-<h3 id="渲染总结">渲染总结：</h3>
-<p>完整的渲染流水线示意图：</p>
-<figure data-type="image" tabindex="10"><img src="https://pineapple126.github.io//post-images/1586506955163.png" alt="" loading="lazy"></figure>
-<ol>
-<li>渲染进程将 HTML 内容转换为能够读懂的 <strong>DOM 树</strong>结构。</li>
-<li>渲染引擎将 CSS 样式表转化为浏览器可以理解的 <strong>styleSheets</strong>，计算出 DOM 节点的样式。</li>
-<li>创建<strong>布局树</strong>，并计算元素的布局信息。</li>
-<li>对布局树进行分层，并生成<strong>图层树</strong>。</li>
-<li>为每个图层生成<strong>绘制列表</strong>，并将其提交到合成线程。</li>
-<li>合成线程将图层分为<strong>图块</strong>，并在<strong>光栅化线程池</strong>中将图块转换为位图。</li>
-<li>合成线程发送绘制图块命令 <strong>DrawQuad</strong> 给浏览器进程。</li>
-<li>浏览器进程根绝 DrawQuad 消息<strong>生成页面</strong>，并显示到显示器上。</li>
-</ol>
-<h3 id="相关概念">相关概念：</h3>
-<p><strong>1. 更新了元素的几何位置（重排）</strong></p>
-<p>参考下图：</p>
-<figure data-type="image" tabindex="11"><img src="https://pineapple126.github.io//post-images/1586508485468.png" alt="重排" loading="lazy"></figure>
-<p>如果我们通过 JS 或者 CSS 修改元素的几何位置属性，那么浏览器会触发重新布局，解析之后的一系列子阶段，这个过程就叫做<strong>重排</strong>。<strong>重排需要更新完整的渲染流水线，所以开销也是最大的。</strong></p>
-<p><strong>2. 更新了元素的绘制属性（重绘）</strong></p>
-<p>参考下图：</p>
-<figure data-type="image" tabindex="12"><img src="https://pineapple126.github.io//post-images/1586508688667.png" alt="重绘" loading="lazy"></figure>
-<p>如果我们修改了元素的绘制属性，那么布局阶段将不会被执行，而是直接进入到绘制阶段，然后执行之后的一系列子阶段，这个过程就叫做<strong>重绘</strong>。相较于重排，<strong>重绘省去了布局和分层阶段，所以执行效率会比重排操作要高一些。</strong></p>
-<p><strong>3. 直接合成阶段</strong></p>
-<p>如果我们更改一个既不要布局也不要绘制的属性，会发生什么？渲染引擎将跳过布局和绘制，只执行后续的合成操作，我们把这个过程称作<strong>合成</strong>。参考下图：</p>
-<figure data-type="image" tabindex="13"><img src="https://pineapple126.github.io//post-images/1586508967109.png" alt="合成" loading="lazy"></figure>
-<p><strong>相对于重排和重绘，合成能大大提升绘制效率。</strong></p>
-<h2 id="总结从用户输入-url到最终的页面展示到底发生了什么">总结：从用户输入 URL，到最终的页面展示到底发生了什么？</h2>
-<ol>
-<li>用户输入 URL 并按下回车，浏览器进程检查 URL，组装协议，构成完整的 URL</li>
-<li>浏览器导航栏显示 loading 状态，但是页面还是呈现前一个页面，这是因为还没有获得新页面的响应数据</li>
-<li>浏览器进程通过进程间通信（IPC）把 URL 请求发送给网络进程</li>
-<li>网络进程接收到 URL 请求后检查本地缓存是否含有该请求资源，如果有则直接将该资源返回给浏览器进程（状态码 200）</li>
-<li>如果没有，网络进程向 Web 服务器发起 HTTP 请求（网络请求），请求流程如下:<br>
-5.1 进行 DNS 解析，获取服务器的 IP 地址：如果缓存过当前域名信息，就会直接返回缓存信息；<br>
-5.2 根据 IP 地址和服务器建立 TCP 连接（三次握手）；<br>
-5.3 如果是 HTTPS 请求则还需要建立 TLS 连接；<br>
-5.4 浏览器端构建并发送请求头信息；<br>
-5.5 服务器端响应后，网络进程接收响应头和响应信息，并解析响应内容；<br>
-5.6 数据传输完成后，断开 TCP 连接（四次挥手）。如果浏览器端或服务器端在 HTTP 头部加上 <code>Connection: Keep-Alive</code> 字段，TCP 连接将一直保持下去。保持 TCP 连接可以节省建立连接所需的事件，提高资源加载速度。</li>
-<li>网络进程响应流程：<br>
-6.1 检查状态码，如果是 301/302，则需要重定向，从响应信息中 <code>Location</code> 字段获取地址，重新发起 URL 请求；<br>
-6.2 如果不是重定向，首先服务器会根据请求头中的 <code>if-None-Match</code> 字段的值来判断请求的资源是否被更新，如果没有更新，就返回 304 状态码，相当于告诉浏览器之前的缓存还可以继续使用，就不用再返回数据了。<br>
-6.3 其他状态码响应处理：<br>
-检查响应类型 <code>Context-Type</code> 字段：如果是 字节流 类型，则将该请求提交给下载管理器，该导航流程结束，不再进行后续的渲染阶段；如果是 text/html 类型，则通知浏览器进程，准备进行渲染阶段。</li>
-<li>准备渲染阶段：<br>
-7.1 浏览器进程获取到来自网络进程的通知，根据当前页面 B 是否是从页面 A 打开的并且和页面 A 是同一个站点（根域名和协议相同就被认为同一站点）<br>
-7.2 如果相同，则新页面复用页面 A 的渲染进程；如果不同，则浏览器为页面 B 创建一个新的渲染进程</li>
-<li>传输数据、更新状态<br>
-8.1 渲染进程准备好后，浏览器进程向渲染进程发起“提交文档”的消息，渲染进程接收到消息后，和网络进程建立数据传输的“管道”<br>
-8.2 渲染进程接受完数据后，向浏览器进程发送“确认提交”的消息<br>
-8.3 浏览器进程接收到“确认提交”的消息后，更新浏览器界面的状态：包括安全状态、地址栏的 URL、前进后退的历史状态，并更新 Web 页面，此时 Web 页面是空白页。</li>
-<li>渲染进程渲染页面：<br>
-9.1 构建 DOM 树<br>
-9.2 样式计算（构建 CSSOM 树）<br>
-9.3 页面布局（构建布局树）<br>
-9.4 分层（构建图层树）<br>
-9.5 图层绘制（绘制列表）<br>
-9.6 分块（将图层划分为图块）<br>
-9.7 栅格化（栅格化，是指将图块转换为位图）<br>
-9.8 合成和显示</li>
 </ol>
 ]]></content>
     </entry>

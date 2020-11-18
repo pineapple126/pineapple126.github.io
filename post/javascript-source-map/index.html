@@ -1,0 +1,343 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://pineapple126.github.io//favicon.ico?v=1605720432308">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://pineapple126.github.io//images/avatar.png?v=1605720432308" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%B8%80-%E4%BB%80%E4%B9%88%E6%98%AF-source-map">一、什么是 Source Map ?</a></li>
+<li><a href="#%E4%BA%8C-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8-source-map">二、为什么要使用 Source Map ？</a></li>
+<li><a href="#%E4%B8%89-source-map-%E6%96%87%E4%BB%B6%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8F%8A%E5%90%AB%E4%B9%89">三、Source Map 文件的格式及含义</a></li>
+<li><a href="#vlq-%E7%BC%96%E7%A0%81">VLQ 编码</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">JavaScript Source Map 是什么？</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-11-18 / 6 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="一-什么是-source-map">一、什么是 Source Map ?</h2>
+<p>顾名思义，Source Map 是保存源代码映射关系的文件，相信用过 webpack 的开发者对它应该不会陌生。在项目开发完进行打包后，在打包的文件里通常除了 js、css、图片字体等资源文件外，大家一定还见过 xxx.js.map 的文件。这种带 map 的后缀的文件就是 Source Map 文件 —— 它就是一个位置文件，保存了源代码和转换之后代码的位置关系。下图展示了部分打包之后生成的 Source Map 文件：</p>
+<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1605715644396.png" alt="source_map" loading="lazy"></figure>
+<h2 id="二-为什么要使用-source-map">二、为什么要使用 Source Map ？</h2>
+<p>明白了什么是 Source Map 之后，可是我们为什么要使用 Source Map 呢？由于现代前端项目的发展，前端代码变得越来越庞大和复杂。大部分源码都需要经过转换，才能投入到生产环境中使用。常见的转换过程包括但不限于：</p>
+<ul>
+<li>压缩混淆（UglifyJS）</li>
+<li>编译（TypeScript，CoffeeScript）</li>
+<li>转译（Babel）</li>
+<li>合并多个文件，减少带宽请求</li>
+</ul>
+<p>经过上述转换的代码，往往都会变得面目全非，就像下面这样：</p>
+<figure data-type="image" tabindex="2"><img src="https://pineapple126.github.io//post-images/1605717052787.png" alt="source_map_after" loading="lazy"></figure>
+<p>这样虽然对带宽很友好，但是调试起来就不是那么轻松了。我们在代码出错的时候，肯定最希望能定位其在源码中的位置。比如下面这两个错误提示：</p>
+<figure data-type="image" tabindex="3"><img src="https://pineapple126.github.io//post-images/1605717160418.png" alt="source_map_error" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://pineapple126.github.io//post-images/1605717173913.png" alt="source_map_error_with_sourcemap" loading="lazy"></figure>
+<p>对于大多数开发者来说，希望看到的应该是第二种提示方式，而这就是Source Map能够输出的能力。有了它，出错的时候，除错工具将直接显示原始代码，而不是转换后的代码。这无疑给开发者带来了很大方便。</p>
+<h2 id="三-source-map-文件的格式及含义">三、Source Map 文件的格式及含义</h2>
+<pre><code class="language-json">{
+    &quot;version&quot;: 3,
+    &quot;file&quot;: &quot;out.js&quot;,
+    &quot;sourceRoot&quot;: &quot;&quot;,
+    &quot;sources&quot;: [
+        &quot;log,js&quot;,
+        &quot;main.js&quot;
+    ],
+    &quot;names&quot;: [
+        &quot;sayHello&quot;,
+        &quot;name&quot;,
+        &quot;length&quot;,
+        &quot;substr&quot;,
+        &quot;console&quot;,
+        &quot;log&quot;
+    ],
+    &quot;mappings&quot;: &quot;AAAA,SAASA,SAAUC&quot;
+}
+</code></pre>
+<p>整个文件就是一个 JSON 对象，可以被解释器读取。他主要有以下几个属性：</p>
+<ul>
+<li>version：Source Map 的版本，目前为 3。</li>
+<li>file：转换后的文件名。</li>
+<li>sourceRoot：转换前的文件所在的目录。如果与转换前的文件在同一目录，该项为空。</li>
+<li>sources：转换前的文件。该项是一个数组，表示可能存在多个文件合并。</li>
+<li>names：转换前的所有变量名和属性名。</li>
+<li>mappings：记录位置信息的字符串。</li>
+</ul>
+<p><strong>mappings 属性</strong></p>
+<p>下面才是真正有趣的部分：两个文件的各个位置是如何一一对应的。</p>
+<p>关键就是 map 文件的 mappings 属性。这是一个很长的字符串，它分成三层。</p>
+<ul>
+<li>第一层是<strong>行对应</strong>，以分号（；）表示，每个分号对应转换后源码的一行。所以，第一个分号前的内容，就对应源码的第一行，以此类推。</li>
+<li>第二层是<strong>位置对应</strong>，以逗号（，）表示，每个逗号对应转换后源码的一个位置。所以，第一个逗号前的内容，就对应该行源码的第一个位置，以此类推。</li>
+<li>第三层是<strong>位置转换</strong>，以 <strong>VLQ 编码</strong>表示，代表该位置对应的转换前的源码位置。</li>
+</ul>
+<p>举例来说，假定mappings属性的内容如下：</p>
+<pre><code>mappings:&quot;AAAAA,BBBBB;CCCCC&quot;
+</code></pre>
+<p>就表示，转换后的源码分成两行，第一行有两个位置，第二行有一个位置。</p>
+<p><strong>位置对应的原理</strong></p>
+<p>每个位置使用五位，表示五个字段。</p>
+<p>从左边算起，</p>
+<ul>
+<li>第一位，表示这个位置在（转换后的代码的）的第几列。<strong>输出文件列位置</strong></li>
+<li>第二位，表示这个位置属于sources属性中的哪一个文件。<strong>输入文件名索引</strong></li>
+<li>第三位，表示这个位置属于转换前代码的第几行。<strong>输入文件行号</strong></li>
+<li>第四位，表示这个位置属于转换前代码的第几列。<strong>输入文件列号</strong></li>
+<li>第五位，表示这个位置属于names属性中的哪一个变量。<strong>字符索引</strong></li>
+</ul>
+<p>有几点需要说明。首先，所有的值都是以 0 作为基数的。其次，第五位不是必需的，如果该位置没有对应 names 属性中的变量，可以省略第五位。再次，每一位都采用 VLQ 编码表示；由于 VLQ 编码是变长的，所以每一位可以由多个字符构成。</p>
+<p>如果某个位置是 AAAAA，由于 A 在 VLQ 编码中表示 0，因此这个位置的五个位实际上都是 0。它的意思是，该位置在转换后代码的第 0 列，对应 sources 属性中第 0 个文件，属于转换前代码的第 0 行第 0 列，对应 names 属性中的第 0 个变量。</p>
+<h2 id="vlq-编码">VLQ 编码</h2>
+<p><strong>定义</strong></p>
+<blockquote>
+<p>A variable-length quantity (VLQ) is a universal code that uses an arbitrary number of binary octets (eight-bit bytes) to represent an arbitrarily large integer.<br>
+翻译一下：VLQ是用任意个2进制字节组去表示一个任意数字的编码形式。</p>
+</blockquote>
+<p>VLQ 的编码形式很多，这篇文章中要说明的是下面这种：</p>
+<figure data-type="image" tabindex="5"><img src="https://pineapple126.github.io//post-images/1605719630938.png" alt="VLQ_code" loading="lazy"></figure>
+<ul>
+<li>一个组包含 6 个二进制位。</li>
+<li>在每组的第一位 C 用来标识其后面是否会跟着另一个 VLQ 字节组，值为 0 表示其是最后一个 VLQ 字节组，值为 1 表示后面还跟着另一个 VLQ 字节组。</li>
+<li>在第一组中，最后 1 位用来表示符号，值为 0 则表示正数，为 1 表示负数。其他组的最后一位都是表示数字。</li>
+<li>其他位都是表示数字。</li>
+</ul>
+<p>这种编码方式也成为 Base64 VLQ 编码，因为每一个组对应一个 Base64 编码。</p>
+<figure data-type="image" tabindex="6"><img src="https://pineapple126.github.io//post-images/1605719957709.png" alt="VLQ_base64" loading="lazy"></figure>
+<p>参考文章</p>
+<ul>
+<li>[1] <a href="https://www.ruanyifeng.com/blog/2013/01/javascript_source_map.html">JavaScript Source Map 详解</a></li>
+<li>[2] <a href="https://juejin.im/post/6844903869928079373">深入理解 SourceMap</a></li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/erdRhvCN1/">
+            <span class="flex-auto">Webpack</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://pineapple126.github.io/post/leetcode-sort-array-by-parity-ii/">
+                <h3 class="post-title">
+                  LeetCode 每日一题 2020.11.12 —— 922. 按奇偶排序数组 II Easy
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '6629aced96004c0f2422',
+    clientSecret: '52e96f46e58f554ec81bcb7c020ee4c6669abded',
+    repo: 'pineapple126.github.io',
+    owner: 'pineapple126',
+    admin: ['pineapple126'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
