@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2020-11-21T18:15:17.908Z</updated>
+    <updated>2020-12-06T07:26:54.784Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -509,20 +509,20 @@ let res = A();
 <h2 id="时间线">时间线</h2>
 <p>下面是最各大工具或框架的诞生时间，不知不觉，模块化的发展已有十年之久了。</p>
 <pre><code> 生态                       诞生时间
- Node.js                  2009 年   
- NPM                      2010 年   
- requireJS(AMD)     2010 年
- seaJS(CMD)           2011 年
- broswerify             2011 年
- webpack                2012 年
- grunt                     2012 年 
+ Node.js                    2009 年   
+ NPM                        2010 年   
+ requireJS(AMD)             2010 年
+ seaJS(CMD)                 2011 年
+ broswerify                 2011 年
+ webpack                    2012 年
+ grunt                      2012 年 
  gulp                       2013 年
  react                      2013 年 
  vue                        2014 年
- angular                 2016 年
- redux                    2015 年 
+ angular                    2016 年
+ redux                      2015 年 
  vite                       2020 年
- snowpack             2020 年          
+ snowpack                   2020 年          
 </code></pre>
 <h2 id="外部模块的管理">外部模块的管理</h2>
 <p>在模块化的过程中，首先要解决的就是<strong>外部模块的管理问题</strong>。</p>
