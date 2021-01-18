@@ -1,0 +1,394 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://pineapple126.github.io//favicon.ico?v=1610984728690">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://pineapple126.github.io//images/avatar.png?v=1610984728690" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%9C%AC%E5%91%A8%E4%BB%BB%E5%8A%A1">本周任务</a></li>
+<li><a href="#%E7%AC%AC-1-%E7%AB%A0-%E5%9F%BA%E7%A1%80">第 1 章 基础</a>
+<ul>
+<li><a href="#11-%E5%9F%BA%E7%A1%80%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B">1.1 基础编程模型</a>
+<ul>
+<li><a href="#111-%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84">1.1.1 基本结构</a></li>
+<li><a href="#112-%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F">1.1.2 原始数据类型与表达式</a></li>
+<li><a href="#113-%E8%AF%AD%E5%8F%A5">1.1.3 语句</a></li>
+<li><a href="#116-%E9%80%92%E5%BD%92">1.1.6 递归</a></li>
+<li><a href="#1111-%E5%B1%95%E6%9C%9B">1.1.11 展望</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%AC%AC-2-%E7%AB%A0-%E6%8E%92%E5%BA%8F">第 2 章 排序</a>
+<ul>
+<li><a href="#21-%E5%88%9D%E7%BA%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95">2.1 初级排序算法</a>
+<ul>
+<li><a href="#212-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F">2.1.2 选择排序</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">《算法（第4版）》读书笔记——第 1 章 基础</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2021-01-17 / 7 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://pineapple126.github.io//post-images/algorithms-fourth-edition-basics.jpg" alt="">
+        
+        <div class="post-content yue">
+          <h2 id="本周任务">本周任务</h2>
+<p>基础数据类型/排序/树/正则表达式<br>
+第 1 章/第 2 章/第 3 章/第 5 章</p>
+<h2 id="第-1-章-基础">第 1 章 基础</h2>
+<p>和算法关系最紧密的是数据结构，即便于算法操作的组织数据的方法。</p>
+<ul>
+<li>1.1 总结相关语法、语言特性和书中将会用到的库。</li>
+<li>1.2 介绍用 Java 实现<strong>抽象数据类型</strong>的过程，包括定义它的应用程序编程接口（API）然后通过 Java 的类机制来实现它以供各种用例使用。</li>
+<li>1.3 用数组、变长数组和链表实现<strong>背包、队列和栈</strong>的 API。</li>
+<li>1.4 分析算法<strong>性能</strong>的方法。</li>
+</ul>
+<p><strong>算法</strong>，编写一段计算机程序一般都是实现一种已有的方法来解决某个问题。这种方法大多和使用的编程语言无关——它适用于各种计算机以及编程语言。是这种方法而非计算机程序本身描述了解决问题的步骤。**在计算机科学领域，我们用算法这个词来描述一种有限、确定、有效的并适合用计算机程序来实现的解决问题的方法。**算法是计算机科学的基础，是这个领域的核心。</p>
+<p>我们关注的大多数算法都需要适当地组织数据，而为了组织数据就产生了<strong>数据结构</strong>，数据结构也是计算机科学研究地核心对象，它和算法的关系非常密切。在本书中，我们的观点是数据结构是算法的副产品或是结果，因为要理解算法必须学习数据结构。简单的算法也会产生复杂的数据结构，相应地，复杂的算法也许只需要简单的数据结构。</p>
+<p>当用计算机解决一个问题时，一般都存在多种不同的方法。对于小型问题，只要管用，方法的不同并没有什么关系。但是对于大型问题（或者是需要解决大量小型问题的应用），我们就需要设计能够有效利用时间和空间的方法了。</p>
+<p>无论在任何应用领域，精心设计算法都是解决大型问题最有效的方法。</p>
+<h3 id="11-基础编程模型">1.1 基础编程模型</h3>
+<p>使用程序来描述算法的好处：</p>
+<ul>
+<li>程序是对算法精确、优雅和完全的描述；</li>
+<li>可以通过运行程序来学习算法的各种性质；</li>
+<li>可以在应用程序中直接使用这些算法；</li>
+</ul>
+<h4 id="111-基本结构">1.1.1 基本结构</h4>
+<ul>
+<li>原始数据类型：它们在计算机程序中精确地定义整数、浮点数和布尔值等。它们的定义包括取值范围和能够对相应的值进行的操作，它们能够被组合为类似于数学公式定义的表达式。</li>
+<li>语句：语句通过创建变量对其赋值、控制运行流程或者引发副作用来进行计算。我们会使用六种语句：声明、赋值、条件、循环、调用和返回。</li>
+<li>数组：数组是多个同种数据类型的值的集合。</li>
+<li>静态方法：静态方法可以封装并重用代码，使我们可以用独立的模块开发程序。</li>
+<li>字符串：字符串是一连串的字符，Java 内置了对他们的一些操作。</li>
+<li>标准输入/输出：标准输入输出是程序与外界联系的桥梁。</li>
+<li>数据抽象：数据抽象封装和重用代码，使我们可以定义非原始数据类型，进而支持面向对象编程。</li>
+</ul>
+<h4 id="112-原始数据类型与表达式">1.1.2 原始数据类型与表达式</h4>
+<p>数据类型就是一组数据和对其所能进行的操作的集合。以下是 4 种 Java 语言最基本的原始数据类型：</p>
+<ul>
+<li>整型，及其算术运算符（int）；</li>
+<li>双精度实数类型，及其算术运算符（double）；</li>
+<li>布尔型，它的值（true，false）及其逻辑操作（boolean）；</li>
+<li>字符型，它的值是你能够输入的英文字母数字字符和符号（char）。</li>
+</ul>
+<p>Java 程序的基本组成</p>
+<table>
+<thead>
+<tr>
+<th>术语</th>
+<th>例子</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原始数据类型</td>
+<td>int double boolean char</td>
+<td>一组数据和对其所能进行的操作的集合（Java 语言内置）</td>
+</tr>
+<tr>
+<td>标识符</td>
+<td>a abc Ab$ a_b ab123 lo hi</td>
+<td>由字母、数字、下划线和 $ 组成的字符串，首字符不能是数字</td>
+</tr>
+<tr>
+<td>变量</td>
+<td>【 任意标识符】</td>
+<td>表示某种数据类型的值</td>
+</tr>
+<tr>
+<td>运算符</td>
+<td>+ - * /</td>
+<td>表示某种数据类型的运算</td>
+</tr>
+<tr>
+<td>字面量</td>
+<td></td>
+<td>值在源代码中的表示</td>
+</tr>
+<tr>
+<td>表达式</td>
+<td>lo + (hi - lo) / 2</td>
+<td>字面量、变量或是能够计算出结果的一串字面量、变量和运算符的组合</td>
+</tr>
+</tbody>
+</table>
+<h4 id="113-语句">1.1.3 语句</h4>
+<p>语句能够通过创建和操作变量、对变量赋值并控制这些操作的执行流程来描述运算。语句通常会被组织成代码段，即花括号中的一系列语句。</p>
+<ul>
+<li>声明语句：创建某种类型的变量并用标识符为其命名。</li>
+<li>赋值语句：将（有表达式产生的）某种类型的数值赋予一个变量。Java 还有一些隐式赋值的语法可以使某个变量的值相对于当前值发生变化，例如将一个整型值加 1。</li>
+<li>条件语句：能够简单地改变执行流程——根据指定的条件执行两个代码段之一。</li>
+<li>循环语句：更彻底地改变执行流程——只要条件为真就不断地反复执行代码段中的语句。</li>
+<li>调用和返回语句：和静态方法有关，是改变执行流程和代码组织地另一种方式。</li>
+</ul>
+<p>程序就是由一系列声明、赋值、条件、循环、调用和返回语句组成的。</p>
+<h4 id="116-递归">1.1.6 递归</h4>
+<p>编写递归代码时最重要的有以下三点：</p>
+<ul>
+<li>递归总有一个简单的情况——方法的第一条语句总是一个包含 return 的条件语句。</li>
+<li>递归调用总是去尝试解决一个规模更小的子问题，这样递归才能收敛到最简单的情况。</li>
+<li>递归调用的父问题和尝试解决的子问题之间不应该有交集。</li>
+</ul>
+<p><strong>模块化编程的好处：</strong></p>
+<ul>
+<li>程序整理的代码量很大时，每次处理的模块大小仍然适中；</li>
+<li>可以共享和重用代码而无需重新实现；</li>
+<li>很容易用改进的实现替换老的实现；</li>
+<li>可以为解决编程问题建立合适的抽象模型；</li>
+<li>缩小调试范围</li>
+</ul>
+<h4 id="1111-展望">1.1.11 展望</h4>
+<p>使用<strong>数据抽象</strong>的原因：</p>
+<ul>
+<li>数据抽象允许我们通过模块化编程复用代码。</li>
+<li>数据抽象是我们可以轻易构造多种所谓的链式数据结构，它们比数组更灵活，在许多情况下都是高效算法的基础。</li>
+<li>借助数据抽象我们可以准确地定义所面对的算法问题。</li>
+</ul>
+<h2 id="第-2-章-排序">第 2 章 排序</h2>
+<p>排序就是将一组对象按照某种逻辑顺序重新排列的过程。</p>
+<p>学习排序算法的三大实际意义：</p>
+<ul>
+<li>对排序算法的分析将有助于全面理解本书中比较性能的方法；</li>
+<li>类似的技术也能有效解决其他类型的问题；</li>
+<li>排序算法常常是我们解决其他问题的第一步。</li>
+</ul>
+<h3 id="21-初级排序算法">2.1 初级排序算法</h3>
+<h4 id="212-选择排序">2.1.2 选择排序</h4>
+<p>一种最简单的排序算法是这样的：</p>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://pineapple126.github.io/post/javascript-source-map/">
+                <h3 class="post-title">
+                  JavaScript Source Map 是什么？
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '6629aced96004c0f2422',
+    clientSecret: '52e96f46e58f554ec81bcb7c020ee4c6669abded',
+    repo: 'pineapple126.github.io',
+    owner: 'pineapple126',
+    admin: ['pineapple126'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
