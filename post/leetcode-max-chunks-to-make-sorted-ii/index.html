@@ -39,8 +39,8 @@
 <li><a href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0">题目描述</a></li>
 <li><a href="#%E9%A2%98%E8%A7%A3">题解</a>
 <ul>
-<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%80%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92">方法一：动态规划</a></li>
-<li><a href="#%E6%96%B9%E6%B3%95%E4%BA%8C%E8%B4%AA%E5%BF%83">方法二：贪心</a></li>
+<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%80%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3">方法一：滑动窗口</a></li>
+<li><a href="#%E6%96%B9%E6%B3%95%E4%BA%8C%E8%BE%85%E5%8A%A9%E6%A0%88%E6%B3%95">方法二：辅助栈法</a></li>
 </ul>
 </li>
 </ul>
@@ -91,91 +91,114 @@
 <div class="mask" onclick="closeMenu()">
 </div>
       <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">LeetCode 每日一题 2020.11.8 —— 122. 买卖股票的最佳时机 II</h1>
+        <h1 class="text-3xl font-bold lg:mt-16">Leetcode —— 768. 最多能完成排序的块 II Hard</h1>
         <div class="text-sm text-gray-700 lg:my-8">
-          2020-11-08 / 5 min read
+          2021-03-29 / 4 min read
         </div>
         
         <div class="post-content yue">
           <h2 id="题目描述">题目描述</h2>
-<p>给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。</p>
-<p>设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。</p>
-<p>注意：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p>
+<p><code>arr</code> 是一个可能包含<strong>重复元素</strong>的整数数组，我们将这个数组分割成几个“块”，并将这些块分别进行排序。之后再连接起来，是的连接的结果和按升序排序后的原数组相同。请求出我们最多可以将数组分成多少块?</p>
 <p><strong>示例</strong></p>
-<pre><code>输入: [7,1,5,3,6,4]
-输出: 7
-解释: 在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。
-     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6-3 = 3 。
+<pre><code>输入: arr = [5,4,3,2,1]
+输出: 1
+解释:
+将数组分成2块或者更多块，都无法得到所需的结果。
+例如，分成 [5, 4], [3, 2, 1] 的结果是 [4, 5, 1, 2, 3]，这不是有序的数组。
+
+输入: arr = [2,1,3,4,4]
+输出: 4
+解释:
+我们可以把它分成两块，例如 [2, 1], [3, 4, 4]。
+然而，分成 [2, 1], [3], [4], [4] 可以得到最多的块数。
 </code></pre>
 <h2 id="题解">题解</h2>
-<h3 id="方法一动态规划">方法一：动态规划</h3>
-<p>考虑到「不能同时参与多笔交易」，因此每天交易结束后只可能存在手里有一支股票或者没有股票的状态。</p>
-<p>定义状态 <code>dp[i][0]</code> 表示第 i 天交易完后手里没有股票的最大利润，<code>dp[i][1]</code> 表示第 i 天交易完后手里持有一直股票的最大利润（i 从 0 开始）。</p>
-<p>考虑 <code>dp[i][0]</code> 的转移方程，如果这一天交易完后手里没有股票，那么可能的转移状态为前一天已经没有股票，即 <code>dp[i-1][0]</code>，或者前一天结束的时候手里持有一支股票，即 <code>dp[i-1][1]</code>，这时候我们要将其卖出，并获得 <code>prices[i]</code> 的收益。因此为了收益最大化，我们列出如下的转移方程：</p>
-<pre><code>dp[i][0] = max{dp[i-1][0], dp[i-1][1] + prices[i]}
+<h3 id="方法一滑动窗口">方法一：滑动窗口</h3>
+<p>原题有一个提示：</p>
+<pre><code>Each k for which some permutation of arr[:k] is equal to sorted(arr)[:k] is where we should cut each chunk.
 </code></pre>
-<p>再来考虑 <code>dp[i][1]</code>，按照同样的方式考虑转移状态，那么可能的转移状态为前一天已经持有一支股票，即 <code>dp[i−1][1]</code>，或者前一天结束时还没有股票，即 <code>dp[i−1][0]</code>，这时候我们要将其买入，并减少 <code>prices[i]</code> 的收益。可以列出如下的转移方程：</p>
-<pre><code>dp[i][1]=max{dp[i−1][1],dp[i−1][0]−prices[i]}
-</code></pre>
-<p>对于初始状态，根据状态定义我们可以知道第 0 天交易结束的时候 <code>dp[0][0]=0</code>，<code>dp[0][1]=−prices[0]</code>。</p>
-<p>因此，我们只要从前往后依次计算状态即可。由于全部交易结束后，持有股票的收益一定低于不持有股票的收益，因此这时候 <code>dp[n−1][0]</code> 的收益必然是大于 <code>dp[n−1][1]</code> 的，最后的答案即为 <code>dp[n−1][0]</code>。</p>
-<pre><code class="language-javascript">var maxProfit = function(prices) {
-    const len = prices.length;
-    const dp = Array(len).fill(0).map(x =&gt; Array(2).fill(0));
-    dp[0][0] = 0;
-    dp[0][1] = -prices[0];
-    for (let i=1; i&lt;len; i++) {
-        dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
-        dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0] - prices[i]);
+<p>即说明原数组进行分块后，每一个分块和排序后的数组中对应的分块数字是一样的，只是顺序不同。因此我们可以使用一个滑动窗口同时扫描原数组和排序数组，当窗口中数字的和一样时，就将数组进行分块。</p>
+<pre><code class="language-javascript">var maxChunksToSorted = function (arr) {
+  const sorted = [...arr];
+  sorted.sort((a, b) =&gt; a - b);
+
+  let count = 0,
+    sum = 0;
+  for (let i = 0; i &lt; arr.length; i++) {
+    sum += arr[i];
+    sum -= sorted[i];
+    if (sum === 0) {
+      count++;
     }
-    return dp[len-1][0];
-};
-</code></pre>
-<p><strong>空间优化</strong></p>
-<p>注意到上面的状态转移方程中，每一天的状态只与前一天的状态有关，而与更早的状态都无关，因此我们不必存储这些无关的状态，只需要将 <code>dp[i−1][0]</code> 和 <code>dp[i−1][1]</code> 存放在两个变量中，通过它们计算出 <code>dp[i][0]</code> 和 <code>dp[i][1]</code> 并存回对应的变量，以便于第 i+1 天的状态转移即可。</p>
-<pre><code class="language-javascript">var maxProfit = function(prices) {
-    const len = prices.length;
-    let dp0 = 0,
-        dp1 = -prices[0];
-    for (let i=1; i&lt;len; i++) {
-        dp0 = Math.max(dp0, dp1 + prices[i]);
-        dp1 = Math.max(dp1, dp0 - prices[i]);
-    }
-    return dp0;
+  }
+  return count;
 };
 </code></pre>
 <p><strong>复杂度分析</strong></p>
 <ul>
-<li>时间复杂度：O(n)，其中 n 为数组的长度。一共有 2n 个状态，每次状态转移的时间复杂度为 O(1)，因此时间复杂度为 O(2n)=O(n)。</li>
-<li>空间复杂度：O(n)。我们需要开辟 O(n) 空间存储动态规划中的所有状态。如果使用空间优化，空间复杂度可以优化至 O(1)。</li>
+<li>时间复杂度：O(NlogN)，N 为数组长度，数组排序时间认为是 NlogN，滑动窗口遍历数组时间为 N。</li>
+<li>空间复杂度：O(N)，N 为数组长度。</li>
 </ul>
-<h3 id="方法二贪心">方法二：贪心</h3>
-<p>虽然「不能同时参与多笔交易」，但是在每一笔交易中我们完全可以<strong>见好就收，积少成多</strong>，因此就有了一个大致的思路：我们可以<strong>在一天中既卖出又买入</strong>。只要第 i 天比第 i-1 天的价格高，就在第 i-1 天买入，并在第 i 天卖出。这样每一次的累计利润必然是最大的。</p>
-<p>简而言之：<strong>上升区域，全部都算入利润当中</strong>。</p>
-<pre><code class="language-javascript">var maxProfit = function(prices) {
-    let profit = 0;
-    for (let i=1; i&lt;prices.length; i++) {
-        profit += Math.max(0, prices[i] - prices[i-1]);
+<h3 id="方法二辅助栈法">方法二：辅助栈法</h3>
+<p>根据题意，将原数组进行分块后，对各分块分别进行排序后的结果等于原数组排序后的结果。</p>
+<p>可以得到的一个结论是，每个分块中的数字相对于前一个分块都是递增的(因为有重复数字，所以也可能是相同)，下一个分块中的所有数字都会大于等于上一个分块中的所有数字。</p>
+<ul>
+<li>因为题目要求能分的最多的块数，所以我们在分块的时候要尽量把块分小，这样就能分得比较多。</li>
+<li>在遍历数组的过程中，如果一个数字比之前所有分块的最大值都要大，我们就把它作为一个新的分块。</li>
+<li>如果数字小于之前某些分块的最大值，那这些分块都要被合成一个分块(保持栈的单调递增)。</li>
+</ul>
+<pre><code class="language-javascript">class Stack {
+  constructor() {
+    this.list = [];
+  }
+  push(val) {
+    this.list.push(val);
+  }
+  pop() {
+    return this.list.pop();
+  }
+  empty() {
+    return this.list.length === 0;
+  }
+  peek() {
+    return this.list[this.list.length - 1];
+  }
+  size() {
+    return this.list.length;
+  }
+}
+
+var maxChunksToSorted = function (arr) {
+  const stack = new Stack();
+
+  for (let i of stack) {
+    if (stack.empty() || stack.peek &lt;= i) {
+      stack.push(i);
+    } else {
+      const temp = stack.pop();
+
+      while (stack.peek() &gt; i) {
+        stack.pop();
+      }
+
+      stack.push(temp);
     }
-    return profit;
+  }
+  return stack.size();
 };
 </code></pre>
 <p><strong>复杂度分析</strong></p>
 <ul>
-<li>时间复杂度：O(n)，其中 n 为数组的长度。我们只需要遍历一次数组即可。</li>
-<li>空间复杂度：O(1)。只需要常数空间存放若干变量。</li>
+<li>时间复杂度：O(NlogN)，N 为数组长度。</li>
+<li>空间复杂度：O(N)，N 为数组长度，栈消耗的空间。</li>
 </ul>
 <blockquote>
-<p>来源：力扣（LeetCode）<br>
-链接：<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii">https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii</a></p>
+<p>来源：力扣（Leetcode）<br>
+链接：https://leetcode-cn.com/problems/max-chunks-to-make-sorted-ii/</p>
 </blockquote>
 
         </div>
 
-        
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/cJiYWyjUI/">
-            <span class="flex-auto">Leetcode 每日一题</span>
-          </a>
         
           <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/HOiOzoula/">
             <span class="flex-auto">LeetCode</span>
@@ -185,21 +208,12 @@
 
         <div class="flex justify-between py-8">
           
-            <div class="prev-post">
-              <a href="https://pineapple126.github.io/post/stack-memery-and-heap-memery-in-js/">
-                <h3 class="post-title">
-                  <i class="ri-arrow-left-line"></i>
-                  「前端进阶」JS中的栈内存堆内存
-                </h3>
-              </a>
-            </div>
-          
 
           
             <div class="next-post">
-              <a href="https://pineapple126.github.io/post/leetcode-sort-integers-by-the-number-of-1-bits/">
+              <a href="https://pineapple126.github.io/post/algorithms-fourth-edition-basics/">
                 <h3 class="post-title">
-                  LeetCode 每日一题 2020.11.6 —— 1356. 根据数字二进制下 1 的数目排序 Easy
+                  《算法（第4版）》读书笔记——第 1 章 基础
                   <i class="ri-arrow-right-line"></i>
                 </h3>
               </a>
