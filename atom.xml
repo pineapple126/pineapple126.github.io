@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2021-03-30T15:19:32.634Z</updated>
+    <updated>2021-03-30T15:26:57.632Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -305,7 +305,7 @@
         <link href="https://pineapple126.github.io/post/flexible-box/">
         </link>
         <updated>2021-03-30T03:20:09.000Z</updated>
-        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1617074545745.png" alt="flex 布局" loading="lazy"></figure>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://pineapple126.github.io//post-images/1617117998211.png" alt="flex 布局" loading="lazy"></figure>
 <h2 id="什么是-flex-布局">什么是 Flex 布局？</h2>
 <p>Flex 布局就是 <strong>弹性布局</strong>（Flexible Box），用来为盒状模型提供最大的灵活性。任何一个元素都可以通过设置 <code>display: flex</code> 来实现 Flex 布局，行内元素也可以通过设置 <code>display: inline-flex</code> 来实现 Flex 布局。设置 Flex 布局后，元素的 <code>float</code>、<code>clear</code> 和 <code>vertical-align</code> 属性将会失效。</p>
 <h2 id="基本概念">基本概念</h2>
