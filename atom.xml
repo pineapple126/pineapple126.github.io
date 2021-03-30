@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2021-03-30T03:31:27.809Z</updated>
+    <updated>2021-03-30T08:46:30.228Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -10,6 +10,295 @@
     <logo>https://pineapple126.github.io/images/avatar.png</logo>
     <icon>https://pineapple126.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, 深海大菠萝盖饭</rights>
+    <entry>
+        <title type="html"><![CDATA[元素水平、垂直居中的方式]]></title>
+        <id>https://pineapple126.github.io/post/yuan-su-shui-ping-chui-zhi-ju-zhong-de-fang-shi/</id>
+        <link href="https://pineapple126.github.io/post/yuan-su-shui-ping-chui-zhi-ju-zhong-de-fang-shi/">
+        </link>
+        <updated>2021-03-30T06:01:58.000Z</updated>
+        <content type="html"><![CDATA[<p>元素在水平、垂直方向上如何实现居中效果是一个很熟悉的问题了，为了避免每次都需要去查询，因此对该问题做一个简单的总结并记录下来，方便日后查阅。</p>
+<h2 id="如何让一个元素水平居中">如何让一个元素水平居中？</h2>
+<p>要实现元素的水平居中效果相对较为简单的。我们假设页面的 HTML 结构如下：</p>
+<pre><code class="language-html">&lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;inner&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<h3 id="一-已知元素宽高使元素水平居中">一、已知元素宽高，使元素水平居中</h3>
+<ol>
+<li>使用 margin 实现。</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: pink;
+}
+</code></pre>
+<p><code>margin: 0 auto</code> 使元素水平居中，上下的外边距为 0，左右的外边距会平均分配。当上下的外边距设置为 auto 时，效果和当前一致。</p>
+<ol start="2">
+<li>使用<strong>浮动</strong>实现</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    float: left;
+    left: 50%;
+    margin-left: -100px;
+    background-color: pink;
+}
+</code></pre>
+<p>设置浮动方向偏移量为 50%，再设置浮动方向外边距为宽度一半的负值，可以是元素处于水平居中的位置。</p>
+<ol start="3">
+<li>使用<strong>绝对定位</strong>实现</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    posistion: relative;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 50%;
+    margin-left: -100px;
+    background-color: pink;
+}
+</code></pre>
+<p>设置 <code>position: absolute</code>，再设置任一方向偏移量为 50%，最后设置偏移方向外边距为宽度一半的负值，可以是元素处于水平居中的位置。</p>
+<ol start="4">
+<li>使用<strong>绝对定位</strong>+margin 实现</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    posistion: relative;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background-color: pink;
+}
+</code></pre>
+<p>绝对定位盒子的特性：</p>
+<p>水平方向上：left+right+padding+width+margin = 包含块水平方向上padding区域的尺寸</p>
+<p>当 left、right 的值为 0 时，margin 为 auto 时，可使得元素水平居中</p>
+<h3 id="二-未知元素宽高使元素水平居中">二、未知元素宽高，使元素水平居中</h3>
+<ol>
+<li>flex 布局</li>
+</ol>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+}
+
+.inner {
+    background-color: pink;
+}
+</code></pre>
+<ol start="2">
+<li>绝对定位+tranform</li>
+</ol>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    position: relative;
+}
+
+.inner {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: pink;
+}
+</code></pre>
+<p>内部 div 相对于外部 div 进行定位，left 值为外部的 50%，然后通过 <code>transform: translateX(-50%);</code> 时元素在 x 轴上向左移动自身大小的一半。</p>
+<h2 id="如何让一个元素垂直居中">如何让一个元素垂直居中？</h2>
+<h3 id="一-已知元素宽高使元素垂直居中">一、已知元素宽高，使元素垂直居中</h3>
+<ol>
+<li>使用<strong>绝对定位</strong>实现</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    posistion: relative;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    margin-top: -100px;
+    background-color: pink;
+}
+</code></pre>
+<p>设置 <code>position: absolute</code>，再设置任一方向偏移量为 50%，最后设置偏移方向外边距为宽度一半的负值，可以是元素处于垂直居中的位置。</p>
+<ol start="2">
+<li>使用<strong>绝对定位</strong>+margin 实现</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    posistion: relative;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    background-color: pink;
+}
+</code></pre>
+<p>绝对定位盒子的特性：</p>
+<p>垂直方向上：top+bottom+height+padding+margin = 包含块内垂直方向上 padding 区域的尺寸</p>
+<p>当 top、bottom 的值为 0 时，margin 为 auto 时，可使得元素垂直居中</p>
+<h3 id="二-未知元素宽高使元素垂直居中">二、未知元素宽高，使元素垂直居中</h3>
+<ol>
+<li>flex 布局</li>
+</ol>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+}
+
+.inner {
+    background-color: pink;
+}
+</code></pre>
+<ol start="2">
+<li>绝对定位+tranform</li>
+</ol>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    position: relative;
+}
+
+.inner {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: pink;
+}
+</code></pre>
+<p>内部 div 相对于外部 div 进行定位，top 值为外部的 50%，然后通过 <code>transform: translateY(-50%);</code> 时元素在 y 轴上向左移动自身大小的一半。</p>
+<h2 id="如何让一个元素水平-垂直居中">如何让一个元素水平、垂直居中？</h2>
+<h3 id="一-已知元素宽高使元素水平-垂直居中">一、已知元素宽高，使元素水平、垂直居中</h3>
+<ol>
+<li>使用<strong>绝对定位</strong>实现</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    posistion: relative;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -100px;
+    background-color: pink;
+}
+</code></pre>
+<p>设置 <code>position: absolute</code>，再设置任一方向偏移量为 50%，最后设置偏移方向外边距为宽度一半的负值，可以是元素处于水平、垂直居中的位置。</p>
+<ol start="2">
+<li>使用<strong>绝对定位</strong>+margin 实现</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    posistion: relative;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: pink;
+}
+</code></pre>
+<p>绝对定位盒子的特性：</p>
+<p>水平方向上：left+right+padding+width+margin = 包含块水平方向上padding区域的尺寸<br>
+垂直方向上：top+bottom+height+padding+margin = 包含块内垂直方向上padding区域的尺寸</p>
+<p>当left、right、top、bottom、padding的值都为0，margin为auto时，可使得元素垂直水平居中</p>
+<h3 id="二-未知元素宽高使元素垂直居中-2">二、未知元素宽高，使元素垂直居中</h3>
+<ol>
+<li>flex 布局</li>
+</ol>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inner {
+    background-color: pink;
+}
+</code></pre>
+<ol start="2">
+<li>绝对定位+tranform</li>
+</ol>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    position: relative;
+}
+
+.inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: pink;
+}
+</code></pre>
+<p>内部 div 相对于外部 div 进行定位，left、top 值为外部的 50%，然后通过 <code>transform: translate(-50%, -50%);</code> 时元素在 x轴、y 轴上向左向上移动自身大小的一半。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Flex 布局]]></title>
         <id>https://pineapple126.github.io/post/flexible-box/</id>
@@ -863,74 +1152,6 @@ let res = A();
 <blockquote>
 <p>来源：力扣（LeetCode）<br>
 链接：<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii">https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii</a></p>
-</blockquote>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[LeetCode 每日一题 2020.11.6 —— 1356. 根据数字二进制下 1 的数目排序 Easy]]></title>
-        <id>https://pineapple126.github.io/post/leetcode-sort-integers-by-the-number-of-1-bits/</id>
-        <link href="https://pineapple126.github.io/post/leetcode-sort-integers-by-the-number-of-1-bits/">
-        </link>
-        <updated>2020-11-06T12:36:28.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="题目描述">题目描述</h2>
-<p>给你一个整数数组 <code>arr</code> 。请你将数组中的元素按照其二进制表示中数字 <strong>1</strong> 的数目升序排序。</p>
-<p>如果存在多个数字二进制中 <strong>1</strong> 的数目相同，则必须将它们按照数值大小升序排列。</p>
-<p>请你返回排序后的数组。</p>
-<p>示例：</p>
-<pre><code>输入：arr = [0,1,2,3,4,5,6,7,8]
-输出：[0,1,2,4,8,3,5,6,7]
-解释：[0] 是唯一一个有 0 个 1 的数。
-[1,2,4,8] 都有 1 个 1 。
-[3,5,6] 有 2 个 1 。
-[7] 有 3 个 1 。
-按照 1 的个数排序得到的结果数组为 [0,1,2,4,8,3,5,6,7]
-</code></pre>
-<h2 id="题解">题解</h2>
-<h3 id="方法一暴力">方法一：暴力</h3>
-<p>对每个十进制的数转二进制的时候统计一下 1 的个数即可。</p>
-<pre><code class="language-javascript">var sortByBits = function(arr) {
-    const countBits = n =&gt; {
-        let count = 0;
-        while (n &gt; 0) {
-            count += n &amp; 1;
-            n &gt;&gt; 1;
-        }
-        return count;
-    }
-    return arr.sort((a, b) =&gt; {
-        return countBits(a) - countBits(b) || a - b;
-    });
-};
-</code></pre>
-<p><strong>复杂度分析</strong></p>
-<ul>
-<li>时间复杂度：O(nlogn)，其中 n 为整数数组 arr 的长度。</li>
-<li>空间复杂度：O(n)，其中 n 为整数数组 arr 的长度。</li>
-</ul>
-<h3 id="解法二递推预处理">解法二：递推预处理</h3>
-<p>我们定义 bit[i] 为数字 i 二进制表示下数字 1 的个数，则可以列出递推式：</p>
-<pre><code>bit[i] = bit[i&gt;&gt;1] + (i&amp;1)
-</code></pre>
-<p>所以我们线性预处理 bitbit 数组然后去排序即可。</p>
-<pre><code class="language-javascript">var sortByBits = function(arr) {
-    const maxVal = arr.sort((a, b) =&gt; b - a)[0];
-    const bit = Array(maxVal+1).fill(0);
-    for (let i=1; i&lt;=maxVal; i++) {
-        bit[i] = bit[i&gt;&gt;1] + (i&amp;1);
-    }
-    return arr.sort((a, b) =&gt; {
-        return bit[a] - bit[b] || a - b;
-    });
-};
-</code></pre>
-<p><strong>复杂度分析</strong></p>
-<ul>
-<li>时间复杂度：O(nlogn)，其中 n 为整数数组 arr 的长度。</li>
-<li>空间复杂度：O(n)，其中 n 为整数数组 arr 的长度。</li>
-</ul>
-<blockquote>
-<p>来源：力扣（LeetCode）<br>
-链接：<a href="https://leetcode-cn.com/problems/sort-integers-by-the-number-of-1-bits">https://leetcode-cn.com/problems/sort-integers-by-the-number-of-1-bits</a></p>
 </blockquote>
 ]]></content>
     </entry>

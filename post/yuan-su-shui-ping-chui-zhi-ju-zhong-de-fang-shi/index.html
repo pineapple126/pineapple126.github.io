@@ -1,0 +1,549 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>深海大菠萝盖饭</title>
+<meta name="description" content="温故而知新" />
+<link rel="shortcut icon" href="https://pineapple126.github.io//favicon.ico?v=1617093984450">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://pineapple126.github.io//styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://pineapple126.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://pineapple126.github.io//images/avatar.png?v=1617093984450" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%A6%82%E4%BD%95%E8%AE%A9%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD">如何让一个元素水平居中？</a>
+<ul>
+<li><a href="#%E4%B8%80-%E5%B7%B2%E7%9F%A5%E5%85%83%E7%B4%A0%E5%AE%BD%E9%AB%98%E4%BD%BF%E5%85%83%E7%B4%A0%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD">一、已知元素宽高，使元素水平居中</a></li>
+<li><a href="#%E4%BA%8C-%E6%9C%AA%E7%9F%A5%E5%85%83%E7%B4%A0%E5%AE%BD%E9%AB%98%E4%BD%BF%E5%85%83%E7%B4%A0%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD">二、未知元素宽高，使元素水平居中</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A6%82%E4%BD%95%E8%AE%A9%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD">如何让一个元素垂直居中？</a>
+<ul>
+<li><a href="#%E4%B8%80-%E5%B7%B2%E7%9F%A5%E5%85%83%E7%B4%A0%E5%AE%BD%E9%AB%98%E4%BD%BF%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD">一、已知元素宽高，使元素垂直居中</a></li>
+<li><a href="#%E4%BA%8C-%E6%9C%AA%E7%9F%A5%E5%85%83%E7%B4%A0%E5%AE%BD%E9%AB%98%E4%BD%BF%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD">二、未知元素宽高，使元素垂直居中</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A6%82%E4%BD%95%E8%AE%A9%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E6%B0%B4%E5%B9%B3-%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD">如何让一个元素水平、垂直居中？</a>
+<ul>
+<li><a href="#%E4%B8%80-%E5%B7%B2%E7%9F%A5%E5%85%83%E7%B4%A0%E5%AE%BD%E9%AB%98%E4%BD%BF%E5%85%83%E7%B4%A0%E6%B0%B4%E5%B9%B3-%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD">一、已知元素宽高，使元素水平、垂直居中</a></li>
+<li><a href="#%E4%BA%8C-%E6%9C%AA%E7%9F%A5%E5%85%83%E7%B4%A0%E5%AE%BD%E9%AB%98%E4%BD%BF%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD-2">二、未知元素宽高，使元素垂直居中</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://pineapple126.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">元素水平、垂直居中的方式</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2021-03-30 / 6 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://pineapple126.github.io//post-images/yuan-su-shui-ping-chui-zhi-ju-zhong-de-fang-shi.jpg" alt="">
+        
+        <div class="post-content yue">
+          <p>元素在水平、垂直方向上如何实现居中效果是一个很熟悉的问题了，为了避免每次都需要去查询，因此对该问题做一个简单的总结并记录下来，方便日后查阅。</p>
+<h2 id="如何让一个元素水平居中">如何让一个元素水平居中？</h2>
+<p>要实现元素的水平居中效果相对较为简单的。我们假设页面的 HTML 结构如下：</p>
+<pre><code class="language-html">&lt;div class=&quot;container&quot;&gt;
+    &lt;div class=&quot;inner&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+<h3 id="一-已知元素宽高使元素水平居中">一、已知元素宽高，使元素水平居中</h3>
+<ol>
+<li>使用 margin 实现。</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: pink;
+}
+</code></pre>
+<p><code>margin: 0 auto</code> 使元素水平居中，上下的外边距为 0，左右的外边距会平均分配。当上下的外边距设置为 auto 时，效果和当前一致。</p>
+<ol start="2">
+<li>使用<strong>浮动</strong>实现</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    float: left;
+    left: 50%;
+    margin-left: -100px;
+    background-color: pink;
+}
+</code></pre>
+<p>设置浮动方向偏移量为 50%，再设置浮动方向外边距为宽度一半的负值，可以是元素处于水平居中的位置。</p>
+<ol start="3">
+<li>使用<strong>绝对定位</strong>实现</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    posistion: relative;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 50%;
+    margin-left: -100px;
+    background-color: pink;
+}
+</code></pre>
+<p>设置 <code>position: absolute</code>，再设置任一方向偏移量为 50%，最后设置偏移方向外边距为宽度一半的负值，可以是元素处于水平居中的位置。</p>
+<ol start="4">
+<li>使用<strong>绝对定位</strong>+margin 实现</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    posistion: relative;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    background-color: pink;
+}
+</code></pre>
+<p>绝对定位盒子的特性：</p>
+<p>水平方向上：left+right+padding+width+margin = 包含块水平方向上padding区域的尺寸</p>
+<p>当 left、right 的值为 0 时，margin 为 auto 时，可使得元素水平居中</p>
+<h3 id="二-未知元素宽高使元素水平居中">二、未知元素宽高，使元素水平居中</h3>
+<ol>
+<li>flex 布局</li>
+</ol>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+}
+
+.inner {
+    background-color: pink;
+}
+</code></pre>
+<ol start="2">
+<li>绝对定位+tranform</li>
+</ol>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    position: relative;
+}
+
+.inner {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: pink;
+}
+</code></pre>
+<p>内部 div 相对于外部 div 进行定位，left 值为外部的 50%，然后通过 <code>transform: translateX(-50%);</code> 时元素在 x 轴上向左移动自身大小的一半。</p>
+<h2 id="如何让一个元素垂直居中">如何让一个元素垂直居中？</h2>
+<h3 id="一-已知元素宽高使元素垂直居中">一、已知元素宽高，使元素垂直居中</h3>
+<ol>
+<li>使用<strong>绝对定位</strong>实现</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    posistion: relative;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    margin-top: -100px;
+    background-color: pink;
+}
+</code></pre>
+<p>设置 <code>position: absolute</code>，再设置任一方向偏移量为 50%，最后设置偏移方向外边距为宽度一半的负值，可以是元素处于垂直居中的位置。</p>
+<ol start="2">
+<li>使用<strong>绝对定位</strong>+margin 实现</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    posistion: relative;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    background-color: pink;
+}
+</code></pre>
+<p>绝对定位盒子的特性：</p>
+<p>垂直方向上：top+bottom+height+padding+margin = 包含块内垂直方向上 padding 区域的尺寸</p>
+<p>当 top、bottom 的值为 0 时，margin 为 auto 时，可使得元素垂直居中</p>
+<h3 id="二-未知元素宽高使元素垂直居中">二、未知元素宽高，使元素垂直居中</h3>
+<ol>
+<li>flex 布局</li>
+</ol>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+}
+
+.inner {
+    background-color: pink;
+}
+</code></pre>
+<ol start="2">
+<li>绝对定位+tranform</li>
+</ol>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    position: relative;
+}
+
+.inner {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: pink;
+}
+</code></pre>
+<p>内部 div 相对于外部 div 进行定位，top 值为外部的 50%，然后通过 <code>transform: translateY(-50%);</code> 时元素在 y 轴上向左移动自身大小的一半。</p>
+<h2 id="如何让一个元素水平-垂直居中">如何让一个元素水平、垂直居中？</h2>
+<h3 id="一-已知元素宽高使元素水平-垂直居中">一、已知元素宽高，使元素水平、垂直居中</h3>
+<ol>
+<li>使用<strong>绝对定位</strong>实现</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    posistion: relative;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -100px;
+    background-color: pink;
+}
+</code></pre>
+<p>设置 <code>position: absolute</code>，再设置任一方向偏移量为 50%，最后设置偏移方向外边距为宽度一半的负值，可以是元素处于水平、垂直居中的位置。</p>
+<ol start="2">
+<li>使用<strong>绝对定位</strong>+margin 实现</li>
+</ol>
+<p>CSS 部分如下：</p>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    posistion: relative;
+}
+
+.inner {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: pink;
+}
+</code></pre>
+<p>绝对定位盒子的特性：</p>
+<p>水平方向上：left+right+padding+width+margin = 包含块水平方向上padding区域的尺寸<br>
+垂直方向上：top+bottom+height+padding+margin = 包含块内垂直方向上padding区域的尺寸</p>
+<p>当left、right、top、bottom、padding的值都为0，margin为auto时，可使得元素垂直水平居中</p>
+<h3 id="二-未知元素宽高使元素垂直居中-2">二、未知元素宽高，使元素垂直居中</h3>
+<ol>
+<li>flex 布局</li>
+</ol>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inner {
+    background-color: pink;
+}
+</code></pre>
+<ol start="2">
+<li>绝对定位+tranform</li>
+</ol>
+<pre><code class="language-css">.container {
+    width: 500px;
+    height: 500px;
+    position: relative;
+}
+
+.inner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: pink;
+}
+</code></pre>
+<p>内部 div 相对于外部 div 进行定位，left、top 值为外部的 50%，然后通过 <code>transform: translate(-50%, -50%);</code> 时元素在 x轴、y 轴上向左向上移动自身大小的一半。</p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://pineapple126.github.io/tag/OVMd-WWyK/">
+            <span class="flex-auto">CSS</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://pineapple126.github.io/post/flexible-box/">
+                <h3 class="post-title">
+                  Flex 布局
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '6629aced96004c0f2422',
+    clientSecret: '52e96f46e58f554ec81bcb7c020ee4c6669abded',
+    repo: 'pineapple126.github.io',
+    owner: 'pineapple126',
+    admin: ['pineapple126'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://pineapple126.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
