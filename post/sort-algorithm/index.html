@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>深海大菠萝盖饭</title>
 <meta name="description" content="温故而知新" />
-<link rel="shortcut icon" href="https://pineapple126.github.io//favicon.ico?v=1617118013234">
+<link rel="shortcut icon" href="https://pineapple126.github.io//favicon.ico?v=1617805013541">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -23,7 +23,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://pineapple126.github.io/">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://pineapple126.github.io//images/avatar.png?v=1617118013234" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://pineapple126.github.io//images/avatar.png?v=1617805013541" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">深海大菠萝盖饭</h1>
       </div>
@@ -216,19 +216,43 @@
 <li>根据基准将待排序数组分割为两个数组；</li>
 <li>重复以上步骤，直至数组有序。</li>
 </ol>
-<pre><code class="language-javascript">function quickSort(arr) {
-    if (arr.length &lt; 2) return arr;
-    let pivot = arr[0];
-    let left = [],
-        right = [];
-    for (let i = 1; i &lt; arr.length; i++) {
-        if (arr[i] &lt; pivot) {
-            left.push(arr[i]);
-        } else {
-            right.push(arr[i]);
+<pre><code class="language-javascript">function quickSort(arr, left, right) {
+    let len = arr.length;
+    left = typeof left != &quot;number&quot; ? 0 : left,
+    right = typeof right != &quot;number&quot; ? len - 1 : right;
+    
+    if (left &lt; right) {
+        let pivot = partition(arr, left, right);
+        quickSort(arr, left, pivot - 1);
+        quickSort(arr, pivot + 1, right);
+    }
+    return arr;
+}
+
+function partition(arr, left, right) {
+    let pivot = arr[left];
+    while (left &lt; right) {
+
+        while (left &lt; right) {
+            if (pivot &lt; arr[right]) {
+                right--;
+            } else {
+                arr[left] = arr[right];
+                break;
+            }
+        }
+
+        while (left &lt; right) {
+            if (pivot &gt;= arr[left]) {
+                left++;
+            } else {
+                arr[right] = arr[left];
+                break;
+            }
         }
     }
-    return quickSort(left).concat(pivot, quickSort(right));
+    arr[left] = pivot;
+    return left;
 }
 </code></pre>
 <h2 id="归并排序">归并排序</h2>
