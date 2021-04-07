@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://pineapple126.github.io/</id>
     <title>深海大菠萝盖饭</title>
-    <updated>2021-04-07T14:17:05.624Z</updated>
+    <updated>2021-04-07T14:18:48.479Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://pineapple126.github.io/"/>
     <link rel="self" href="https://pineapple126.github.io/atom.xml"/>
@@ -558,8 +558,8 @@ var maxChunksToSorted = function (arr) {
 <p>基本步骤：</p>
 <ol>
 <li>选取基准（pivot）；</li>
-<li>根据基准将待排序数组分割为两个数组；</li>
-<li>重复以上步骤，直至数组有序。</li>
+<li>重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作；</li>
+<li>递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序。</li>
 </ol>
 <pre><code class="language-javascript">function quickSort(arr, left, right) {
     let len = arr.length;
